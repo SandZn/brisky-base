@@ -1,2 +1,2 @@
 # base
-Vigur injectable classes
+Vigour injectable classes
