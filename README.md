@@ -1,2 +1,2 @@
 # base
-fast, memory efficient observables
+Vigur injectable classes
