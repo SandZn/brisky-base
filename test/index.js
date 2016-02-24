@@ -9,13 +9,14 @@ test('keys', function (t) {
     a: true,
     b: true
   })
-  t.plan(5)
+  t.plan(6)
   t.equal(base.keys().length, 2)
   base.removeProperty(base.a, 'a')
   t.equal(base.keys().length, 1)
   base.setKey('c', true)
   t.equal(base.keys().length, 2)
   base.clear()
+  t.equal(isEmpty(base), true)
   t.equal(base.keys(), false)
   base.set({ d: true })
   t.equal(base.keys().length, 1)
