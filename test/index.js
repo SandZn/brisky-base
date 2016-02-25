@@ -21,3 +21,12 @@ test('keys', function (t) {
   base.set({ d: true })
   t.equal(base.keys().length, 1)
 })
+
+test('can make references by using [ "$", "field" ] notation', function (t) {
+  var base = new Base({
+    field: 'something',
+    other: [ '$', 'field' ]
+  })
+  t.plan(1)
+  t.equal(base.other.__input, base.field)
+})
