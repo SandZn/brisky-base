@@ -27,6 +27,10 @@ test('can make references by using [ "$", "field" ] notation', function (t) {
     field: 'something',
     other: [ '$', 'field' ]
   })
-  t.plan(1)
+  t.plan(2)
   t.equal(base.other.__input, base.field)
+  var base2 = new Base({
+    field: { a: [ '$', 'field', 'b' ] }
+  })
+  t.equal(base2.field.a.origin, base2.field.b)
 })
