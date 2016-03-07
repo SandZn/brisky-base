@@ -36,11 +36,13 @@ test('make references by using [ "$", "field" ] notation', function (t) {
 })
 
 test('context override', function (t) {
-  t.plan(1)
+  t.plan(2)
   var Template = new Base({
     key: 'template',
     noContextField: { noContext: true }
   }).Constructor
   var aTemplate = new Template({ key: 'aTemplate' })
   t.equal(aTemplate.noContextField.path[0], 'template')
+  aTemplate.noContextField.val = 'hello'
+  t.equal(Template.prototype.noContextField.val, 'hello')
 })
