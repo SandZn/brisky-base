@@ -39,12 +39,8 @@ test('context override', function (t) {
   t.plan(1)
   var Template = new Base({
     key: 'template',
-    noContextField: {
-      noContext: true
-    }
+    noContextField: { noContext: true }
   }).Constructor
-  var aTemplate = new Template({
-    key: 'aTemplate'
-  })
+  var aTemplate = new Template({ key: 'aTemplate' })
   t.equal(aTemplate.noContextField.path[0], 'template')
 })
