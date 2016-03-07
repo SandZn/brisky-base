@@ -22,7 +22,7 @@ test('keys', function (t) {
   t.equal(base.keys().length, 1)
 })
 
-test('can make references by using [ "$", "field" ] notation', function (t) {
+test('make references by using [ "$", "field" ] notation', function (t) {
   var base = new Base({
     field: 'something',
     other: [ '$', 'field' ]
@@ -33,4 +33,18 @@ test('can make references by using [ "$", "field" ] notation', function (t) {
     field: { a: [ '$', 'field', 'b' ] }
   })
   t.equal(base2.field.a.origin, base2.field.b)
+})
+
+test('context override', function (t) {
+  t.plan(1)
+  var Template = new Base({
+    key: 'template',
+    noContextField: {
+      noContext: true
+    }
+  }).Constructor
+  var aTemplate = new Template({
+    key: 'aTemplate'
+  })
+  t.equal(aTemplate.noContextField.path[0], 'template')
 })
