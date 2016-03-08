@@ -4,27 +4,6 @@ var isEmpty = require('vigour-util/is/empty')
 var isRemoved = require('vigour-util/is/removed')
 var Base = require('../')
 
-test('type override', function (t) {
-  // also clear definitions like this
-  var Template = new Base({
-    type: 'template'
-  }).Constructor
-  var TemplateA = new Template({
-    properties: { type: null },
-    Child: {
-      type: 'something',
-      field: 'a field'
-    },
-    type: 'this is something'
-  }).Constructor
-  var a = new TemplateA()
-  console.log(a.type)
-
-
-
-  t.end()
-})
-
 test('keys', function (t) {
   var base = new Base({
     a: true,
@@ -66,4 +45,32 @@ test('context override', function (t) {
   t.equal(aTemplate.noContextField.path[0], 'template')
   aTemplate.noContextField.val = 'hello'
   t.equal(Template.prototype.noContextField.val, 'hello')
+})
+
+test('type override', function (t) {
+  t.plan(4)
+  var Template = new Base({
+    type: 'template'
+  }).Constructor
+  var TemplateA = new Template({
+    properties: { type: null },
+    Child: {
+      type: 'something',
+      field: 'a field'
+    },
+    type: 'this is something'
+  }).Constructor
+  var a = new TemplateA()
+  t.equals(a.type.type, 'something')
+  t.equals(a.val, 'this is something')
+  var TemplateB = new Template({
+    properties: {
+      type: new Base({ type: 'special' })
+    }
+  }).Constructor
+  var b = new TemplateB({
+    type: 'this is special'
+  })
+  t.equals(b.type.type, 'special')
+  t.equals(b.type.val, 'this is special')
 })
