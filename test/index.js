@@ -27,12 +27,21 @@ test('make references by using [ "$", "field" ] notation', function (t) {
     field: 'something',
     other: [ '$', 'field' ]
   })
-  t.plan(2)
+  t.plan(4)
   t.equal(base.other.__input, base.field)
   var base2 = new Base({
     field: { a: [ '$', 'field', 'b' ] }
   })
   t.equal(base2.field.a.origin, base2.field.b)
+  base.set('other', '$/field')
+  t.equal(base2.field.a.origin, base2.field.b)
+  base.set({
+    field: {
+      c: 'c',
+      a: { b: '$./../c' }
+    }
+  })
+  t.equal(base.field.a.b.origin, base.field.c)
 })
 
 test('context override', function (t) {
