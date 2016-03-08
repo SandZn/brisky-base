@@ -4,6 +4,27 @@ var isEmpty = require('vigour-util/is/empty')
 var isRemoved = require('vigour-util/is/removed')
 var Base = require('../')
 
+test('type override', function (t) {
+  // also clear definitions like this
+  var Template = new Base({
+    type: 'template'
+  }).Constructor
+  var TemplateA = new Template({
+    properties: { type: null },
+    Child: {
+      type: 'something',
+      field: 'a field'
+    },
+    type: 'this is something'
+  }).Constructor
+  var a = new TemplateA()
+  console.log(a.type)
+
+
+
+  t.end()
+})
+
 test('keys', function (t) {
   var base = new Base({
     a: true,
