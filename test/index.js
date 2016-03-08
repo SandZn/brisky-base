@@ -62,7 +62,7 @@ test('type override', function (t) {
   }).Constructor
   var a = new TemplateA()
   t.equals(a.type.type, 'something')
-  t.equals(a.val, 'this is something')
+  t.equals(a.type.val, 'this is something')
   var TemplateB = new Template({
     properties: {
       type: new Base({ type: 'special' })
@@ -71,6 +71,6 @@ test('type override', function (t) {
   var b = new TemplateB({
     type: 'this is special'
   })
-  t.equals(b.type.type, 'special')
   t.equals(b.type.val, 'this is special')
+  t.equals(b.type.type, 'special')
 })
