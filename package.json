@@ -4,7 +4,7 @@
   "description": "'injectacble classes'",
   "main": "lib/index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "node test"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "lodash.includes": "^4.1.0"
   },
   "devDependencies": {
+    "lodash.isequal": "^4.1.1",
     "tape": "^4.4.0"
   },
   "browser": {

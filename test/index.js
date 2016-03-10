@@ -1,7 +1,7 @@
 'use strict'
 var test = require('tape')
 var isEmpty = require('vigour-util/is/empty')
-var isRemoved = require('vigour-util/is/removed')
+var _isEqual = require('lodash.isequal')
 var Base = require('../')
 
 test('keys', function (t) {
@@ -82,4 +82,16 @@ test('type override', function (t) {
   })
   t.equals(b.type.val, 'this is special')
   t.equals(b.type.type, 'special')
+})
+
+var cases = [
+  { a: true, b: { c: 'yo' } }
+]
+
+test('serialize', function (t) {
+  t.plan(cases.length)
+  cases.forEach(function (item) {
+    var base = new Base(item)
+    t.equals(_isEqual(base.serialize(), item), true, item)
+  })
 })
