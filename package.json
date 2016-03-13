@@ -18,7 +18,8 @@
   "dependencies": {
     "vigour-util": "^1.0.1",
     "vigour-event": "^1.0.2",
-    "lodash.merge": "^4.3.0"
+    "lodash.merge": "^4.3.0",
+    "lodash.includes": "^4.1.0"
   },
   "devDependencies": {
     "lodash.isequal": "^4.1.1",
