@@ -22,6 +22,24 @@ test('keys', function (t) {
   t.equal(base.keys().length, 1, 'correct length after set')
 })
 
+test('each', function (t) {
+  var base = new Base({
+    a: true,
+    b: true,
+    c: true
+  })
+  t.plan(2)
+  var last
+  var ret = base.each(function (prop, key) {
+    last = key
+    if (key === 'b') {
+      return key
+    }
+  })
+  t.equal(ret, 'b', 'returns value')
+  t.equal(last, 'b', 'stops when returning value')
+})
+
 test('make references by using [ "$", "field" ] notation', function (t) {
   var base = new Base({
     field: 'something',
