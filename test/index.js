@@ -7,7 +7,8 @@ var Base = require('../')
 test('keys', function (t) {
   var base = new Base({
     a: true,
-    b: true
+    b: true,
+    val: 'something'
   })
   t.plan(6)
   t.equal(base.keys().length, 2, 'correct length')
