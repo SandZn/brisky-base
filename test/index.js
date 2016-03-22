@@ -41,7 +41,7 @@ test('make references by using [ "$", "field" ] notation', function (t) {
       a: { b: '$./../c' }
     }
   })
-  t.equal(base.field.a.b.origin(), base.field.c, '"$./../c" notation works')
+  t.equal(base.field.a.b.val, base.field.c, '"$./../c" notation works')
 })
 
 test('context override', function (t) {
@@ -83,7 +83,7 @@ test('type override', function (t) {
     'something',
     'a.type is an instance of Child with type something'
   )
-  t.equals(a.type.compute(), 'this is something', 'a.type has a correct input value')
+  t.equals(a.type.val, 'this is something', 'a.type has a correct input value')
   var TemplateB = new Template({
     properties: {
       type: new Base({ type: 'special' })
@@ -93,7 +93,7 @@ test('type override', function (t) {
     type: 'this is special'
   })
   t.equals(
-    b.type.compute(),
+    b.type.val,
     'this is special',
     'b.type has a correct input value'
   )
