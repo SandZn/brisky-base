@@ -1,14 +1,14 @@
 'use strict'
-var test = require('tape')
-var Base = require('../')
+const test = require('tape')
+const Base = require('../')
 
-test('context override', function (t) {
+test('context override (noContext property)', function (t) {
   t.plan(2)
-  var Template = new Base({
+  const Template = new Base({
     key: 'template',
     noContextField: { noContext: true }
   }).Constructor
-  var aTemplate = new Template({ key: 'aTemplate' })
+  const aTemplate = new Template({ key: 'aTemplate' })
   t.equal(
     aTemplate.noContextField.path()[0],
     'template',
