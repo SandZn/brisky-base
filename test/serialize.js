@@ -10,7 +10,6 @@ test('serialize', function (t) {
   t.plan(cases.length)
   cases.forEach(function (item) {
     const base = new Base(item) // this is pretty bad get rid of the reuse
-    console.log(item)
     t.deepEquals(base.serialize(), item, base)
   })
 })
