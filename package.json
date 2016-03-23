@@ -17,7 +17,8 @@
   ],
   "dependencies": {
     "vigour-util": "^1.0.1",
-    "lodash.merge": "^4.3.0"
+    "lodash.merge": "^4.3.0",
+    "vigour-stamp": "^1.0.0"
   },
   "devDependencies": {
     "lodash.isequal": "^4.1.1",
