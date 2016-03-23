@@ -53,7 +53,7 @@ test('context override', function (t) {
   }).Constructor
   var aTemplate = new Template({ key: 'aTemplate' })
   t.equal(
-    aTemplate.noContextField.path[0],
+    aTemplate.noContextField.path()[0],
     'template',
     'noContextField path is not in context'
   )
