@@ -2,7 +2,7 @@
 const test = require('tape')
 const isEmpty = require('vigour-util/is/empty')
 const Base = require('../')
-const perf = require('vigour-performance').run
+// const perf = require('vigour-performance').run
 
 test('keys', function (t) {
   const base = new Base({
