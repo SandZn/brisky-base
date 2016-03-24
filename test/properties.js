@@ -7,6 +7,7 @@ test('set property', function (t) {
   var cnt = 0
   const base = new Base({ set () { cnt++ } })
   base.set(1)
+  base.set(1)
   t.equal(base.val, 1, 'base.val equals 1')
   t.equal(cnt, 1, 'set hook fired once')
 })
