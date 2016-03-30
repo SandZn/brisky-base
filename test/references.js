@@ -16,8 +16,8 @@ test('make references by using "$.field" notation', function (t) {
   base.set({
     field: {
       c: 'c',
-      a: { b: '$.parent.c' }
+      a: { b: '$.parent.parent.c' }
     }
   })
-  t.equal(base.field.a.b.val, base.field.c, '"$.parent.c" notation works')
+  t.equal(base.field.a.b.val, base.field.c, '"$.parent.parent.c" notation works')
 })
