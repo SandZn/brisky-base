@@ -12,9 +12,9 @@ test('path', function (t) {
 })
 
 test('context-path', function (t) {
+  t.plan(2)
   var base = new Base({ a: { b: { c: true } } })
   var instance = new base.Constructor({ key: 'instance' })
-  console.log(instance.a.b.c.path())
+  t.deepEqual(instance.a.b.c.path(), ['instance', 'a', 'b', 'c'], 'context-path')
+  t.deepEqual(base.a.b.c.path(), ['a', 'b', 'c'], 'normal')
 })
-
-var bla = (this.___c)
