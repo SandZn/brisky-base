@@ -2,13 +2,14 @@
 const test = require('tape')
 const Base = require('../')
 // const perf = require('vigour-performance').run
-
 test('path', function (t) {
-  t.plan(3)
+  t.plan(5)
   var base = new Base({ a: { b: { c: true } } })
   t.deepEqual(base.a.b.c.path(), ['a', 'b', 'c'], 'path')
   t.deepEqual(base.a.b.c.realPath(), ['a', 'b', 'c'], 'realPath')
   t.deepEqual(base.a.b.c.realPath(base.a), ['b', 'c'], 'realPath with limit')
+  t.deepEqual(base.a.b.c.realPath(false, true), ['a', 'b', 'c'], 'realPath with memoization')
+  t.deepEqual(base.a.b.c._memoizedPath, ['a', 'b', 'c'], '_memoizedPath')
 })
 
 test('context-path', function (t) {
