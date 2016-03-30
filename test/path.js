@@ -16,3 +16,5 @@ test('context-path', function (t) {
   var instance = new base.Constructor({ key: 'instance' })
   console.log(instance.a.b.c.path())
 })
+
+var bla = (this.___c)
