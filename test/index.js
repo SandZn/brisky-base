@@ -1,7 +1,7 @@
 'use strict'
 require('./serialize')
 require('./references')
-// require('./keys')
+require('./keys')
 // require('./path')
 // require('./context')
 // require('./properties')
