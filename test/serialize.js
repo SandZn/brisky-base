@@ -6,8 +6,8 @@ test('serialize', function (t) {
   const cases = [
     { a: true, b: { c: 'yo' } },
     [
-      { a: true, b: { val: ['$', 'a'] } },
-      { a: true, b: ['$', 'a'] }
+      { a: true, b: { val: '$root.a' } },
+      { a: true, b: '$root.a' }
     ]
   ]
   t.plan(cases.length)
@@ -21,7 +21,7 @@ test('serialize-computed', function (t) {
   const cases = [
     { a: true, b: { c: 'yo' } },
     [
-      { a: 'a', b: { val: [ '$', 'a' ] } },
+      { a: 'a', b: { val: '$root.a' } },
       { a: 'a', b: 'a' }
     ]
   ]
