@@ -10,9 +10,3 @@ test('path', function (t) {
   t.deepEqual(base.a.b.c.realPath(), ['a', 'b', 'c'], 'realPath')
   t.deepEqual(base.a.b.c.realPath(base.a), ['b', 'c'], 'realPath with limit')
 })
-
-test('parentLevel', function (t) {
-  t.plan(1)
-  var base = new Base({ a: { b: { c: true } } })
-  t.deepEqual(base.a.b.c.parentLevel(), ['a', 'b', 'c'], 'path')
-})

@@ -2,7 +2,7 @@
 require('./serialize')
 require('./references')
 require('./keys')
-// require('./path')
+require('./path')
 // require('./context')
 // require('./properties')
 // require('./components')
