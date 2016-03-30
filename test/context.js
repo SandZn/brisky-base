@@ -33,10 +33,13 @@ test('context keys', function (t) {
 })
 
 test('context resolvement', function (t) {
-  t.plan(2)
+  t.plan(3)
   var base = new Base({ a: { b: 'b' } })
   var instance = new base.Constructor()
   instance.a.b.set('hello')
-  t.equal(instance._a._b !== base._a._b, 'resolved context')
-  // var instance2 = new base.Constructor()
+  t.equal(instance._a._b !== base._a._b, true, 'resolved context')
+  var instance2 = new base.Constructor()
+  instance2.a.b.remove()
+  t.equal(instance2._a._b, null, 'removed b from instance2')
+  t.equal(instance2._a !== base._a, true, 'resolved context for a')
 })
