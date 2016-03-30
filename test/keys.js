@@ -1,7 +1,6 @@
 'use strict'
 const test = require('tape')
 const isEmpty = require('vigour-util/is/empty')
-const perf = require('vigour-performance').run
 const Base = require('../')
 
 test('keys', function (t) {
