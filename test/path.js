@@ -10,3 +10,9 @@ test('path', function (t) {
   t.deepEqual(base.a.b.c.realPath(), ['a', 'b', 'c'], 'realPath')
   t.deepEqual(base.a.b.c.realPath(base.a), ['b', 'c'], 'realPath with limit')
 })
+
+test('context-path', function (t) {
+  var base = new Base({ a: { b: { c: true } } })
+  var instance = new base.Constructor({ key: 'instance' })
+  console.log(instance.a.b.c.path())
+})
