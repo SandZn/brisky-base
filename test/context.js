@@ -31,3 +31,12 @@ test('context keys', function (t) {
   var b = new A({ b: true })
   t.equal(b._b, void 0, 'no context key before creation of inhertied constructor')
 })
+
+test('context resolvement', function (t) {
+  t.plan(2)
+  var base = new Base({ a: { b: 'b' } })
+  var instance = new base.Constructor()
+  instance.a.b.set('hello')
+  t.equal(instance._a._b !== base._a._b, 'resolved context')
+  // var instance2 = new base.Constructor()
+})
