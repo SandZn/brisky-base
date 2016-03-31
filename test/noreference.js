@@ -13,7 +13,8 @@ test('noReference', function (t) {
   const d = new Base(c.b)
   const abInstance = new a.b.Constructor()
   const e = new Base({ key: 'e', b: abInstance })
-  t.plan(4)
+
+  t.plan(3)
   t.equal(c.b, b, 'inherited noReference')
   t.equal(d.val, c.b, 'make a reference to a noReference base when it has its own parent (no move)')
   t.equal(e.b, abInstance, 'do not make a reference to a noReference base nested instance')
