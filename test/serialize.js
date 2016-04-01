@@ -8,7 +8,8 @@ test('serialize', function (t) {
     [
       { a: true, b: { val: '$root.a' } },
       { a: true, b: '$root.a' }
-    ]
+    ],
+    [ { a: { val: null } }, { a: null } ]
   ]
   t.plan(cases.length)
   cases.forEach(function (item) {
