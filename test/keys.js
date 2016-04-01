@@ -9,7 +9,7 @@ test('keys', function (t) {
     b: true,
     val: 'something'
   })
-  t.plan(6)
+  t.plan(7)
   t.equal(base.keys().length, 2, 'correct length')
   base.removeProperty(base.a, 'a')
   t.equal(base.keys().length, 1, 'correct length after removal')
@@ -20,6 +20,8 @@ test('keys', function (t) {
   t.equal(base.keys(), false, 'keys are false after clear')
   base.set({ d: true })
   t.equal(base.keys().length, 1, 'correct length after set')
+  base.set({ c: null })
+  t.equal(base.keys().length, 1, 'correct length after set with null')
 })
 
 test('ordered keys', function (t) {

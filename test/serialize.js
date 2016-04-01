@@ -9,12 +9,14 @@ test('serialize', function (t) {
       { a: true, b: { val: '$root.a' } },
       { a: true, b: '$root.a' }
     ],
-    [ { a: { val: null } }, { a: null } ]
+    [ { a: null }, {} ],
+    [ { a: { val: null } }, {} ]
   ]
   t.plan(cases.length)
   cases.forEach(function (item) {
     const base = new Base(item[0] || item)
     t.deepEquals(base.serialize(), item[1] || item, base)
+    console.log('???', item, base.serialize())
   })
 })
 
