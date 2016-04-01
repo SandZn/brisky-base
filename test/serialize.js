@@ -16,7 +16,6 @@ test('serialize', function (t) {
   cases.forEach(function (item) {
     const base = new Base(item[0] || item)
     t.deepEquals(base.serialize(), item[1] || item, base)
-    console.log('???', item, base.serialize())
   })
 })
 
