@@ -19,3 +19,11 @@ test('origin property', function (t) {
   b.set({ origin: 1 })
   t.equal(a.val, 1, 'a.val equals 1')
 })
+
+test('set val property to null', function (t) {
+  t.plan(1)
+  const a = new Base({ properties: { val: null } })
+  const b = new a.Constructor(a)
+  b.set({ val: 1 })
+  t.equal(b.val instanceof Base, true)
+})
