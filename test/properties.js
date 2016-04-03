@@ -21,9 +21,13 @@ test('origin property', function (t) {
 })
 
 test('set val property to null', function (t) {
-  t.plan(1)
-  const a = new Base({ properties: { val: null } })
+  t.plan(2)
+  const a = new Base({
+    properties: { val: null },
+    Child: 'Constructor'
+  })
   const b = new a.Constructor(a)
-  b.set({ val: 1 })
-  t.equal(b.val instanceof Base, true)
+  b.set({ c: void 0, val: 1 })
+  t.equal(b.val instanceof Base, true, 'val is a normal base')
+  t.equal(b.c instanceof Base, true, 'field c gets created')
 })

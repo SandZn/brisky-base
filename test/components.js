@@ -8,6 +8,7 @@ test('type override', function (t) {
     type: 'template'
   }).Constructor
   var TemplateA = new Template({
+    key: 'TemplateA',
     properties: { type: null },
     Child: {
       type: 'something',
