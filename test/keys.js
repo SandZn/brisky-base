@@ -35,3 +35,18 @@ test('ordered keys', function (t) {
   base.a.set({ order: -2 })
   t.deepEqual(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
 })
+
+test('custom key type', function (t) {
+  t.plan(2)
+  const base = new Base({
+    properties: {
+      something: {
+        keyType: '_somethings'
+      }
+    },
+    etc: true,
+    something: true
+  })
+  t.deepEqual(base.keys(), [ 'etc' ], 'correct normal keys')
+  t.deepEqual(base.keys('_somethings'), [ 'something' ], 'correct "_somethings" keys')
+})
