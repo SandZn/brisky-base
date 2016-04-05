@@ -45,14 +45,15 @@ test('context resolvement', function (t) {
 })
 
 test('nested context resolvement for override properties', function (t) {
-  t.plan(6)
+  t.plan(7)
   const On = new Base().Constructor
+  const ref = new Base()
   const base = new Base({
     properties: {
       on: { val: On, override: '_on' }
     },
     on: {},
-    normal: {}
+    normal: ref
   })
   const a = new base.Constructor({
     on: { data: 'hello' },
@@ -62,6 +63,7 @@ test('nested context resolvement for override properties', function (t) {
   t.equal('data' in a.normal, true, 'has normal.data')
   t.equal('_data' in a._on, false, 'does not have _on._data')
   t.equal('_data' in a.normal, false, 'does not have normal._data')
+  t.equal(ref.__c, void 0, 'ref should not get context')
   a.Constructor
   t.equal('_data' in a._on, true, 'has _on._data after constructor creation')
   t.equal('_data' in a.normal, true, 'has normal._data after constructor creation')
