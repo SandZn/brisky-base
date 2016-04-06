@@ -1,6 +1,6 @@
 {
   "name": "vigour-base",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "description": "'injectacble classes'",
   "main": "lib/index.js",
   "scripts": {
