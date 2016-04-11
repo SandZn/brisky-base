@@ -61,7 +61,7 @@ test('has correct keys inheritance', function (t) {
   var a = new BaseExample({
     b: {
       c: {
-        something: { hello () {} }
+        something: { hello: {} }
       }
     }
   })
