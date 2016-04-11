@@ -50,3 +50,23 @@ test('custom key type', function (t) {
   t.deepEqual(base.keys(), [ 'etc' ], 'correct normal keys')
   t.deepEqual(base.keys('_somethings'), [ 'something' ], 'correct "_somethings" keys')
 })
+
+test('has correct keys inheritance', function (t) {
+  var BaseExample = new Base({
+    something: true,
+    hello: '?',
+    Child: 'Constructor'
+  }).Constructor
+
+  var a = new BaseExample({
+    b: {
+      c: {
+        something: { hello () {} }
+      }
+    }
+  })
+  t.equal(a.something.keys(), false, 'a keys are false')
+  t.equal(a.b.something.keys(), false, 'a.b keys are false')
+  t.deepEqual(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
+  t.end()
+})
