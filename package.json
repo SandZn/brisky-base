@@ -4,7 +4,8 @@
   "description": "'injectacble classes'",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node test | tap-difflet"
+    "test": "node test | tap-difflet",
+    "watch": "nodemon test | tap-difflet"
   },
   "repository": {
     "type": "git",
@@ -24,7 +25,8 @@
     "tape": "^4.4.0",
     "tap-difflet": "0.4.0",
     "vigour-performance": "^1.2.3",
-    "vigour-doc": "^1.0.4"
+    "vigour-doc": "^1.0.4",
+    "nodemon": "^1.9.1"
   },
   "browser": {
     "./lib/iterator/index.js": "./lib/iterator/browser.js"
