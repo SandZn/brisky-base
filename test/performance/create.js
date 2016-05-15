@@ -15,4 +15,4 @@ function createBase () {
   }
 }
 
-test(createBase, createNormalObject, 5)
+test(createBase, createNormalObject, 20)

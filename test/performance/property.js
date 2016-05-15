@@ -1,7 +1,7 @@
 'use strict'
 const Base = require('../../')
 const test = require('vigour-performance')
-var amount = 5e4
+var amount = 1e4
 var hri = require('human-readable-ids').hri
 var obj = {}
 for (var i = 0; i < amount; i++) {
@@ -10,18 +10,19 @@ for (var i = 0; i < amount; i++) {
   }
 }
 
-function baseline () {
-  // some weird baseline
-}
-
 const SpecialBase = new Base({
   properties: { index: true }
 }).Constructor
+
+function createSpecialBase () {
+  for (var i = 0; i < amount * 2; i++) {
+     new SpecialBase(i)
+  }
+}
+
 
 function property () {
   var a = new SpecialBase(obj)
 }
 
-console.log(obj, SpecialBase.prototype._mapProperty)
-
-test(property, baseline, 5)
+test(property, createSpecialBase, 10)
