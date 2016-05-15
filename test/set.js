@@ -29,3 +29,20 @@ test('set - type', function (t) {
   t.equal(x !== a.x.uid(), true, 'overwritten old x property')
   t.end()
 })
+
+test('set - reserved key error', function (t) {
+  t.plan(1)
+  var a = new Base({
+    define: {
+      field: { value: 'haha reserved!' }
+    }
+  })
+  try {
+    a.set({
+      field: 'haha'
+    })
+  } catch(e) {
+    t.equal(e.message, 'cannot set property "field", on "base" ')
+  }
+  t.end()
+})
