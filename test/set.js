@@ -16,14 +16,16 @@ test('set - resolve context', function (t) {
 })
 
 test('set - type', function (t) {
+  t.plan(2)
   var a = new Base({
     components: {
       x: 'lulllz'
     },
     x: 'something'
   })
-  a.set({
-    x: { type: 'x' }
-  })
+  var x = a.x.uid()
+  a.set({ x: { type: 'x' } })
+  t.equal(a.x.val, 'lulllz', 'created new x type')
+  t.equal(x !== a.x.uid(), true, 'overwritten old x property')
   t.end()
 })
