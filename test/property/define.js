@@ -3,7 +3,7 @@ const test = require('tape')
 const Base = require('../../')
 
 test('property - define - primitive', function (t) {
-  t.plan(2)
+  t.plan(3)
   const a = new Base({
     properties: {
       val: 'hello',
@@ -14,6 +14,12 @@ test('property - define - primitive', function (t) {
   a.set({ b: {} })
   t.equals(a.b.val, 'hello', 'correct val "hello"')
   t.equals(a.b.keepit, 100, 'correct keepit "100"')
+  const b = new a.Constructor({
+    key: 'b',
+    keepit: 10
+  })
+  console.log(b.keepit)
+  t.equals(b.keepit, 10, 'b correct keepit "10"')
 })
 
 test('property - define - null', function (t) {
