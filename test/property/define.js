@@ -48,17 +48,19 @@ test('property - define - null', function (t) {
 })
 
 test('property - define - base', function (t) {
-  t.plan(2)
+  t.plan(3)
   const a = new Base('a')
   const b = new Base('b')
   const c = new b.Constructor()
   const d = new Base({
     properties: {
       field: b,
-      other: a
+      other: a,
+      something: { val: c }
     }
   })
-  t.equal(d.properties.other.base !== b, true, 'use the same for a')
+  t.equal(d.properties.something.base === c, true, 'use the same for c')
+  t.equal(d.properties.other.base === a, true, 'use the same for a')
   t.equal(d.properties.field.base !== b, true, 'created a new instance for b')
 })
 
