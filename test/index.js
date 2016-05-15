@@ -1,5 +1,6 @@
 'use strict'
 require('./serialize')
+require('./tostring')
 require('./references')
 require('./keys')
 require('./path')
