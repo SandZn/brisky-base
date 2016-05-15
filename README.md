@@ -7,10 +7,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/vigour-io/base/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/base?branch=master)
 
 <!-- VDOC END -->
-Powerfull extendable object constructors
+Extendable object constructors, build for speed, low memory consumption and simplicity
 - easy extendable property defintions
 - deep, memory efficient prototypes
-- components and types (easy inheritance)
 - set method (automaticly merges)
 - parent and key fields
+- components and types (easy inheritance)
 - inject pattern

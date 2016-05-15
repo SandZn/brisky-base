@@ -15,12 +15,4 @@ function createBase () {
   }
 }
 
-function createBaseKeys () {
-  var am = Math.round(amount / 2)
-  for (var i = 0; i < am; i++) {
-    var a = new Base({ a: i }) //eslint-disable-line
-  }
-}
-
 test(createBase, createNormalObject, 5)
-test(createBaseKeys, createBase, 10)
