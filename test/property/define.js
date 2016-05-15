@@ -70,6 +70,25 @@ test('property - define - base', function (t) {
   t.equal(d.properties.field.base !== b, true, 'created a new instance for b')
 })
 
+test('property - define - custom type', function (t) {
+  t.plan(2)
+  const b = new Base({
+    components: {
+      a: {
+        val: 'hello!'
+      }
+    },
+    properties: {
+      something: { type: 'a' }
+    },
+    something: {
+      field: 'boring'
+    }
+  })
+  t.equals(b.properties.something.base.val, 'hello!', 'created type a, correct base value')
+  t.equals(b.something.val, 'hello!', 'something has correct property type')
+})
+
 test('property - define - set Child', function (t) {
   t.plan(3)
   const a = new Base({
