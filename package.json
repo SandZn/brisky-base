@@ -6,10 +6,10 @@
   "scripts": {
     "test": "node test | tap-difflet",
     "watch": "nodemon test | tap-difflet",
-    "cover": "istanbul cover --report none --print detail test/index.js",
+    "cover": "istanbul cover --report none --print detail test/cover.js",
     "docs": "node_modules/vigour-doc/bin/vdoc",
     "perf-browser": "budo ./test/performance/index.js -p 8080 --live",
-    "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0)"
+    "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) && npm test || npm test)"
   },
   "repository": {
     "type": "git",

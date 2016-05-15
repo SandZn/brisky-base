@@ -15,4 +15,5 @@ function createBase () {
   }
 }
 
+/* istanbul ignore next */
 test(createBase, createNormalObject, 10)
