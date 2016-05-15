@@ -15,5 +15,5 @@ function createBaseKeys () {
   }
 }
 
-test(createBaseKeys, createBase, 3)
+test(createBaseKeys, createBase, 5)
 
