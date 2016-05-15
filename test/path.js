@@ -39,5 +39,10 @@ test('multiple-context-path', function (t) {
   })
   t.equal('_z' in d.x.y, true, 'resolved context for d.x.y.z')
   t.same(d.x.y.z.a.b.c.path(), ['d-i', 'x', 'y', 'z', 'a', 'b', 'c'], 'correct double context path')
+  const e = new Base({ key: 'its e' })
+  const refToContext = d.x.y.z.a.b.c
+  d.x.y.__c = e // set incorrect context
+  refToContext._parent._parent.__c = e // set more incorrect context
+  t.same(refToContext.path(), ['d-i', 'x', 'y', 'z', 'a', 'b', 'c'], 'repairs incorrect context')
   t.end()
 })
