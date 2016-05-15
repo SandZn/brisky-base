@@ -1,3 +1,4 @@
 'use strict'
-require('./basic')
+require('./define')
+require('./default')
 require('./map')
