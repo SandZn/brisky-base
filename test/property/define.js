@@ -33,6 +33,7 @@ test('property - define - primitive', function (t) {
 
 test('property - define - null', function (t) {
   t.plan(3)
+  console.log('null!')
   const a = new Base({
     properties: {
       val: null,
