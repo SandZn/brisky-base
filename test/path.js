@@ -22,10 +22,22 @@ test('context-path', function (t) {
   t.same(base.a.b.c.path(), ['a', 'b', 'c'], 'normal')
 })
 
-test('context-path', function (t) {
-  t.plan(2)
+test('multiple-context-path', function (t) {
   const base = new Base({ a: { b: { c: true } } })
-  const instance = new base.Constructor({ key: 'instance' })
-  t.same(instance.a.b.c.path(), ['instance', 'a', 'b', 'c'], 'context-path')
-  t.same(base.a.b.c.path(), ['a', 'b', 'c'], 'normal')
+  const c = new Base({
+    key: 'c-i',
+    x: {
+      y: {
+        z: new base.Constructor({
+          noReference: true
+        })
+      }
+    }
+  })
+  const d = new c.Constructor({
+    key: 'd-i'
+  })
+  t.equal('_z' in d.x.y, true, 'resolved context for d.x.y.z')
+  t.same(d.x.y.z.a.b.c.path(), ['d-i', 'x', 'y', 'z', 'a', 'b', 'c'], 'correct double context path')
+  t.end()
 })
