@@ -1,7 +1,7 @@
 'use strict'
 const Base = require('../../')
 const test = require('vigour-performance')
-var amount = 1e5
+var amount = 1e4
 
 function createBase () {
   for (var i = 0; i < amount; i++) {
@@ -15,5 +15,5 @@ function createBaseKeys () {
   }
 }
 
-test(createBaseKeys, createBase, 5)
+test(createBaseKeys, createBase, 10)
 
