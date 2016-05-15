@@ -7,8 +7,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/vigour-io/base/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/base?branch=master)
 
 <!-- VDOC END -->
-Powerfull object contructors
-- adds nested prototypes
-- inject pattern
+Powerfull extendable object constructors
+- easy extendable property defintions
+- deep, memory efficient prototypes
+- components and types (easy inheritance)
 - set method (automaticly merges)
-- components and types
+- parent and key fields
+- inject pattern
