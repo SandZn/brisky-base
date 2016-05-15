@@ -20,7 +20,6 @@ function createSpecialBase () {
   }
 }
 
-
 function property () {
   var a = new SpecialBase(obj)
 }
