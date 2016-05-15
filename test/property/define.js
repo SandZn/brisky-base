@@ -62,7 +62,6 @@ test('property - define - base', function (t) {
   t.equal(d.properties.field.base !== b, true, 'created a new instance for b')
 })
 
-
 test('property - define - set Child', function (t) {
   t.plan(3)
   const a = new Base({
