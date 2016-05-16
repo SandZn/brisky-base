@@ -68,3 +68,15 @@ test('nested context resolvement for override properties', function (t) {
   t.equal('_data' in a._on, true, 'has _on._data after constructor creation')
   t.equal('_data' in a.normal, true, 'has normal._data after constructor creation')
 })
+
+test('context store', function (t) {
+  t.plan(3)
+  const base = new Base({ a: { b: 'b' } })
+  const instance = new base.Constructor()
+  instance.a.b.set('hello')
+  t.equal(instance._a._b !== base._a._b, true, 'resolved context')
+  const instance2 = new base.Constructor()
+  instance2.a.b.remove()
+  t.equal(instance2._a._b, null, 'removed b from instance2')
+  t.equal(instance2._a !== base._a, true, 'resolved context for a')
+})
