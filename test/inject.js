@@ -41,7 +41,11 @@ test('inject - mixin', function (t) {
   } catch (e) {
     t.equal(/read only property/.test(e.message), true, 'inherited property descriptors')
   }
-  t.equal(a.field instanceof injectable.field.Constructor, true, 'a.field is an instance of injectable.field')
+  t.equal(
+    a.field instanceof injectable.field.Constructor,
+    true,
+    'a.field is an instance of injectable.field'
+  )
 
   t.end()
 })
