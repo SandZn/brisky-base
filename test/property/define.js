@@ -36,7 +36,6 @@ test('property - define - primitive', function (t) {
 })
 
 test('property - define - null', function (t) {
-  t.plan(3)
   const a = new Base({
     properties: {
       val: null,
@@ -55,6 +54,30 @@ test('property - define - null', function (t) {
     }
   })
   t.equal(b.something, null, 'removes base property')
+  const c = new Base({
+    properties: {
+      something: 'else',
+      thing: {
+        val: new Base('a base'),
+        override: 'thang'
+      }
+    },
+    thing: 'hello'
+  })
+  t.equal(c.thang.val, 'hello', 'set thing to override thang')
+  const overrides = c.properties._overrides
+  c.set({
+    properties: {
+      something: null,
+      thing: null
+    }
+  })
+  t.equal(c.thang, null, 'removed thang')
+  t.equal(c.else, null, 'removed else')
+  t.equal(overrides.something, undefined, 'removed overrides something')
+  t.equal(overrides.thing, undefined, 'removed overrides thing')
+  t.equal(c.properties._overrides, undefined, 'remove overrides')
+  t.end()
 })
 
 test('property - define - base', function (t) {
