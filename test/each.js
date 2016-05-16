@@ -23,7 +23,7 @@ test('each', function (t) {
   )
 
   results = {}
-  a.each((p, key) => {
+  var val = a.each((p, key) => {
     results[key] = results[key] ? results[key] + 1 : 1
     if (key === 'd') {
       return true
@@ -34,13 +34,14 @@ test('each', function (t) {
     { a: 1, b: 1, c: 1, d: 1 },
     'filtered each loops trough all keys, return breaks loop'
   )
+  t.equal(val, true, 'returns value from iterator')
 
   results = {}
-  a.each((p, key) => {
+  val = a.each((p, key) => {
     results[key] = results[key] ? results[key]++ : 1
     if (key === 'b') {
       // this breaks the loop
-      return true
+      return key
     }
   })
   t.same(
@@ -48,6 +49,7 @@ test('each', function (t) {
     { a: 1, b: 1 },
     'each loops trough all normal keys, return breaks loop'
   )
+  t.equal(val, 'b', 'returns value from iterator')
 
   t.end()
 })
