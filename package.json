@@ -4,12 +4,12 @@
   "description": "'injectacble classes'",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node test | tap-difflet",
+    "test": "node test | tap-difflet && standard",
     "watch": "nodemon test | tap-difflet",
     "cover": "istanbul cover --report none --print detail test/index.js",
     "docs": "node_modules/vigour-doc/bin/vdoc",
     "perf-browser": "budo ./test/performance/index.js -p 8080 --live",
-    "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0)"
+    "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0) && standard"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "standard": "^7.0.1",
     "tap-difflet": "0.4.0",
     "tape": "4.4.0",
     "vigour-performance": "^1.2.3",
