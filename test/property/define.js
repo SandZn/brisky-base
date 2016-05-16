@@ -113,7 +113,7 @@ test('property - define - set Child', function (t) {
 test('property - define - wrong property type error', function (t) {
   t.plan(1)
   try {
-    new Base({ properties: { val: void 0 } })
+    new Base({ properties: { val: void 0 } }) // eslint-disable-line
   } catch (e) {
     t.equal(
       e.message,
@@ -125,7 +125,7 @@ test('property - define - wrong property type error', function (t) {
 test('property - define - wrong type on properties', function (t) {
   t.plan(1)
   try {
-    new Base({ properties: true })
+    new Base({ properties: true }) // eslint-disable-line
   } catch (e) {
     t.equal(
       e.message,

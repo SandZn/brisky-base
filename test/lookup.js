@@ -22,7 +22,7 @@ test('lookUp', function (t) {
   t.equal(a.b.c.d.lookUp('something'), a.something, 'gets something')
   t.equal(a.b.c.d.lookUp('e'), a.b.e, 'gets e')
   t.equal(a.b.c.d.lookUp('e', function (result) {
-    if(result.val === 'hello') {
+    if (result.val === 'hello') {
       return result
     }
   }), a.e, 'gets top e using filter')

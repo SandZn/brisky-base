@@ -10,7 +10,7 @@ test('set - resolve context', function (t) {
     }
   })
   var b = new a.Constructor({ key: 'b' })
-  t.same(b.b.c.path(), [ 'b', 'b', 'c'], 'correct resolved contextPath')
+  t.same(b.b.c.path(), [ 'b', 'b', 'c' ], 'correct resolved contextPath')
   b.b.set({ something: true })
   t.equal(b.hasOwnProperty('_b'), true, 'resolved b.b after set')
 })
@@ -41,7 +41,7 @@ test('set - reserved key error', function (t) {
     a.set({
       field: 'haha'
     })
-  } catch(e) {
+  } catch (e) {
     t.equal(e.message, 'cannot set property "field", on "base" ')
   }
   t.end()

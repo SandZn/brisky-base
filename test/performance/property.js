@@ -16,12 +16,12 @@ const SpecialBase = new Base({
 
 function createSpecialBase () {
   for (var i = 0; i < amount * 2; i++) {
-     new SpecialBase(i)
+    new SpecialBase(i) // eslint-disable-line
   }
 }
 
 function property () {
-  var a = new SpecialBase(obj)
+  new SpecialBase(obj) // eslint-disable-line
 }
 
 test(property, createSpecialBase, 10)
