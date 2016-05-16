@@ -2,7 +2,6 @@
 const test = require('tape')
 const Base = require('../')
 
-//  get (path, set, stamp) {
 test('get', function (t) {
   const a = new Base({
     b: {
