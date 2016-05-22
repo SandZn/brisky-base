@@ -7,7 +7,6 @@ test('make references by using "$.field" notation', function (t) {
     field: 'something',
     other: '$root.field'
   })
-  t.plan(4)
   t.equal(base.other.val, base.field, 'other equals field')
   const base2 = new Base({ field: { a: '$root.field.b' } })
   t.equal(base2.field.a.val, base2.field.b, 'field.a created a reference to field.b')
@@ -17,7 +16,49 @@ test('make references by using "$.field" notation', function (t) {
     field: {
       c: 'c',
       a: { b: '$.parent.parent.c' }
+    },
+    other: {
+      0: '$.b'
     }
   })
   t.equal(base.field.a.b.val, base.field.c, '"$.parent.parent.c" notation works')
+  t.equal(base.other[0].val, base.other[0].b, '"$.[field]" notation works')
+
+  const a = new Base({
+    etc: {},
+    a: {
+      b: {
+        c: true
+      }
+    }
+  })
+
+  var special = new Base({
+    other: {
+      field: {
+        noReference: true
+      }
+    }
+  })
+  a.set({
+    etc: {
+      a: {},
+      gurk: new special.other.field.Constructor({
+        val: '$.parent.a'
+      }, false, a.etc, 'gurk')
+    }
+  })
+  t.equal(a.etc.gurk.val, a.etc.a, 'creating a new instance using noReference')
+
+  const b = new Base({
+    properties: {
+      x: {
+        type: 'base',
+        val: '$.parent.a'
+      }
+    },
+    a: {}
+  })
+  t.equal(b.properties.x.base.val, b.a, 'using $.parent notation in a property definition')
+  t.end()
 })

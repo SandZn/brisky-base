@@ -65,7 +65,8 @@ test('types - create types', function (t) {
       extra: true
     },
     c: c,
-    d: d
+    d: d,
+    base: Base.prototype
   }, 'merges object')
   const a3 = new a.Constructor({
     types: { d: { val: 'lulz' } }
@@ -91,7 +92,8 @@ test('types - create types', function (t) {
       val: true,
       bla: true
     },
-    b: true
+    b: true,
+    base: Base.prototype
   }, 'use array notation, merge to non-object')
   t.end()
 })
