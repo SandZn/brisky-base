@@ -28,7 +28,7 @@ test('each', function (t) {
     if (key === 'd') {
       return true
     }
-  }, (p, key) => p && p._base_version)
+  }, (p, key) => p && p.isBase)
   t.same(
     results,
     { a: 1, b: 1, c: 1, d: 1 },

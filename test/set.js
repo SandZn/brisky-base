@@ -18,7 +18,7 @@ test('set - resolve context', function (t) {
 test('set - type', function (t) {
   t.plan(2)
   var a = new Base({
-    components: {
+    types: {
       x: 'lulllz'
     },
     x: 'something'

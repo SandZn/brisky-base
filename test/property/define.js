@@ -100,7 +100,7 @@ test('property - define - base', function (t) {
 test('property - define - custom type', function (t) {
   t.plan(2)
   const b = new Base({
-    components: {
+    types: {
       a: {
         val: 'hello!'
       }
