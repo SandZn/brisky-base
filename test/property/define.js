@@ -98,7 +98,6 @@ test('property - define - base', function (t) {
 })
 
 test('property - define - custom type', function (t) {
-  t.plan(2)
   const b = new Base({
     types: {
       a: {
@@ -112,25 +111,53 @@ test('property - define - custom type', function (t) {
       field: 'boring'
     }
   })
-  t.equals(b.properties.something.base.val, 'hello!', 'created type a, correct base value')
-  t.equals(b.something.val, 'hello!', 'something has correct property type')
+  t.equal(b.properties.something.base.val, 'hello!', 'created type a, correct base value')
+  t.equal(b.something.val, 'hello!', 'something has correct property type')
+  b.set({
+    properties: {
+      something: {
+        hello: true
+      }
+    }
+  })
+  t.equals(b.something.hello.val, true, 'something has correct property type')
+  b.set({
+    properties: {
+      something: {
+        reset: true,
+        val: 'murder',
+        type: 'base'
+      }
+    }
+  })
+  t.equals(b.something, null, 'something is removed after reset of property something')
+  b.set({
+    properties: {
+      something: {
+        reset: true,
+        val: 'murder'
+      }
+    }
+  })
+  t.equals(b.something, 'murder', 'something is reset after primitive reset')
+  t.end()
 })
 
 test('property - define - set Child', function (t) {
-  t.plan(3)
   const a = new Base({
     properties: new Base('hello')
   })
   a.set({ b: {} })
-  t.equals(a.b.val, 'hello', 'b, correct val "hello"')
+  t.equal(a.b.val, 'hello', 'b, correct val "hello"')
   const Constructor = function (val) {
     this.val = val
   }
   Constructor.prototype.something = true
   a.b.properties = Constructor
   a.b.set({ c: true })
-  t.equals(a.b.c.val, true, 'custom constructor, b.c, correct val "true"')
-  t.equals(a.b.c.something, true, 'custom constructor, b.c, has field something')
+  t.equal(a.b.c.val, true, 'custom constructor, b.c, correct val "true"')
+  t.equal(a.b.c.something, true, 'custom constructor, b.c, has field something')
+  t.end()
 })
 
 test('property - define - wrong property type error', function (t) {
