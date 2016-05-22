@@ -121,3 +121,17 @@ test('types - inheritance', function (t) {
   }, 'something inherits from special')
   t.end()
 })
+
+test('types - share object types constructors', function (t) {
+  const a = { val: 'a' }
+  const b = new Base({
+    types: { a: a },
+    a: { type: 'a' }
+  })
+  const c = new Base({
+    types: { a: a },
+    a: { type: 'a' }
+  })
+  t.equal(c.types.a, b.types.a, 'shares constructors')
+  t.end()
+})
