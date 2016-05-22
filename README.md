@@ -12,5 +12,5 @@ Extendable object constructors, build for speed, low memory consumption and simp
 - deep, memory efficient prototypes
 - set method (automaticly merges)
 - parent and key fields
-- components and types (easy inheritance)
+- types (easy inheritance)
 - inject pattern
