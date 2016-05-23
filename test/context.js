@@ -68,7 +68,7 @@ test('context - resolvement', function (t) {
   t.end()
 })
 
-test('context - nested resolvement for override properties', function (t) {
+test('WRONG - REFACTOR AFTER PROPS! - context - nested resolvement for override properties', function (t) {
   const On = new Base().Constructor
   const ref = new Base()
   const base = new Base({
@@ -82,6 +82,9 @@ test('context - nested resolvement for override properties', function (t) {
     on: { data: 'hello' },
     normal: { data: 'normal-hello' }
   })
+
+  // wrong test need to check in __on
+
   t.equal('data' in a._on, true, 'has _on.data')
   t.equal('data' in a.normal, true, 'has normal.data')
   t.equal('_data' in a._on, false, 'does not have _on._data')
