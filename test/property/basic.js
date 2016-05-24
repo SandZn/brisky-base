@@ -65,7 +65,12 @@ test('property - base', function (t) {
   t.equal(base.y, null, '.y is removed by type change')
   t.equal(base.z.val, 'Z', '.z is set to Z')
   const instance = new base.Constructor({
-    properties: { z: 'Z-2' }
+    properties: {
+      z: {
+        val: 'Z-2',
+        field: 'yuz'
+      }
+    }
   })
   t.equal(base.z.val, 'Z', '.z is not influenced by instance')
   t.equal(instance.z.val, 'Z-2', 'instance.z has correct value')
@@ -82,7 +87,7 @@ test('property - base', function (t) {
   t.equal(
     instance.z.field.val,
     'z',
-    'merged field from .z'
+    'merged field from .z, exclude set on property (field)'
   )
   t.end()
 })

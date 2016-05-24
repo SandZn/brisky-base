@@ -8,5 +8,4 @@ test('property - define', function (t) {
 })
 
 // reset: false super important
-
 // then do the inject tests
