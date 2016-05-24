@@ -92,15 +92,16 @@ test('property - base', function (t) {
   t.end()
 })
 
-// test('property - null', function (t) {
-//   const base = new Base({
-//     properties: {
-//       x: true
-//       y: {}
-//     },
-//     x: {},
-//     y: {},
-//     z: {}
-//   })
-//   t.end()
-// })
+test('property - null', function (t) {
+  const base = new Base({
+    properties: {
+      x: true,
+      y: {}
+    },
+    y: {}
+  })
+  // may need to check if property key is the same..
+  base.set({ properties: { y: null } })
+
+  t.end()
+})
