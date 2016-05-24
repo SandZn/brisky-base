@@ -31,7 +31,10 @@ test('property - defaults - inject', function (t) {
   base.set({
     define: {
       inject () {
-        t.equal(arguments[arguments.length - 1], 'stamp!', 'passes stamp as last argument')
+        t.equal(
+          arguments[arguments.length - 1],
+          'stamp!', 'passes stamp as last argument'
+        )
         return inject.apply(this, arguments)
       }
     },
