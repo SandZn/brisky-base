@@ -30,7 +30,7 @@ test('property - base', function (t) {
       x: 'x',
       y: y,
       z: { type: 'z' },
-      base: Base
+      base: Base.prototype
     },
     x: {},
     y: {},
@@ -100,8 +100,20 @@ test('property - null', function (t) {
     },
     y: {}
   })
-  // may need to check if property key is the same..
   base.set({ properties: { y: null } })
-
+  t.equal(base.properties.y, null, 'removed property')
+  t.equal(base.y, null, 'removed existing instance')
   t.end()
+})
+
+test('property - define - wrong type on properties', function (t) {
+  t.plan(1)
+  try {
+    new Base({ properties: true }) // eslint-disable-line
+  } catch (e) {
+    t.equal(
+      e.message,
+      '.properties need to be set with an object'
+    )
+  }
 })
