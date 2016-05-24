@@ -29,28 +29,68 @@ test('property - base', function (t) {
     properties: {
       x: 'x',
       y: y,
-      z: { type: 'z' }
+      z: { type: 'z' },
+      base: Base
     },
     x: {},
     y: {},
     z: {}
   })
-  t.same(
+  t.equal(
+    base.properties.base.base !== Base.prototype,
+    true,
+    'created instance of Base'
+  )
+  t.equal(
     base.y instanceof y.Constructor,
     true,
-    'y is an instance o y.Constructor'
+    '.y is instanceof y'
   )
-  t.same(base.y.val, 'y', 'y has correct value')
-  t.same(base.x.val, 'x', 'x has correct value')
-  t.same(
+  t.equal(base.y.val, 'y', 'y has correct value')
+  t.equal(base.x.val, 'x', 'x has correct value')
+  t.equal(
     base.z instanceof base.types.z.Constructor,
     true,
-    'z is an instance of base.types.z.Constructor'
+    '.z is instanceof base.types.z'
   )
-  t.same(base.z.val, 'z', 'z has correct value')
+  t.equal(base.z.val, 'z', 'z has correct value')
+  base.set({
+    properties: {
+      x: { type: 'x' },
+      y: true,
+      z: 'Z'
+    }
+  })
+  t.equal(base.x, null, '.x is removed by different type')
+  t.equal(base.y, null, '.y is removed by type change')
+  t.equal(base.z.val, 'Z', '.z is set to Z')
+  const instance = new base.Constructor({
+    properties: { z: 'Z-2' }
+  })
+  t.equal(base.z.val, 'Z', '.z is not influenced by instance')
+  t.equal(instance.z.val, 'Z-2', 'instance.z has correct value')
+  t.equal(
+    instance.properties.z.base instanceof base.properties.z.base.Constructor,
+    true,
+    'instance.properties.z is instanceof .properties.z'
+  )
+  t.equal(
+    instance.z instanceof instance.properties.z.base.Constructor,
+    true,
+    'instance.z is instanceof instance.properties.z'
+  )
   t.end()
 })
 
-test('property - null', function (t) {
-  t.end()
-})
+// test('property - null', function (t) {
+//   const base = new Base({
+//     properties: {
+//       x: true
+//       y: {}
+//     },
+//     x: {},
+//     y: {},
+//     z: {}
+//   })
+//   t.end()
+// })
