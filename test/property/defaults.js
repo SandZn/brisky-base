@@ -2,16 +2,6 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('property - default - set', function (t) {
-  t.plan(2)
-  var cnt = 0
-  const base = new Base({ set () { cnt++ } })
-  base.set(1)
-  base.set(1)
-  t.equal(base.val, 1, 'base.val equals 1')
-  t.equal(cnt, 1, 'set hook fired once')
-})
-
 test('property - default - origin', function (t) {
   t.plan(1)
   const a = new Base({})

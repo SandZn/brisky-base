@@ -1,4 +1,4 @@
 'use strict'
-// require('./define')
+require('./define')
 require('./defaults')
 // require('./map')

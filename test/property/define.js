@@ -1,18 +1,12 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+// const Base = require('../../')
 
+// later first make the others extremely clean
 test('property - define', function (t) {
-
   t.end()
 })
 
-test('property - base', function (t) {
+// reset: false super important
 
-  t.end()
-})
-
-test('property - null', function (t) {
-
-  t.end()
-})
+// then do the inject tests

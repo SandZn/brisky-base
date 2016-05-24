@@ -120,6 +120,10 @@ base.set({
         reset: true,
         val: 'hello'
       },
+      x: {
+        key: 'z',
+        reset: false // will not move "y"
+      },
       hello: {
         // moves the field "bye" to "hello"
         key: null
