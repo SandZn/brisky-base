@@ -34,7 +34,7 @@ test('property - base', function (t) {
     },
     x: {},
     y: {},
-    z: {}
+    z: { field: 'z' }
   })
   t.equal(
     base.properties.base.base !== Base.prototype,
@@ -78,6 +78,11 @@ test('property - base', function (t) {
     instance.z instanceof instance.properties.z.base.Constructor,
     true,
     'instance.z is instanceof instance.properties.z'
+  )
+  t.equal(
+    instance.z.field.val,
+    'z',
+    'merged field from .z'
   )
   t.end()
 })
