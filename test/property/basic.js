@@ -54,6 +54,7 @@ test('property - base', function (t) {
     '.z is instanceof base.types.z'
   )
   t.equal(base.z.val, 'z', 'z has correct value')
+
   base.set({
     properties: {
       x: { type: 'x' },
@@ -64,6 +65,7 @@ test('property - base', function (t) {
   t.equal(base.x, null, '.x is removed by different type')
   t.equal(base.y, null, '.y is removed by type change')
   t.equal(base.z.val, 'Z', '.z is set to Z')
+
   const instance = new base.Constructor({
     properties: {
       z: {
