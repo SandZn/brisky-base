@@ -27,7 +27,14 @@ test('property - defaults - inject', function (t) {
     inject: { a: 'hello' }
   })
   t.equal(base.a.val, 'hello', 'injects object')
+  const inject = base.inject
   base.set({
+    define: {
+      inject () {
+        t.equal(arguments[arguments.length - 1], 'stamp!', 'passes stamp as last argument')
+        return inject.apply(this, arguments)
+      }
+    },
     inject: [
       { b: 'bla' },
       { a: 'blurf' }
