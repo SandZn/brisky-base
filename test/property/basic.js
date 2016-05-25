@@ -115,7 +115,7 @@ test('property - define - wrong type on properties', function (t) {
   } catch (e) {
     t.equal(
       e.message,
-      '.properties need to be set with an object'
+      '.properties need to be set with a plain object'
     )
   }
 })
