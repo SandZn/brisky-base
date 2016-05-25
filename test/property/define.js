@@ -74,6 +74,18 @@ test('property - define - base', function (t) {
   t.same(base.x && base.x.field.val, 'hello', 'set property x')
   t.same(base.properties.keyMap, null, 'remove property map')
 
+  base.set({
+    properties: {
+      define: {
+        g: {
+          key: 'dawg',
+          val: true
+        }
+      }
+    }
+  })
+  t.same(base.properties.keyMap, { g: 'dawg' }, 're-added property map')
+
   const instance = new base.Constructor({
     properties: {
       define: {
