@@ -125,7 +125,7 @@ base.set({
         reset: false // will not move "y"
       },
       hello: {
-        // moves the field "bye" to "hello"
+        // moves "bye" → "hello"
         key: null
       }
     }
