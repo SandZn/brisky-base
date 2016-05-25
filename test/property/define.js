@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('property - define - default - key', function (t) {
+test('property - define - default', function (t) {
   const base = new Base({
     properties: {
       define: {
@@ -37,7 +37,7 @@ test('property - define - default - key', function (t) {
   t.end()
 })
 
-test('property - define - base - key', function (t) {
+test('property - define - base', function (t) {
   const base = new Base({
     properties: {
       define: {
@@ -60,7 +60,6 @@ test('property - define - base - key', function (t) {
   t.same(base.z && base.z.val === 'its z!' && base.y === null, true, 'moved property y → z')
   t.same(base.properties.x.base.key, 'z', 'property got correct key')
   t.same(base.properties.keyMap, { x: 'z' }, 'has correct key map after move')
-
   base.set({
     properties: {
       define: {
@@ -74,5 +73,17 @@ test('property - define - base - key', function (t) {
   t.same(base.x && base.x.isBase && base.z === null, true, 'moved property z → x')
   t.same(base.x && base.x.field.val, 'hello', 'set property x')
   t.same(base.properties.keyMap, null, 'remove property map')
+
+  const instance = new base.Constructor({
+    properties: {
+      define: {
+        x: {
+          key: 'y'
+        }
+      }
+    }
+  })
+  t.same(instance.y && instance.y.val, 'its z!', 'moved property x → y on instance')
+  t.same(base.x && base.x.isBase && !base.y, true, 'did not influence base')
   t.end()
 })

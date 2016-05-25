@@ -98,24 +98,15 @@ test('property - null', function (t) {
   const base = new Base({
     properties: {
       x: true,
-      y: {}
+      y: {},
+      val: null
     },
-    y: {}
+    y: {},
+    val: 'haha'
   })
   base.set({ properties: { y: null } })
   t.equal(base.properties.y, null, 'removed property')
   t.equal(base.y, null, 'removed existing instance')
+  t.equal(base.val.isBase, true, 'remove al property, val is a base')
   t.end()
-})
-
-test('property - define - wrong type on properties', function (t) {
-  t.plan(1)
-  try {
-    new Base({ properties: true }) // eslint-disable-line
-  } catch (e) {
-    t.equal(
-      e.message,
-      '.properties need to be set with a plain object'
-    )
-  }
 })
