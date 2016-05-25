@@ -55,7 +55,7 @@ test('has correct keys inheritance', function (t) {
   var BaseExample = new Base({
     something: true,
     hello: '?',
-    Child: 'Constructor'
+    child: 'Constructor'
   }).Constructor
 
   var a = new BaseExample({

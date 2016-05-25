@@ -9,7 +9,7 @@ test('types - remove type property', function (t) {
   const TemplateA = new Template({
     key: 'TemplateA',
     properties: { type: null },
-    Child: {
+    child: {
       type: 'something',
       field: 'a field'
     },
@@ -19,7 +19,7 @@ test('types - remove type property', function (t) {
   t.equals(
     a.type.type,
     'something',
-    'a.type is an instance of Child with type something'
+    'a.type is an instance of child with type something'
   )
   t.equals(a.type.val, 'this is something', 'a.type has a correct input value')
   const TemplateB = new Template({
