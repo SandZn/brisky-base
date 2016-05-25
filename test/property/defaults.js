@@ -64,11 +64,3 @@ test('property - defaults - define', function (t) {
   t.equal(base.b, 'bla', 'defined b using array')
   t.end()
 })
-
-// test('property - defaults - isProperty', function (t) {
-//   t.plan(1)
-//   const base = new Base({
-//     a: true
-//   })
-//   t.same(base.keys(), [], 'removes all keys')
-// })
