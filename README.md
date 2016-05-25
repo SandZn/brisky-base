@@ -43,9 +43,11 @@ base.set({
   base: 'a base' // → Base { val: 'a base', nested: true }
 })
 
-base.properties.set({
-  normal: null
-  // removes property defintion and removes "normal"
+base.set({
+  properties: {
+    normal: null
+    // removes property defintion and removes "normal"
+  }
 })
 ```
 
@@ -82,9 +84,9 @@ base.set({
 Allows for extra customisation of property definitions.
 
 It has 3 options:
-- `key` when a property is set uses this key to store its value
-- `reset` resets a previously defined property
-- `val` property value - like a normal property definition
+- `:key` when a property is set uses this key to store its value
+- `:reset` resets a previously defined property
+- `:val` property value
 
 ```javascript
 var base = new Base({
@@ -118,8 +120,12 @@ base.set({
         reset: true,
         val: 'hello'
       },
+      x: {
+        key: 'z',
+        reset: false // will not move "y"
+      },
       hello: {
-        // moves the field "bye" to "hello"
+        // moves "bye" → "hello"
         key: null
       }
     }

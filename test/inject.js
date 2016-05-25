@@ -51,11 +51,16 @@ test('inject - mixin', function (t) {
       specialProperty (val) {
         this.haha = val
       },
-      special: {
-        val: special,
-        override: 'weird'
-      },
-      hello: 'bye'
+      define: {
+        special: {
+          val: special,
+          key: 'weird'
+        },
+        hello: {
+          val: true,
+          key: 'bye'
+        }
+      }
     },
     special: 'hello',
     val: 'hello',
@@ -68,6 +73,7 @@ test('inject - mixin', function (t) {
   })
   t.equal(a.anotherfield.val, 'this is a base', 'a.anotherfield equals this is a base')
   t.equal(a.val, 'hello', 'a val equals hello')
+  // so whats this bullcrap!
   t.equal(a.bye, 'greeting', 'bye val equals greeting')
   a.set({ 'hello': 'hello' })
   t.equal(a.bye, 'hello', 'primitive property is inherited')
