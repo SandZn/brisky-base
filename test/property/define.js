@@ -24,7 +24,9 @@ test('property - define - default - key', function (t) {
   t.same(base.properties.keyMap, { x: 'z' }, 'has correct key map after move')
   base.set({
     properties: {
-      define: { x: { key: null } }
+      define: {
+        x: { key: null }
+      }
     }
   })
   t.same(base.x === 0 && base.z === null, true, 'moved property z → x')
@@ -51,6 +53,20 @@ test('property - define - base - key', function (t) {
     }
   })
   t.same(base.z && base.z.val === 0 && base.y === null, true, 'moved property y → z')
+  t.same(base.properties.x.base.key, 'z', 'property got correct key')
   t.same(base.properties.keyMap, { x: 'z' }, 'has correct key map after move')
+
+  console.log('MOVE BITCH')
+  base.set({
+    properties: {
+      define: {
+        x: {
+          key: null,
+          val: 'hello'
+        }
+      }
+    }
+  })
+  console.log('yo yo yo yo', base, base.properties)
   t.end()
 })
