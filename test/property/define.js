@@ -2,21 +2,25 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('property - define - key', function (t) {
+test('property - define - default - key', function (t) {
   const base = new Base({
     properties: {
       define: {
-        x: {
-          key: 'y',
-          val: true
-        }
+        x: { key: 'y', val: true }
       }
     }
   })
+  base.set({ x: 0 })
+  t.same(base.y, 0, 'default type')
+  t.same(base.properties.keyMap, { x: 'y' }, 'has correct key map')
   base.set({
-    x: 'hello'
+    properties: {
+      define: {
+        x: { key: 'z' }
+      }
+    }
   })
-  console.log('result', base.x, base.y)
-  t.same(base.y, 'hello', 'default type')
+  t.same(base.z, 0, 'moved property y → z')
+  t.same(base.properties.keyMap, { x: 'z' }, 'has correct key map after move')
   t.end()
 })
