@@ -9,7 +9,6 @@ test('keys', function (t) {
     b: true,
     val: 'something'
   })
-  t.plan(7)
   t.equal(base.keys().length, 2, 'correct length')
   base.removeProperty(base.a, 'a')
   t.equal(base.keys().length, 1, 'correct length after removal')
@@ -22,6 +21,7 @@ test('keys', function (t) {
   t.equal(base.keys().length, 1, 'correct length after set')
   base.set({ c: null })
   t.equal(base.keys().length, 1, 'correct length after set with null')
+  t.end()
 })
 
 test('ordered keys', function (t) {
@@ -31,9 +31,9 @@ test('ordered keys', function (t) {
     b: true,
     c: { val: true, order: -1 }
   })
-  t.deepEqual(base.keys(), [ 'c', 'b', 'a' ], 'correct order')
+  t.same(base.keys(), [ 'c', 'b', 'a' ], 'correct order')
   base.a.set({ order: -2 })
-  t.deepEqual(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
+  t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
 })
 
 test('custom key type', function (t) {
@@ -47,8 +47,8 @@ test('custom key type', function (t) {
     etc: true,
     something: true
   })
-  t.deepEqual(base.keys(), [ 'etc' ], 'correct normal keys')
-  t.deepEqual(base.keys('_somethings'), [ 'something' ], 'correct "_somethings" keys')
+  t.same(base.keys(), [ 'etc' ], 'correct normal keys')
+  t.same(base.keys('_somethings'), [ 'something' ], 'correct "_somethings" keys')
 })
 
 test('has correct keys inheritance', function (t) {
@@ -67,6 +67,6 @@ test('has correct keys inheritance', function (t) {
   })
   t.equal(a.something.keys(), false, 'a keys are false')
   t.equal(a.b.something.keys(), false, 'a.b keys are false')
-  t.deepEqual(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
+  t.same(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
   t.end()
 })
