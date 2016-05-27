@@ -24,77 +24,7 @@ test('keys', function (t) {
   t.end()
 })
 
-// test('ordered keys', function (t) {
-//   t.plan(2)
-//   const base = new Base({
-//     a: { val: true, order: 1 },
-//     b: true,
-//     c: { val: true, order: -1 }
-//   })
-//   t.same(base.keys(), [ 'c', 'b', 'a' ], 'correct order')
-//   base.a.set({ order: -2 })
-//   t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
-// })
-
-test('filtered keys', function (t) {
-  const base = new Base({
-    types: {
-      thing: {
-        keyType: 'thing'
-      }
-    },
-    define: {
-      filter (key) {
-        return !this[key].keyType
-      }
-    },
-    etc: true,
-    something: { type: 'thing' }
-  })
-  t.same(base.keys(), [ 'etc' ], 'correct normal keys')
-  t.same(
-    base.keys('thing'),
-    [ 'something' ],
-    'correct "thing" keys'
-  )
-
-  base.set({ other: { type: 'thing' } })
-  t.same(
-    base.keys('thing'),
-    [ 'something', 'other' ],
-    'correct "thing" keys after add'
-  )
-  base.set({ something: null })
-  t.same(
-    base.keys('thing'),
-    [ 'other' ],
-    'correct "thing" keys after remove'
-  )
-
-  const instance = new base.Constructor({
-    bla: { type: 'thing' },
-    field: true
-  })
-  t.same(
-    instance.keys('thing'),
-    [ 'other', 'bla' ],
-    'correct "thing" keys on instance'
-  )
-  t.same(
-    base.keys('thing'),
-    [ 'other' ],
-    'original did not get polluted by instance'
-  )
-  instance.set({ other: null })
-  t.same(instance.keys('thing'), [ 'bla' ], 'correct "thing" keys on instance after remove')
-  t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
-  instance.reset()
-  t.same(instance.keys('thing'), [], 'reset keys')
-  t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
-  t.end()
-})
-
-test('has correct keys inheritance', function (t) {
+test('keys - inheritance', function (t) {
   const BaseExample = new Base({
     something: true,
     hello: '?',
@@ -147,6 +77,84 @@ test('has correct keys inheritance', function (t) {
     [ 'x', 'y', 'z', 'e', 'b', 'h' ],
     'after updating base instance2 has correct keys'
   )
+  t.end()
+})
+
+// test('ordered keys', function (t) {
+//   t.plan(2)
+//   const base = new Base({
+//     a: { val: true, order: 1 },
+//     b: true,
+//     c: { val: true, order: -1 }
+//   })
+//   t.same(base.keys(), [ 'c', 'b', 'a' ], 'correct order')
+//   base.a.set({ order: -2 })
+//   t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
+// })
+
+test('keys - filtered', function (t) {
+  const base = new Base({
+    types: {
+      thing: {
+        keyType: 'thing'
+      }
+    },
+    define: {
+      filter (key) {
+        return !this[key].keyType
+      }
+    },
+    etc: true,
+    something: { type: 'thing' }
+  })
+  t.same(base.keys(), [ 'etc' ], 'correct normal keys')
+  t.same(
+    base.keys('thing'),
+    [ 'something' ],
+    'correct "thing" keys'
+  )
+
+  base.set({ other: { type: 'thing' } })
+  t.same(
+    base.keys('thing'),
+    [ 'something', 'other' ],
+    'correct "thing" keys after add'
+  )
+  base.set({ something: null })
+  t.same(
+    base.keys('thing'),
+    [ 'other' ],
+    'correct "thing" keys after remove'
+  )
+
+  const instance = new base.Constructor({
+    bla: { type: 'thing' },
+    field: true
+  })
+  t.same(
+    instance.keys('thing'),
+    [ 'other', 'bla' ],
+    'correct "thing" keys on instance'
+  )
+  t.same(
+    base.keys('thing'),
+    [ 'other' ],
+    'original did not get polluted by instance'
+  )
+  instance.set({ other: null })
+  t.same(
+    instance.keys('thing'),
+    [ 'bla' ],
+    'correct "thing" keys on instance after remove'
+  )
+  t.same(
+    base.keys('thing'),
+    [ 'other' ],
+    'original did not get polluted by instance'
+  )
+  instance.reset()
+  t.same(instance.keys('thing'), [], 'reset keys')
+  t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
   t.end()
 })
 
