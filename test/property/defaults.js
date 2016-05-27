@@ -17,7 +17,7 @@ test('property - defaults - reset', function (t) {
     c: true
   })
   base.set({ reset: true })
-  t.same(base.keys(), false, 'removes all keys')
+  t.same(base.keys().length, 0, 'removes all keys')
   t.end()
 })
 

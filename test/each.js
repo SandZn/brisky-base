@@ -10,6 +10,11 @@ test('each', function (t) {
     d: {
       keyType: 'special'
     },
+    define: {
+      filter (key) {
+        return !this[key].keyType
+      }
+    },
     e: 'e'
   })
   var results = {}

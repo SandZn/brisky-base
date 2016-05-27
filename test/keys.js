@@ -45,7 +45,7 @@ test('filtered keys', function (t) {
       }
     },
     define: {
-      keysFilter (key) {
+      filter (key) {
         return !this[key].keyType
       }
     },
