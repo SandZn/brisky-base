@@ -21,39 +21,6 @@ test('keys', function (t) {
   t.equal(base.keys().length, 1, 'correct length after set')
   base.set({ c: null })
   t.equal(base.keys().length, 1, 'correct length after set with null')
-  const instance = new base.Constructor({
-    x: true, y: true, z: true, special: null
-  })
-  t.same(
-    instance.keys(),
-    [ 'd', 'x', 'y', 'z' ],
-    'merge keys for instance'
-  )
-  base.set({ special: true, e: true, y: true })
-  t.same(
-    instance.keys(),
-    [ 'd', 'x', 'y', 'z', 'e' ],
-    'add "e", do not add "special" (nulled)'
-  )
-  base.d.remove()
-  base.y.remove()
-  t.same(
-    instance.keys(),
-    [ 'x', 'y', 'z', 'e' ],
-    'removed "d", do not remove "y"'
-  )
-  const instance2 = new instance.Constructor({ b: true })
-  t.same(
-    instance2.keys(),
-    [ 'x', 'y', 'z', 'e', 'b' ],
-    'instance2 has correct keys'
-  )
-  base.set({ h: true })
-  t.same(
-    instance2.keys(),
-    [ 'x', 'y', 'z', 'e', 'b', 'h' ],
-    'after updating base instance2 has correct keys'
-  )
   t.end()
 })
 
@@ -118,36 +85,70 @@ test('filtered keys', function (t) {
     [ 'other' ],
     'original did not get polluted by instance'
   )
-  console.log('yo wtf? instance does not call real remove...')
-  // instance.other.remove()
   instance.set({ other: null })
   t.same(instance.keys('thing'), [ 'bla' ], 'correct "thing" keys on instance after remove')
   t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
-  // instance.reset()
-  // t.same(instance.keys('thing'), [], 'reset keys')
-  // t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
+  instance.reset()
+  t.same(instance.keys('thing'), [], 'reset keys')
+  t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
   t.end()
 })
 
-// test('has correct keys inheritance', function (t) {
-//   var BaseExample = new Base({
-//     something: true,
-//     hello: '?',
-//     child: 'Constructor'
-//   }).Constructor
+test('has correct keys inheritance', function (t) {
+  const BaseExample = new Base({
+    something: true,
+    hello: '?',
+    child: 'Constructor'
+  }).Constructor
+  const a = new BaseExample({
+    b: {
+      c: {
+        something: { hello: {} }
+      }
+    }
+  })
+  t.same(a.something.keys(), [], 'a keys are empty')
+  t.same(a.b.something.keys(), [], 'a.b keys are empty')
+  t.same(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
 
-//   var a = new BaseExample({
-//     b: {
-//       c: {
-//         something: { hello: {} }
-//       }
-//     }
-//   })
-//   t.same(a.something.keys(), [], 'a keys are false')
-//   t.same(a.b.something.keys(), [], 'a.b keys are false')
-//   t.same(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
-//   t.end()
-// })
+  const base = new Base({
+    d: true
+  })
+  const instance = new base.Constructor({
+    x: true, y: true, z: true, special: null
+  })
+  t.same(
+    instance.keys(),
+    [ 'd', 'x', 'y', 'z' ],
+    'merge keys for instance'
+  )
+  base.set({ special: true, e: true, y: true })
+  t.same(
+    instance.keys(),
+    [ 'd', 'x', 'y', 'z', 'e' ],
+    'add "e", do not add "special" (nulled)'
+  )
+  base.d.remove()
+  base.y.remove()
+  t.same(
+    instance.keys(),
+    [ 'x', 'y', 'z', 'e' ],
+    'removed "d", do not remove "y"'
+  )
+  const instance2 = new instance.Constructor({ b: true })
+  t.same(
+    instance2.keys(),
+    [ 'x', 'y', 'z', 'e', 'b' ],
+    'instance2 has correct keys'
+  )
+  base.set({ h: true })
+  t.same(
+    instance2.keys(),
+    [ 'x', 'y', 'z', 'e', 'b', 'h' ],
+    'after updating base instance2 has correct keys'
+  )
+  t.end()
+})
 
 /*
   console.log(base._instances())
