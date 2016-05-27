@@ -37,11 +37,10 @@ test('keys', function (t) {
 // })
 
 test('filtered keys', function (t) {
-  t.plan(2)
   const base = new Base({
-    properties: {
-      something: {
-        keyType: 'somethings'
+    types: {
+      thing: {
+        keyType: 'thing'
       }
     },
     define: {
@@ -50,16 +49,18 @@ test('filtered keys', function (t) {
       }
     },
     etc: true,
-    something: true
+    something: { type: 'thing' }
   })
   t.same(base.keys(), [ 'etc' ], 'correct normal keys')
-  t.same(base.keys('somethings'), [ 'something' ], 'correct "somethings" keys')
+  t.same(base.keys('thing'), [ 'something' ], 'correct "thing" keys')
 
-  // now add / remove etc
-  // for obs we just need to check for !-- emitters and [0] !== $
-  // make extedn ultra fast to make this kind of stuff easier ot do
-  // can also do creation or something
-  // remove erbij alles
+  base.set({ other: { type: 'thing' } })
+  t.same(base.keys('thing'), [ 'something', 'other' ], 'correct "thing" keys after add')
+  base.set({ something: null })
+  t.same(base.keys('thing'), [ 'other' ], 'correct "thing" keys after remove')
+
+  // now add creation etc
+  t.end()
 })
 
 // test('has correct keys inheritance', function (t) {
