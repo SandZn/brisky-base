@@ -59,6 +59,60 @@ test('filtered keys', function (t) {
   base.set({ something: null })
   t.same(base.keys('thing'), [ 'other' ], 'correct "thing" keys after remove')
 
+  const instance = new base.Constructor({
+    bla: { type: 'thing' },
+    field: true
+  })
+  t.same(instance.keys('thing'), [ 'other', 'bla' ], 'correct "thing" keys on instance')
+  t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
+
+  console.log(base._i)
+
+  // edge case where the orginal does not have filtered keys and the later gets them -- no inheritance for the instance
+  const a = new Base({
+    types: {
+      thing: {
+        keyType: 'thing'
+      }
+    },
+    a: true
+  })
+
+  const b = new a.Constructor({
+    types: {
+      bla: {
+        keyType: 'bla'
+      }
+    },
+    b: { type: 'bla' },
+    c: true
+  })
+
+  const c = new b.Constructor({
+    cSpecialKey: true
+  })
+
+  console.log(c.keys(), b.keys())
+
+  a.set({
+    thing: { type: 'thing' }
+  })
+
+  // need to support this unfortunately -- instance updates :/
+  // best solution is to just clear everything in instances
+  console.log(a.keys('thing'), b.keys('things'), c.keys())
+  console.log(b.thing)
+  // need instance updates supe rimportant
+  // does this meanw e need to move the instances stuff to base
+  // probably yes
+  // yes move it to here
+  // console.log(a.keys(), b.keys())
+  // instance.set({ other: null })
+  // t.same(instance.keys('thing'), [ 'bla' ], 'correct "thing" keys on instance after remove')
+  // t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
+  // instance.reset()
+  // t.same(instance.keys('thing'), [], 'reset keys')
+  // t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
   // now add creation etc
   t.end()
 })
