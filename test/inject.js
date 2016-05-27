@@ -40,7 +40,7 @@ test('inject - mixin', function (t) {
     define: {
       method: injectMethod,
       something: {
-        value: 'it\'s something!',
+        val: 'it\'s something!',
         writable: false,
         configurable: false
       }

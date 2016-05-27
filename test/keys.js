@@ -16,7 +16,7 @@ test('keys', function (t) {
   t.equal(base.keys().length, 2, 'correct length after setKey')
   base.reset()
   t.equal(isEmpty(base), true, 'isEmpty === true after reset')
-  t.equal(base.keys(), false, 'keys are false after reset')
+  t.equal(base.keys().length, 0, 'keys are false after reset')
   base.set({ d: true })
   t.equal(base.keys().length, 1, 'correct length after set')
   base.set({ c: null })
@@ -24,49 +24,50 @@ test('keys', function (t) {
   t.end()
 })
 
-test('ordered keys', function (t) {
-  t.plan(2)
-  const base = new Base({
-    a: { val: true, order: 1 },
-    b: true,
-    c: { val: true, order: -1 }
-  })
-  t.same(base.keys(), [ 'c', 'b', 'a' ], 'correct order')
-  base.a.set({ order: -2 })
-  t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
-})
+// test('ordered keys', function (t) {
+//   t.plan(2)
+//   const base = new Base({
+//     a: { val: true, order: 1 },
+//     b: true,
+//     c: { val: true, order: -1 }
+//   })
+//   t.same(base.keys(), [ 'c', 'b', 'a' ], 'correct order')
+//   base.a.set({ order: -2 })
+//   t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
+// })
 
-test('custom key type', function (t) {
+test('filtered keys', function (t) {
   t.plan(2)
   const base = new Base({
     properties: {
       something: {
-        keyType: '_somethings'
+        keyType: 'somethings'
       }
     },
     etc: true,
     something: true
   })
   t.same(base.keys(), [ 'etc' ], 'correct normal keys')
-  t.same(base.keys('_somethings'), [ 'something' ], 'correct "_somethings" keys')
+  t.same(base.keys('somethings'), [ 'something' ], 'correct "somethings" keys')
+  // remove erbij alles
 })
 
-test('has correct keys inheritance', function (t) {
-  var BaseExample = new Base({
-    something: true,
-    hello: '?',
-    child: 'Constructor'
-  }).Constructor
+// test('has correct keys inheritance', function (t) {
+//   var BaseExample = new Base({
+//     something: true,
+//     hello: '?',
+//     child: 'Constructor'
+//   }).Constructor
 
-  var a = new BaseExample({
-    b: {
-      c: {
-        something: { hello: {} }
-      }
-    }
-  })
-  t.equal(a.something.keys(), false, 'a keys are false')
-  t.equal(a.b.something.keys(), false, 'a.b keys are false')
-  t.same(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
-  t.end()
-})
+//   var a = new BaseExample({
+//     b: {
+//       c: {
+//         something: { hello: {} }
+//       }
+//     }
+//   })
+//   t.same(a.something.keys(), [], 'a keys are false')
+//   t.same(a.b.something.keys(), [], 'a.b keys are false')
+//   t.same(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
+//   t.end()
+// })
