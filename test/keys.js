@@ -44,11 +44,21 @@ test('filtered keys', function (t) {
         keyType: 'somethings'
       }
     },
+    define: {
+      keysFilter (key) {
+        return !this[key].keyType
+      }
+    },
     etc: true,
     something: true
   })
   t.same(base.keys(), [ 'etc' ], 'correct normal keys')
   t.same(base.keys('somethings'), [ 'something' ], 'correct "somethings" keys')
+
+  // now add / remove etc
+  // for obs we just need to check for !-- emitters and [0] !== $
+  // make extedn ultra fast to make this kind of stuff easier ot do
+  // can also do creation or something
   // remove erbij alles
 })
 
