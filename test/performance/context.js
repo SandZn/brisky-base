@@ -20,4 +20,13 @@ function setKeysContext () {
   }
 }
 
-test(setKeysContext, setKeys, 1, 50)
+test(setKeysContext, setKeys, 1)
+
+function createConstructors () {
+  for (let i = 0; i < amount; i++) {
+    let a = new Base({ a: 100, b: 100 })  //eslint-disable-line
+    let b = new a.Constructor({ key: 'ITS B' }) //eslint-disable-line
+  }
+}
+
+test(createConstructors, function () {}, 1)
