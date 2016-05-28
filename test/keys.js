@@ -80,17 +80,21 @@ test('keys - inheritance', function (t) {
   t.end()
 })
 
-// test('ordered keys', function (t) {
-//   t.plan(2)
-//   const base = new Base({
-//     a: { val: true, order: 1 },
-//     b: true,
-//     c: { val: true, order: -1 }
-//   })
-//   t.same(base.keys(), [ 'c', 'b', 'a' ], 'correct order')
-//   base.a.set({ order: -2 })
-//   t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
-// })
+test('ordered keys', function (t) {
+  const base = new Base({
+    ordered: true,
+    d: { val: true, order: 4 },
+    b: { val: true, order: 2 },
+    e: { val: true, order: 5 },
+    a: { val: true, order: 1 },
+    c: { val: true, order: 3 }
+  })
+  t.same(base.keys(), [ 'a', 'b', 'c', 'd', 'e' ], 'correct order')
+  console.log('yo yo yo', base.keys())
+  // base.a.set({ order: -2 })
+  // t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
+  t.end()
+})
 
 test('keys - filtered', function (t) {
   const base = new Base({
