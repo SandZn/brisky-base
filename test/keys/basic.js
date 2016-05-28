@@ -20,5 +20,7 @@ test('keys', function (t) {
   t.equal(base.keys().length, 1, 'correct length after set')
   base.set({ c: null })
   t.equal(base.keys().length, 1, 'correct length after set with null')
+  base.set({ df: null })
+  t.equal(base.keys().length, 0, 'correct length after set with null of 1 key')
   t.end()
 })

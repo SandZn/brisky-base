@@ -18,7 +18,6 @@ test('keys - inheritance', function (t) {
   t.same(a.something.keys(), [], 'a keys are empty')
   t.same(a.b.something.keys(), [], 'a.b keys are empty')
   t.same(a.b.c.something.keys(), [ 'hello' ], 'a.b.c keys equal [ "hello" ]')
-
   const base = new Base({
     d: true
   })
@@ -54,6 +53,13 @@ test('keys - inheritance', function (t) {
     instance2.keys(),
     [ 'x', 'y', 'z', 'e', 'b', 'h' ],
     'after updating base instance2 has correct keys'
+  )
+  const b = new Base({ a: true })
+  const c = new b.Constructor({ a: null })
+  t.same(
+    c.keys(),
+    [],
+    'c keys are empty (1 field removal)'
   )
   t.end()
 })
