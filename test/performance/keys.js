@@ -44,7 +44,7 @@ function setKeys () {
 
 function orderedKeysBest () {
   const b = new Base({
-    ordered: true
+    sort: 'order'
   })
   for (let i = 0; i < amount; i++) {
     b.set({
@@ -59,7 +59,7 @@ test(orderedKeysBest, setKeys, 1.5)
 
 function orderedKeysWorst () {
   const b = new Base({
-    ordered: true
+    sort: 'order'
   })
   for (let i = 0; i < amount; i++) {
     b.set({
@@ -82,7 +82,7 @@ function setKeysRandom () {
 
 function orderedKeysRandom () {
   const b = new Base({
-    ordered: true
+    sort: 'order'
   })
   for (let i = 0; i < amount; i++) {
     b.set({
@@ -90,6 +90,7 @@ function orderedKeysRandom () {
         order: ~~(Math.random() * amount)
       }
     })
+    b.keys()
   }
 }
 

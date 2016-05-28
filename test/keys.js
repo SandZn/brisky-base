@@ -82,18 +82,16 @@ test('keys - inheritance', function (t) {
 
 test('ordered keys', function (t) {
   const base = new Base({
-    ordered: true,
-    d: { val: true, order: 4 },
-    b: { val: true, order: 2 },
-    e: { val: true, order: 5 },
-    a: { val: true, order: 1 },
-    c: { val: true, order: 3 }
+    sort: 'val',
+    d: 4,
+    b: 2,
+    e: 5,
+    a: 1,
+    c: 3
   })
-
   const result = [ 'a', 'b', 'c', 'd', 'e' ]
   result._ = [ 1, 2, 3, 4, 5 ]
   t.same(base.keys(), result, 'correct order')
-  console.log('yo yo yo', base.keys())
   t.end()
 })
 
@@ -164,42 +162,5 @@ test('keys - filtered', function (t) {
 })
 
 /*
-  console.log(base._instances())
-
-  // edge case where the orginal does not have filtered keys and the later gets them -- no inheritance for the instance
-  console.log('INHERITANCE!')
-  const a = new Base({
-    types: {
-      thing: {
-        keyType: 'thing'
-      }
-    },
-    a: true
-  })
-
-  const b = new a.Constructor({
-    types: {
-      bla: {
-        keyType: 'bla'
-      }
-    },
-    b: { type: 'bla' },
-    c: true
-  })
-
-  const c = new b.Constructor({
-    cSpecialKey: true
-  })
-
-  console.log(c.keys(), b.keys())
-
-  a.set({
-    thing: { type: 'thing' }
-  })
-
-  // need to support this unfortunately -- instance updates :/
-  // best solution is to just clear everything in instances
-  console.log(a.keys('thing'), b.keys('things'), c.keys())
-  console.log(b.thing)
-  console.log(a.keys(), b.keys())
+  make mroe tests for filter inhertance
 */
