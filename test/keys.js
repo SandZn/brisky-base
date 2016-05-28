@@ -89,10 +89,11 @@ test('ordered keys', function (t) {
     a: { val: true, order: 1 },
     c: { val: true, order: 3 }
   })
-  t.same(base.keys(), [ 'a', 'b', 'c', 'd', 'e' ], 'correct order')
+
+  const result = [ 'a', 'b', 'c', 'd', 'e' ]
+  result._ = [ 1, 2, 3, 4, 5 ]
+  t.same(base.keys(), result, 'correct order')
   console.log('yo yo yo', base.keys())
-  // base.a.set({ order: -2 })
-  // t.same(base.keys(), [ 'a', 'c', 'b' ], 're-order a')
   t.end()
 })
 
