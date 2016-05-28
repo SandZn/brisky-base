@@ -1,5 +1,5 @@
 'use strict'
 require('./basic')
 require('./inheritance')
-require('./order')
+require('./sort')
 require('./filters')

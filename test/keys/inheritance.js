@@ -63,3 +63,14 @@ test('keys - inheritance', function (t) {
   )
   t.end()
 })
+
+test('keys - inheritance - remove all keys', function (t) {
+  const a = new Base({
+    a: true
+  })
+  const b = new a.Constructor({
+    reset: true
+  })
+  t.equal(b.keys().length, 0, 'reset on new instance removes all keys')
+  t.end()
+})

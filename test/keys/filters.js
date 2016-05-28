@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('keys - filtered', function (t) {
+test('keys - filters', function (t) {
   const base = new Base({
     types: {
       thing: {
@@ -65,5 +65,22 @@ test('keys - filtered', function (t) {
   instance.reset()
   t.same(instance.keys('thing'), [], 'reset keys')
   t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
+  t.end()
+})
+
+test('keys - filters - remove key on new', function (t) {
+  const a = new Base({
+    a: true,
+    b: true
+  })
+  a.keys('thing')
+  const b = new a.Constructor({ a: null })
+  t.same(b._filters, { thing: [] }, 'b has filter cache')
+  // later put it all to false -- more smart
+  t.equal(b.keys().length, 1, 'reset on new instance removes key')
+  b.set({ thing: { keyType: 'thing' } })
+  t.same(b.keys('thing'), [ 'thing' ], 'b has correct things keys')
+  b.set({ thing: null })
+  t.same(b.keys('thing'), [], 'b has empty thing')
   t.end()
 })
