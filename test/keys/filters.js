@@ -15,14 +15,21 @@ test('keys - filters', function (t) {
       }
     },
     etc: true,
+    x: true,
     something: { type: 'thing' }
   })
-  t.same(base.keys(), [ 'etc' ], 'correct normal keys')
+  t.same(base.keys(), [ 'etc', 'x' ], 'correct normal keys')
   t.same(
     base.keys('thing'),
     [ 'something' ],
     'correct "thing" keys'
   )
+
+  base.x.remove()
+  t.same(base.keys(), [ 'etc' ], 'correct normal keys after remove')
+
+  base.set({ y: true })
+  t.same(base.keys(), [ 'etc', 'y' ], 'correct normal keys after add')
 
   base.set({ other: { type: 'thing' } })
   t.same(
