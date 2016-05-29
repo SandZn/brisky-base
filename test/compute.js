@@ -5,14 +5,15 @@ const Base = require('../')
 test('compute', function (t) {
   const d = new Base()
   t.equal(d.compute(), d, 'd - returns itself as default value')
-  d.val = function (start, stamp, previous) {
+  d.val = function (start, stamp, previous, attach) {
     t.equal(previous, 'previous', 'correct previous')
     t.equal(stamp, 'stamp', 'correct stamp')
     t.equal(start, 'previous', 'correct start')
+    t.equal(attach, 'attach', 'correct attach')
     return 'lulz'
   }
   t.equal(
-    d.compute(void 0, 'previous', void 0, 'stamp'),
+    d.compute(void 0, 'previous', void 0, 'stamp', 'attach'),
     'lulz',
     'correct returend value when used with a function'
   )
