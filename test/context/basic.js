@@ -1,6 +1,6 @@
 'use strict'
 const test = require('tape')
-const Base = require('../')
+const Base = require('../../')
 
 test('context - override (noContext property)', function (t) {
   const Template = new Base({

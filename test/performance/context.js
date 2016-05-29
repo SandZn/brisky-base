@@ -17,13 +17,14 @@ function setKeysContext () {
   for (let i = 0; i < amount; i++) {
     // much better stratgy is to set it straight on the correct field vs doing weird context getter shit later
     a.set({ [i]: 1 })
+    // updates keys in b and creates context getters (slow)
   }
 }
 
 test(setKeysContext, setKeys, 1)
 
 function createConstructors () {
-  for (let i = 0; i < amount; i++) {
+  for (let i = 0; i < amount / 3; i++) {
     let a = new Base({ a: 100, b: 100 })  //eslint-disable-line
     let b = new a.Constructor({ key: 'ITS B' }) //eslint-disable-line
   }
