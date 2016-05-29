@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('compute - basic', function (t) {
+test('compute', function (t) {
   const d = new Base()
   t.equal(d.compute(), d, 'd - returns itself as default value')
   d.val = function (start, stamp, previous) {
