@@ -5,7 +5,7 @@ const Base = require('../')
 test('compute', function (t) {
   const d = new Base()
   t.equal(d.compute(), d, 'd - returns itself as default value')
-  d.val = function (start, stamp, previous, attach) {
+  d.val = function (previous, start, stamp, attach) {
     t.equal(previous, 'previous', 'correct previous')
     t.equal(stamp, 'stamp', 'correct stamp')
     t.equal(start, 'start', 'correct start')
@@ -27,9 +27,9 @@ test('compute - references and override', function (t) {
     val: 100,
     define: {
       extend: {
-        compute (compute, val, previous, start, stamp) {
+        compute (compute, previous, start, stamp) {
           cnt++
-          return compute.call(this, val, previous, start, stamp)
+          return compute.call(this, previous, start, stamp)
         }
       }
     }
