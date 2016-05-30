@@ -91,3 +91,17 @@ test('keys - filters - remove key on new', function (t) {
   t.same(b.keys('thing'), [], 'b has empty thing')
   t.end()
 })
+
+test('keys - filters - null undefined key on instance', function (t) {
+  const a = new Base({
+    a: true,
+    b: {
+      keyType: 'thing'
+    }
+  })
+  a.keys('thing')
+  const b = new a.Constructor({ bla: null })
+  t.equal(b.keys('thing').length, 1, 'remove bla (non existing)')
+  t.equal(b.keys('thing') !== a.keys('thing'), true, 'copied filters')
+  t.end()
+})

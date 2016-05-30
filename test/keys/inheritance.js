@@ -75,7 +75,7 @@ test('keys - inheritance - remove all keys', function (t) {
   t.end()
 })
 
-test('keys - inheritance - null undefined key on instances', function (t) {
+test('keys - inheritance - null undefined key on instance', function (t) {
   const a = new Base({
     a: true
   })
