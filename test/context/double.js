@@ -47,7 +47,14 @@ test('storeContext and applyContent', function (t) {
 
   base.applyContext(store)
 
-  base.set('resolve d!')
-  t.equal(d.cA.cB.nestB.val === 'resolve d!', true, 'applied context')
+  base.set('A!')
+
+  t.equal(d.cA.cB.nestB.val, 'A!', 'applied context')
+
+  base.applyContext(store)
+  base.set('B!')
+
+  t.equal(d.cA.cB.nestB.compute(), 'B!', 'applied context again')
+
   t.end()
 })
