@@ -27,3 +27,27 @@ test('context - double - override (noContext property)', function (t) {
   t.equal(g.cA.cB.nestB === g.nestB, false, 'does resolve if its the same (creates its own)')
   t.end()
 })
+
+test('storeContext and applyContent', function (t) {
+  const b = new Base({
+    val: 'b',
+    key: 'B',
+    nestB: 'nestB',
+    noReference: true
+  })
+
+  const c = new Base({ cA: { cB: new b.Constructor() } })
+  const d = new c.Constructor()
+
+  const base = d.cA.cB.nestB
+  const store = base.storeContext()
+
+  b.nestB.set('testVal')
+  c.cA.cB.nestB.set('testVal2')
+
+  base.applyContext(store)
+
+  base.set('resolve d!')
+  t.equal(d.cA.cB.nestB.val === 'resolve d!', true, 'applied context')
+  t.end()
+})
