@@ -74,3 +74,18 @@ test('keys - inheritance - remove all keys', function (t) {
   t.equal(b.keys().length, 0, 'reset on new instance removes all keys')
   t.end()
 })
+
+test('keys - inheritance - null undefined key on instances', function (t) {
+  const a = new Base({
+    a: true
+  })
+  const b = new a.Constructor({
+    bla: null
+  })
+  t.equal(b.keys().length, 1, 'remove bla (non existing)')
+  a.set({
+    bla: true
+  })
+  t.equal(b.keys().length, 1, 'ignore addition of key bla from a')
+  t.end()
+})
