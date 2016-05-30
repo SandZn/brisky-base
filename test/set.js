@@ -34,7 +34,7 @@ test('set - reserved key error', function (t) {
   t.plan(1)
   var a = new Base({
     define: {
-      field: { value: 'haha reserved!' }
+      field: { val: 'haha reserved!' }
     }
   })
   try {

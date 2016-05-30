@@ -21,7 +21,7 @@
     "base"
   ],
   "dependencies": {
-    "vigour-util": "^3.0.0",
+    "vigour-util": "^3.0.3",
     "lodash.merge": "^4.4.0",
     "vigour-stamp": "^1.1.1",
     "babelify": "^7.3.0",
@@ -63,6 +63,5 @@
   "homepage": "https://github.com/vigour-io/base#readme",
   "contributors": [
     "Jim de Beer <jim@vigour.io>"
-  ],
-  "engines": {}
+  ]
 }

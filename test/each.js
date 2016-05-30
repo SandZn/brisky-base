@@ -10,6 +10,11 @@ test('each', function (t) {
     d: {
       keyType: 'special'
     },
+    define: {
+      filter (key) {
+        return !this[key].keyType
+      }
+    },
     e: 'e'
   })
   var results = {}
@@ -24,20 +29,6 @@ test('each', function (t) {
 
   results = {}
   var val = a.each((p, key) => {
-    results[key] = results[key] ? results[key] + 1 : 1
-    if (key === 'd') {
-      return true
-    }
-  }, (p, key) => p && p.isBase)
-  t.same(
-    results,
-    { a: 1, b: 1, c: 1, d: 1 },
-    'filtered each loops trough all keys, return breaks loop'
-  )
-  t.equal(val, true, 'returns value from iterator')
-
-  results = {}
-  val = a.each((p, key) => {
     results[key] = results[key] ? results[key]++ : 1
     if (key === 'b') {
       // this breaks the loop
