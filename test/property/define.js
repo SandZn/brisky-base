@@ -71,6 +71,7 @@ test('property - define - base', function (t) {
   t.equal(base.z && base.z.val === 'its z!' && base.y === null, true, 'moved property y → z')
   t.equal(base.properties.x.base.key, 'z', 'property got correct key')
   t.same(base.properties.keyMap, { x: 'z' }, 'has correct key map after move')
+  t.same(base.keys(), [ 'z', 'other' ], 'correct keys after move')
   base.set({
     properties: {
       define: {
@@ -82,6 +83,7 @@ test('property - define - base', function (t) {
     }
   })
   t.equal(base.x && base.x.isBase && base.z === null, true, 'moved property z → x')
+  t.same(base.keys(), [ 'other', 'x' ], 'correct keys after move')
   t.equal(base.x && base.x.field.val, 'hello', 'set property x')
   t.equal(base.properties.keyMap, null, 'remove property map')
   base.set({
