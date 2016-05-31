@@ -64,6 +64,12 @@ test('references - "$.field" notation', function (t) {
 })
 
 test('references - "$.field[0]"', function (t) {
+  var consolevalue
+  const rconsole = console.log
+  console.log = function (val) {
+    consolevalue = val
+    rconsole.apply(this, arguments)
+  }
   // will not do anythign if field does not exist
   const base = new Base({
     field: {
@@ -73,12 +79,8 @@ test('references - "$.field[0]"', function (t) {
     },
     other: {}
   })
-
-  try {
-    base.other.set('$root.x.y[0]')
-  } catch (e) {
-    t.equal(e.message, 'key notation - cant find key "[0]" in ""', 'throws error on non-existing')
-  }
+  base.other.set('$root.x.y[0]')
+  t.equal(consolevalue, 'key notation - cant find key "[0]" in ""', 'logs warning on non-existing')
   base.other.set('$root.field[0]')
   t.equal(base.other.val, base.field.hello, '"$root.field[0]" gets first key')
   base.other.set('$root.field[-1]')
@@ -87,12 +89,7 @@ test('references - "$.field[0]"', function (t) {
   t.equal(base.other.val, base.field.bye, '"$root.field[1]" gets second key')
   base.other.set('$root.field[-2]')
   t.equal(base.other.val, base.field.bye, '"$root.field[-2]" gets second key')
-  const rconsole = console.log
-  var consolevalue
-  console.log = function (val) {
-    consolevalue = val
-    rconsole.apply(this, arguments)
-  }
+
   base.other.set('$root.field[-10]')
   t.equal(consolevalue, 'key notation - cant find key "[-10]" in "field"', 'logs warning when unavailable')
   base.other.set('$root.random[-10]')
