@@ -71,8 +71,15 @@ test('references - "$.field[0]"', function (t) {
       bye: 2,
       blurf: 3
     },
-    other: '$root.field[0]'
+    other: {}
   })
+
+  try {
+    base.other.set('$root.x.y[0]')
+  } catch (e) {
+    t.equal(e.message, 'key notation - cant find key "[0]" in ""', 'throws error on non-existing')
+  }
+  base.other.set('$root.field[0]')
   t.equal(base.other.val, base.field.hello, '"$root.field[0]" gets first key')
   base.other.set('$root.field[-1]')
   t.equal(base.other.val, base.field.blurf, '"$root.field[-1]" gets last key')
@@ -89,13 +96,13 @@ test('references - "$.field[0]"', function (t) {
   try {
     base.other.set('$root.random[-10]')
   } catch (e) {
-    t.equal(e.message, 'key notation - cant find key "[-10]" in "random"', 'throws error on non-existing')
+    t.equal(e.message, 'key notation - cant find key "[-10]" in ""', 'throws error on non-existing')
   }
 
   try {
     new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
   } catch (e) {
-    t.equal(e.message, 'key notation - cant find key "[0]" in "field.b[0]"', 'throws error on non-existing')
+    t.equal(e.message, 'key notation - cant find key "[0]" in "field"', 'throws error on non-existing')
   }
 
   t.end()
