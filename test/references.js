@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('make references by using "$.field" notation', function (t) {
+test('references - "$.field" notation', function (t) {
   const base = new Base({
     field: 'something',
     other: '$root.field'
@@ -60,5 +60,43 @@ test('make references by using "$.field" notation', function (t) {
     a: {}
   })
   t.equal(b.properties.x.base.val, b.a, 'using $.parent notation in a property definition')
+  t.end()
+})
+
+test('references - "$.field[0]"', function (t) {
+  // will not do anythign if field does not exist
+  const base = new Base({
+    field: {
+      hello: 1,
+      bye: 2,
+      blurf: 3
+    },
+    other: '$root.field[0]'
+  })
+  t.equal(base.other.val, base.field.hello, '"$root.field[0]" gets first key')
+  base.other.set('$root.field[-1]')
+  t.equal(base.other.val, base.field.blurf, '"$root.field[-1]" gets last key')
+  base.other.set('$root.field[1]')
+  t.equal(base.other.val, base.field.bye, '"$root.field[1]" gets second key')
+  base.other.set('$root.field[-2]')
+  t.equal(base.other.val, base.field.bye, '"$root.field[-2]" gets second key')
+  try {
+    base.other.set('$root.field[-10]')
+  } catch (e) {
+    t.equal(e.message, 'reference notation - cant find key "[-10]" in "field"', 'throws error when unavailable')
+  }
+
+  try {
+    base.other.set('$root.random[-10]')
+  } catch (e) {
+    t.equal(e.message, 'reference notation - cant find key "[-10]" in ""', 'throws error on non-existing')
+  }
+
+  try {
+    new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
+  } catch (e) {
+    t.equal(e.message, 'reference notation - cant find key "[0]" in "field.b[0]"', 'throws error on non-existing')
+  }
+
   t.end()
 })
