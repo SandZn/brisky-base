@@ -87,23 +87,18 @@ test('references - "$.field[0]"', function (t) {
   t.equal(base.other.val, base.field.bye, '"$root.field[1]" gets second key')
   base.other.set('$root.field[-2]')
   t.equal(base.other.val, base.field.bye, '"$root.field[-2]" gets second key')
-  try {
-    base.other.set('$root.field[-10]')
-  } catch (e) {
-    t.equal(e.message, 'key notation - cant find key "[-10]" in "field"', 'throws error when unavailable')
+  const rconsole = console.log
+  var consolevalue
+  console.log = function (val) {
+    consolevalue = val
+    rconsole.apply(this, arguments)
   }
-
-  try {
-    base.other.set('$root.random[-10]')
-  } catch (e) {
-    t.equal(e.message, 'key notation - cant find key "[-10]" in ""', 'throws error on non-existing')
-  }
-
-  try {
-    new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
-  } catch (e) {
-    t.equal(e.message, 'key notation - cant find key "[0]" in "field"', 'throws error on non-existing')
-  }
-
+  base.other.set('$root.field[-10]')
+  t.equal(consolevalue, 'key notation - cant find key "[-10]" in "field"', 'logs warning when unavailable')
+  base.other.set('$root.random[-10]')
+  t.equal(consolevalue, 'key notation - cant find key "[-10]" in "random"', 'logs warning on non-existing')
+  new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
+  t.equal(consolevalue, 'key notation - cant find key "[0]" in "field"', 'logs warning on non-existing')
+  console.log = rconsole
   t.end()
 })
