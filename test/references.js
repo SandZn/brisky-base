@@ -83,19 +83,19 @@ test('references - "$.field[0]"', function (t) {
   try {
     base.other.set('$root.field[-10]')
   } catch (e) {
-    t.equal(e.message, 'reference notation - cant find key "[-10]" in "field"', 'throws error when unavailable')
+    t.equal(e.message, 'key notation - cant find key "[-10]" in "field"', 'throws error when unavailable')
   }
 
   try {
     base.other.set('$root.random[-10]')
   } catch (e) {
-    t.equal(e.message, 'reference notation - cant find key "[-10]" in ""', 'throws error on non-existing')
+    t.equal(e.message, 'key notation - cant find key "[-10]" in "random"', 'throws error on non-existing')
   }
 
   try {
     new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
   } catch (e) {
-    t.equal(e.message, 'reference notation - cant find key "[0]" in "field.b[0]"', 'throws error on non-existing')
+    t.equal(e.message, 'key notation - cant find key "[0]" in "field.b[0]"', 'throws error on non-existing')
   }
 
   t.end()
