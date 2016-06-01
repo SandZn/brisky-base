@@ -32,5 +32,6 @@ test('get - keys notation', function (t) {
     something: true
   })
   t.equal(a.get('b.c[0]'), a.b.c.a, 'get b.c.a using key notation')
+  t.equal(a.get('[0][0][0]'), a.b.c.a, 'get b.c.a using double key notation')
   t.end()
 })
