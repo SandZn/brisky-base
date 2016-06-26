@@ -21,7 +21,7 @@
     "base"
   ],
   "dependencies": {
-    "vigour-util": "^3.0.3",
+    "vigour-util": "^3.2.0",
     "lodash.merge": "^4.4.0",
     "vigour-stamp": "^1.1.1",
     "babelify": "^7.3.0",
