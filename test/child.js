@@ -22,5 +22,6 @@ test('child', function (t) {
   a.set({ child: { field: true } })
   t.same(a.b.field.serialize(), true, 'b - use set when child is allready defined')
   t.same(a.c.field.serialize(), true, 'c - use set when child is allready defined')
+
   t.end()
 })
