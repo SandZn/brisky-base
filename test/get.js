@@ -35,3 +35,9 @@ test('get - keys notation', function (t) {
   t.equal(a.get('[0][0][0]'), a.b.c.a, 'get b.c.a using double key notation')
   t.end()
 })
+
+test('get - method support', function (t) {
+  const a = new Base({ b: { c: true } })
+  t.equal(a.get('b.origin.c.origin.compute'), true, 'get a.b.c. using origin')
+  t.end()
+})
