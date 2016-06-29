@@ -68,7 +68,7 @@ test('references - "$.field[0]"', function (t) {
   const rconsole = console.log
   console.log = function (val) {
     consolevalue = val
-    rconsole.apply(this, arguments)
+    // rconsole.apply(this, arguments)
   }
   const base = new Base({
     field: {
@@ -95,5 +95,25 @@ test('references - "$.field[0]"', function (t) {
   new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
   t.equal(consolevalue, 'key notation - cant find key "[0]" in "field"', 'logs warning on non-existing')
   console.log = rconsole
+  t.end()
+})
+
+test('references - isParent unequal case', function (t) {
+  const base = new Base({
+    a: {
+      b: {},
+      c: {}
+    }
+  })
+  base.set({
+    a: {
+      c: {
+        d: {
+          x: '$root.a.b.d.thing'
+        }
+      }
+    }
+  })
+  t.same(base.a.c.d.x.val, base.a.b.d.thing, 'correct reference')
   t.end()
 })
