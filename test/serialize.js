@@ -15,11 +15,11 @@ test('serialize', function (t) {
   t.plan(cases.length)
   cases.forEach(function (item) {
     const base = new Base(item[0] || item)
-    t.deepEquals(base.serialize(), item[1] || item, base)
+    t.same(base.serialize(), item[1] || item, 'outputs ' + base)
   })
 })
 
-test('serialize-computed', function (t) {
+test('serialize - computed', function (t) {
   const cases = [
     { a: true, b: { c: 'yo' } },
     [
@@ -30,6 +30,23 @@ test('serialize-computed', function (t) {
   t.plan(cases.length)
   cases.forEach(function (item) {
     const base = new Base(item[0] || item)
-    t.deepEquals(base.serialize(true), item[1] || item, base)
+    t.same(base.serialize(true), item[1] || item, 'outputs ' + base)
   })
+})
+
+test('serialize - filter', function (t) {
+  const base = new Base({
+    yuzi: {
+      james: {
+        marcus: true,
+        secret: true
+      }
+    }
+  })
+  t.same(
+    base.serialize(false, (prop) => prop.key !== 'secret'),
+    { yuzi: { james: { marcus: true } } },
+    'filters results'
+  )
+  t.end()
 })
