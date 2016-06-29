@@ -24,3 +24,24 @@ test('child', function (t) {
   t.same(a.c.field.serialize(), true, 'c - use set when child is allready defined')
   t.end()
 })
+
+test('child - merge', function (t) {
+  const a = new Base({
+    child: { child: 'Constructor' },
+    inject: [
+      {
+        child: {
+          a: true
+        }
+      },
+      {
+        child: {
+          b: true
+        }
+      }
+    ]
+  })
+  a.set({ x: true })
+  t.same(a.x.a.keys(), [ 'a', 'b' ], 'merged correctly')
+  t.end()
+})

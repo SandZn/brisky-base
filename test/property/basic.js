@@ -110,3 +110,20 @@ test('property - null', function (t) {
   t.equal(base.val.isBase, true, 'remove al property, val is a base')
   t.end()
 })
+
+test('property - null', function (t) {
+  const base = new Base({
+    properties: {
+      x: true,
+      y: {},
+      val: null
+    },
+    y: {},
+    val: 'haha'
+  })
+  base.set({ properties: { y: null } })
+  t.equal(base.properties.y, null, 'removed property')
+  t.equal(base.y, null, 'removed existing instance')
+  t.equal(base.val.isBase, true, 'remove al property, val is a base')
+  t.end()
+})
