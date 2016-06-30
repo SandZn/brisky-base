@@ -38,7 +38,10 @@ test('property - child - enahnce property definition', function (t) {
     },
     content: {
       what: {
-        hello: {}
+        hello: {},
+        other: {
+          hello: {}
+        }
       }
     }
   })
@@ -66,6 +69,12 @@ test('property - child - enahnce property definition', function (t) {
 
   t.equal(
     base.content.what.hello.val,
+    'haha',
+    'child property inherits'
+  )
+
+  t.equal(
+    base.content.what.other.hello.val,
     'haha',
     'child property inherits'
   )
