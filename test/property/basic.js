@@ -111,19 +111,11 @@ test('property - null', function (t) {
   t.end()
 })
 
-test('property - null', function (t) {
+test('property - override normal field', function (t) {
   const base = new Base({
-    properties: {
-      x: true,
-      y: {},
-      val: null
-    },
-    y: {},
-    val: 'haha'
+    y: { bye: true }
   })
-  base.set({ properties: { y: null } })
-  t.equal(base.properties.y, null, 'removed property')
-  t.equal(base.y, null, 'removed existing instance')
-  t.equal(base.val.isBase, true, 'remove al property, val is a base')
+  base.set({ properties: { y: 'hello' } })
+  t.equal(base.y.bye.val, true, 'did not replace original')
   t.end()
 })
