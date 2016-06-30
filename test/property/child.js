@@ -23,7 +23,7 @@ test('property - child', function (t) {
   t.end()
 })
 
-test('property - child - enahnce property definition', function (t) {
+test('property - child - enhance property definition', function (t) {
   const base = new Base({ y: true })
   base.set({
     properties: {
