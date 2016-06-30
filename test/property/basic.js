@@ -116,7 +116,6 @@ test('property - override normal field', function (t) {
     y: { bye: true }
   })
   base.set({ properties: { y: 'hello' } })
-  t.equal(base.y.val, 'hello', 'replaced original')
-  t.equal(base.y.bye, void 0, 'replaced original')
+  t.equal(base.y.bye.val, true, 'did not replace original')
   t.end()
 })
