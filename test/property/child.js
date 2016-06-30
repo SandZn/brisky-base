@@ -29,19 +29,25 @@ test('property - child - enahnce property definition', function (t) {
     properties: {
       content: {
         child: {
-          hello: true,
+          properties: {
+            hello: { val: true }
+          },
           child: 'Constructor'
         }
       }
     },
     content: {
-      what: true
+      what: {
+        hello: {}
+      }
     }
   })
 
-  t.equal(
-    base.content.what.hello,
-    base.properties.content.base.child.prototype.hello,
+  t.ok(
+    base.content.what.hello instanceof
+    base.properties.content
+      .base.child.prototype
+      .properties.hello.base.Constructor,
     'correct child over properties'
   )
 
@@ -49,7 +55,9 @@ test('property - child - enahnce property definition', function (t) {
     properties: {
       content: {
         child: {
-          hello: 'haha',
+          properties: {
+            hello: { val: 'haha' }
+          },
           child: 'Constructor'
         }
       }
