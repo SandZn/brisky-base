@@ -1,6 +1,6 @@
 {
   "name": "vigour-base",
-  "version": "3.3.11",
+  "version": "3.3.12",
   "description": "'injectacble classes'",
   "main": "lib/index.js",
   "scripts": {
@@ -21,7 +21,7 @@
     "base"
   ],
   "dependencies": {
-    "vigour-util": "^3.2.0",
+    "vigour-util": "^3.3.0",
     "lodash.merge": "^4.4.0",
     "vigour-stamp": "^1.1.1",
     "babelify": "^7.3.0",
