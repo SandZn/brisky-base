@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('keys - sort', function (t) {
+test('keys - sort', (t) => {
   const base = new Base({
     sort: 'val',
     d: { val: 4, field: 2 },
@@ -39,5 +39,53 @@ test('keys - sort', function (t) {
   t.same(instance2.keys(), instanceKeys2, 'instance - remove')
   instance2.set({ sort: null })
   t.equal('_' in instance2._keys, false, 'removed order cache')
+  t.end()
+})
+
+test('keys - refrences', (t) => {
+  const payload = {
+    '1776869': {
+      'publishedSort': 5,
+      'val': '$root.content.shows.items.1242928.items.1673742.items.1776869'
+    },
+    '1789461': {
+      'publishedSort': 0,
+      'val': '$root.content.shows.items.1595901.items.1617711.items.1789461'
+    },
+    '1789718': {
+      'publishedSort': 1,
+      'val': '$root.content.shows.items.7087.items.1599749.items.1789718'
+    },
+    '1789721': {
+      'publishedSort': 5,
+      'val': '$root.content.shows.items.1578839.items.1599761.items.1789721'
+    },
+    '1790560': {
+      'publishedSort': 9,
+      'val': '$root.content.shows.items.7087.items.1599749.items.1790560'
+    },
+    '1790578': {
+      'publishedSort': 7,
+      'val': '$root.content.shows.items.7087.items.1599749.items.1790578'
+    },
+    '1793478': {
+      'publishedSort': 6,
+      'val': '$root.content.shows.items.7087.items.1599749.items.1793478'
+    },
+    '1793481': {
+      'publishedSort': 0,
+      'val': '$root.content.shows.items.1592893.items.1692126.items.1793481'
+    },
+    '1796073': {
+      'publishedSort': 4,
+      'val': '$root.content.shows.items.1242928.items.1673742.items.1796073'
+    }
+  }
+  const base = new Base({
+    items: { sort: 'publishedSort' }
+  })
+  base.items.set(payload)
+  const keys = base.items.keys()
+  t.same(keys.map((val) => base.items[val].publishedSort.compute()), [ 0, 0, 1, 4, 5, 5, 6, 7, 9 ])
   t.end()
 })
