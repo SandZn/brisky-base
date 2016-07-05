@@ -42,7 +42,7 @@ test('keys - sort', (t) => {
   t.end()
 })
 
-test('keys - refrences', (t) => {
+test('keys - references', (t) => {
   const payload = {
     '1776869': {
       'publishedSort': 5,
