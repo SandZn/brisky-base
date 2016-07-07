@@ -58,7 +58,7 @@ test('keys - sort - alphabetical', (t) => {
   t.end()
 })
 
-test('keys - sort - references', (t) => {
+test('keys - sort - references - property on referenced objects', (t) => {
   const expected = [ 1, 2, 3, 30, 55 ]
   const base = new Base({
     referenced: toSetObject(expected.slice().reverse()),
@@ -80,6 +80,29 @@ test('keys - sort - references', (t) => {
   t.end()
 })
 
+test('keys - sort - references - property on referencer itself', (t) => {
+  const base = new Base({
+    referenced: toSetObject([ 10, 20, 30, 40, 50 ]),
+    references: {
+      sort: 'sortKey',
+      a: {val: '$root.referenced.4', sortKey: 5 },
+      b: {val: '$root.referenced.3', sortKey: 4 },
+      c: {val: '$root.referenced.2', sortKey: 3 }
+    }
+  })
+  const references = base.references
+  references.set({
+    d: {val: '$root.referenced.1', sortKey: 2 },
+    e: {val: '$root.referenced.0', sortKey: 1 }
+  })
+
+  t.same(
+    references.keys().map((key) => references[key].sortKey.compute()),
+    [ 1, 2, 3, 4, 5 ],
+    'sort by key on the referencer {val: \'$root.ref\', sortKey: \'X\'}'
+  )
+  t.end()
+})
 
 function toSetObject (array) {
   return array.reduce((o, val, i) => {
