@@ -63,27 +63,35 @@ test('context - apply and resolve', function (t) {
 })
 
 // double test
-// test('storeContext and applyContent', function (t) {
-//   const b = new Base({
-//     val: 'b',
-//     key: 'B',
-//     nestB: 'nestB',
-//     noReference: true
-//   })
-//   const c = new Base({ cA: { cB: new b.Constructor() } })
-//   const d = new c.Constructor()
-//   const base = d.cA.cB.nestB
-//   const store = base.storeContext()
-//   b.nestB.set('testVal')
-//   c.cA.cB.nestB.set('testVal2')
-//   base.applyContext(store)
-//   base.set('A!')
-//   t.equal(d.cA.cB.nestB.val, 'A!', 'applied context')
-//   base.applyContext(store)
-//   base.set('B!')
-//   t.equal(d.cA.cB.nestB.compute(), 'B!', 'applied context again')
-//   t.end()
-// })
+test('context - apply and resolve (double)', function (t) {
+  const b = new Base({
+    val: 'b',
+    key: 'B',
+    nestB: 'nestB',
+    noReference: true,
+    define: { inspect () { return '' } }
+  })
+  const c = new Base({ key: 'c', cA: { cB: new b.Constructor() } })
+  const d = new c.Constructor({ key: 'd' })
+  const base = d.cA.cB.nestB
+  const store = base.storeContext()
+  b.nestB.set('testVal')
+  // this is still ok
+
+  c.cA.cB.nestB.set('testVal2')
+  // this is really difficult cA.Cb <--
+  // spec it
+
+  var stored = base.applyContext(store)
+  t.equal(stored, void 0, 'returns void 0')
+  console.log(store)
+  // should we return base -- when its a base then you know its pretty wrong
+  // return BASE when it no longer correct
+
+  // ok so lets get the context back and return the new base
+  // so what we can do is check for this and do something about it
+  t.end()
+})
 
 // test('context - set restore - dont set context', function (t) {
 //   const base = new Base({
