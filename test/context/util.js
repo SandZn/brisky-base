@@ -94,16 +94,24 @@ test('context - apply and resolve (double)', function (t) {
   t.same(base.path(), [ 'd', 'cA', 'cB', 'nestB' ], 'applied correct context on "d"')
   c.cA.cB.nestB.set('c')
 
-  console.log(' \nhello hello lets go lets go')
   val = base.applyContext(context)
-  t.same(base.path(), [ 'B', 'nestB' ], 'applied correct context on "d"')
+  t.same(base.path(), [ 'B', 'nestB' ], 'set "c" cleared context for "base" (no longer a valid target)')
+  t.same(val.path(), [ 'd', 'cA', 'cB', 'nestB' ], 'applied correct context on "c.cA.cB.nestB"')
   t.same(val, c.cA.cB.nestB, 'val is "c.cA.cB.nestB" for "d"')
+
+  base = d.cA.cB.nestB
+  context = base.storeContext()
+  d.cA.cB.nestB.set('d')
+  val = base.applyContext(context)
+  t.same(base.path(), [ 'c', 'cA', 'cB', 'nestB' ], 'set "d" cleared context for "base" (no longer a valid target)')
+  t.same(val.path(), [ 'd', 'cA', 'cB', 'nestB' ], 'applied correct context on "d.cA.cB.nestB"')
+
+  // const e = new c.Constructor()
 
   t.end()
 })
 
 // 3x one with removal tests
-
 // test('context - set restore - dont set context', function (t) {
 //   const base = new Base({
 //     a: {
