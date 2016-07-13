@@ -44,7 +44,7 @@ test('keys - sort - instances', (t) => {
 
 test('keys - sort - alphabetical', (t) => {
   const expected = [
-    'a' ,'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~' 
+    'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
   ]
   const base = new Base({
     sort: 'sortKey',
@@ -85,15 +85,15 @@ test('keys - sort - references - property on referencer itself', (t) => {
     referenced: toSetObject([ 10, 20, 30, 40, 50 ]),
     references: {
       sort: 'sortKey',
-      a: {val: '$root.referenced.4', sortKey: 5 },
-      b: {val: '$root.referenced.3', sortKey: 4 },
-      c: {val: '$root.referenced.2', sortKey: 3 }
+      a: { val: '$root.referenced.4', sortKey: 5 },
+      b: { val: '$root.referenced.3', sortKey: 4 },
+      c: { val: '$root.referenced.2', sortKey: 3 }
     }
   })
   const references = base.references
   references.set({
-    d: {val: '$root.referenced.1', sortKey: 2 },
-    e: {val: '$root.referenced.0', sortKey: 1 }
+    d: { val: '$root.referenced.1', sortKey: 2 },
+    e: { val: '$root.referenced.0', sortKey: 1 }
   })
 
   t.same(
