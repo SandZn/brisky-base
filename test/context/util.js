@@ -72,7 +72,14 @@ test('context - apply and resolve', function (t) {
   val = b.applyContext(context)
   t.equal(val, null, 'applyContext returns null on removal of the target')
   t.equal(b.__c, null, 'no context on "b" after applying context')
-  // add one more test thing it self if removed!
+
+  const base7 = new base.Constructor({ key: 'base5', a: {} })
+  a = base7.a
+  b = base7.a.b
+  context = base7.a.b.storeContext()
+  base7.a.remove()
+  val = b.applyContext(context)
+  t.equal(val, null, 'applyContext returns null on removal of the toplevel of target')
   t.end()
 })
 
@@ -151,5 +158,6 @@ test('context - apply and resolve (double)', function (t) {
   c.cA.cB.nestB.remove()
   val = base.applyContext(context)
   t.equal(val, null, 'applyContext returns null on removal of "c.cA.cB.nestB"')
+
   t.end()
 })
