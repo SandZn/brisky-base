@@ -138,7 +138,7 @@ test('context - apply and resolve (double)', function (t) {
   t.end()
 })
 
-test('context - set restore - dont set context', function (t) {
+test('context - apply and resolve (double) - dont set context', function (t) {
   const base = new Base({
     a: {
       b: {
