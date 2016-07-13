@@ -30,7 +30,7 @@ There are 4 types of property definitions:
 var base = new Base({
   properties: {
     normal: true,
-    special: (val, stamp) {
+    special (val, stamp) {
       this.special = val * 10
     },
     base: { nested: true }
@@ -132,3 +132,53 @@ base.set({
   }
 })
 ```
+
+-
+###Context
+Context enables deep memory efficient prototypes.
+Stores information on fields about first non-shared ancestors.
+
+**basic**
+
+Notice that `base.a.b.c === instance.a.b.c` is true but the paths are different
+
+```javascript
+const base = new Base({
+  key: 'base'
+  a: { b: { c: 'its c' } }
+})
+const instance = new base.Constructor({
+  key: 'instance'
+})
+console.log(base.a.b.c === instance.a.b.c) // → true
+console.log(instance.a.b.c.path()) // → [ 'instance', 'a', 'b', 'c' ]
+console.log(base.a.b.c.path()) // → [ 'base', 'a', 'b', 'c' ]
+```
+
+**store and apply context**
+
+Allows storage and restoration of context.
+Usefull for edge cases where you need to make a handle to a nested field in a certain context
+
+Consists of 2 methods
+- applyContext(context)
+- storeContext()
+
+```javascript
+const base = new Base({
+  key: 'base'
+  a: { b: { c: 'its c' } }
+})
+const instance = new base.Constructor({
+  key: 'instance'
+})
+const b = instance.a.b
+const context = b.storeContext()
+console.log(base.a.b.c) // this will remove the context "instance", and replace it with base
+b.applyContext(context) // will reset the context of b to instance
+```
+
+Apply context can return 3 different types
+- `undefined` Context is restored without any differences
+- `Base` A set has happened in the path leading to the target of apply context
+- `null` A remove has happened in the path leading to the target of apply co  ntext

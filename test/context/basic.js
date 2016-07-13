@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('context - override (noContext property)', function (t) {
+test('context - override (noContext property)', (t) => {
   const Template = new Base({
     key: 'template',
     noContextField: { noContext: true }
@@ -22,7 +22,7 @@ test('context - override (noContext property)', function (t) {
   t.end()
 })
 
-test('context - parent', function (t) {
+test('context - parent', (t) => {
   const base = new Base({
     a: {
       b: {
@@ -46,7 +46,7 @@ test('context - parent', function (t) {
   t.end()
 })
 
-test('context - keys', function (t) {
+test('context - keys', (t) => {
   const a = new Base({ a: true })
   t.equal(a._a, void 0, 'no context key before creation of constructor')
   const A = a.Constructor
@@ -68,7 +68,8 @@ test('context - resolvement', function (t) {
   t.end()
 })
 
-test('WRONG - REFACTOR AFTER PROPS! - context - nested resolvement for override properties', function (t) {
+test('context - nested resolvement for override properties', (t) => {
+  // @todo 10 double check this
   const On = new Base().Constructor
   const ref = new Base()
   const base = new Base({
@@ -82,15 +83,13 @@ test('WRONG - REFACTOR AFTER PROPS! - context - nested resolvement for override 
     on: { data: 'hello' },
     normal: { data: 'normal-hello' }
   })
-
   // wrong test need to check in __on
-
   t.equal('data' in a._on, true, 'has _on.data')
   t.equal('data' in a.normal, true, 'has normal.data')
   t.equal('_data' in a._on, false, 'does not have _on._data')
   t.equal('_data' in a.normal, false, 'does not have normal._data')
   t.equal(ref.__c, void 0, 'ref should not get context')
-  a.Constructor
+  a.Constructor // lazy intializer on get
   t.equal('_data' in a._on, true, 'has _on._data after constructor creation')
   t.equal('_data' in a.normal, true, 'has normal._data after constructor creation')
   t.end()
