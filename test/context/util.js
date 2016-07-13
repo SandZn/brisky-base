@@ -95,19 +95,38 @@ test('context - apply and resolve (double)', function (t) {
   c.cA.cB.nestB.set('c')
 
   val = base.applyContext(context)
-  t.same(base.path(), [ 'B', 'nestB' ], 'set "c" cleared context for "base" (no longer a valid target)')
-  t.same(val.path(), [ 'd', 'cA', 'cB', 'nestB' ], 'applied correct context on "c.cA.cB.nestB"')
+  t.same(
+    base.path(),
+    [ 'B', 'nestB' ],
+    'set "c" cleared context for "base" (no longer a valid target)'
+  )
+  t.same(
+    val.path(),
+    [ 'd', 'cA', 'cB', 'nestB' ],
+    'applied correct context on "c.cA.cB.nestB"'
+  )
   t.same(val, c.cA.cB.nestB, 'val is "c.cA.cB.nestB" for "d"')
 
   base = d.cA.cB.nestB
   context = base.storeContext()
   d.cA.cB.nestB.set('d')
   val = base.applyContext(context)
-  t.same(base.path(), [ 'c', 'cA', 'cB', 'nestB' ], 'set "d" cleared context for "base" (no longer a valid target)')
-  t.same(val.path(), [ 'd', 'cA', 'cB', 'nestB' ], 'applied correct context on "d.cA.cB.nestB"')
-
-  // const e = new c.Constructor()
-
+  t.same(
+    base.path(),
+    [ 'c', 'cA', 'cB', 'nestB' ],
+    'set "d" cleared context for "base" (no longer a valid target)'
+  )
+  t.same(
+    val.path(),
+    [ 'd', 'cA', 'cB', 'nestB' ],
+    'applied correct context on "d.cA.cB.nestB"'
+  )
+  const e = new c.Constructor({ key: 'e' })
+  base = e.cA.cB.nestB
+  context = base.storeContext()
+  c.cA.cB.nestB.remove()
+  val = base.applyContext(context)
+  t.equal(val, null, 'applyContext returns null on removal of "c.cA.cB.nestB"')
   t.end()
 })
 
