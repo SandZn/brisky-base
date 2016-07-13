@@ -60,8 +60,17 @@ test('context - apply and resolve', function (t) {
   b = base5.a.b
   context = base5.a.b.storeContext()
   base5.a.remove()
-  val = c.applyContext(context)
-  t.equal(val, null, 'applyContext returns null on removal')
+  val = b.applyContext(context)
+  t.equal(val, null, 'applyContext returns null on removal of a field leading to the target')
+  t.equal(b.__c, null, 'no context on "b" after applying context')
+
+  const base6 = new base.Constructor({ key: 'base5' })
+  a = base6.a
+  b = base6.a.b
+  context = base6.a.b.storeContext()
+  base6.a.b.remove()
+  val = b.applyContext(context)
+  t.equal(val, null, 'applyContext returns null on removal of the target')
   t.equal(b.__c, null, 'no context on "b" after applying context')
   // add one more test thing it self if removed!
   t.end()
@@ -93,7 +102,6 @@ test('context - apply and resolve (double)', function (t) {
   t.same(val, void 0, 'val is "undefined" for "d"')
   t.same(base.path(), [ 'd', 'cA', 'cB', 'nestB' ], 'applied correct context on "d"')
   c.cA.cB.nestB.set('c')
-
   val = base.applyContext(context)
   t.same(
     base.path(),
@@ -106,7 +114,6 @@ test('context - apply and resolve (double)', function (t) {
     'applied correct context on "c.cA.cB.nestB"'
   )
   t.same(val, c.cA.cB.nestB, 'val is "c.cA.cB.nestB" for "d"')
-
   base = d.cA.cB.nestB
   context = base.storeContext()
   d.cA.cB.nestB.set('d')
@@ -121,6 +128,7 @@ test('context - apply and resolve (double)', function (t) {
     [ 'd', 'cA', 'cB', 'nestB' ],
     'applied correct context on "d.cA.cB.nestB"'
   )
+
   const e = new c.Constructor({ key: 'e' })
   base = e.cA.cB.nestB
   context = base.storeContext()
@@ -130,19 +138,18 @@ test('context - apply and resolve (double)', function (t) {
   t.end()
 })
 
-// 3x one with removal tests
-// test('context - set restore - dont set context', function (t) {
-//   const base = new Base({
-//     a: {
-//       b: {
-//         c: true
-//       }
-//     }
-//   })
-//   const instance = new base.Constructor()
-//   const stored = instance.a.b.c.storeContext()
-//   instance.a.b.c.set(false)
-//   instance.a.b.c.applyContext(stored)
-//   t.equal(instance.a.b.c.__c, null, 'dont restore context on a resolved field')
-//   t.end()
-// })
+test('context - set restore - dont set context', function (t) {
+  const base = new Base({
+    a: {
+      b: {
+        c: true
+      }
+    }
+  })
+  const instance = new base.Constructor()
+  const stored = instance.a.b.c.storeContext()
+  instance.a.b.c.set(false)
+  instance.a.b.c.applyContext(stored)
+  t.equal(instance.a.b.c.__c, null, 'dont restore context on a resolved field')
+  t.end()
+})
