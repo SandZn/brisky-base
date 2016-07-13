@@ -27,9 +27,6 @@ test('context - apply and resolve', function (t) {
   t.equal(base.a.__c, null, 'no context on "a" after resolve')
   val = c.applyContext(stored)
   t.equal(val, c, 'applyContext returns base when something is changed')
-
-  // this will be different needs to return a base
-  t.equal(val[1], 2, 'reduced context level in stored')
   t.equal(a.__c, null, 'no context on "a" after applying context after resolve')
   t.equal(b.__c, base2.a, 'context on "b" after applying context')
   t.equal(c.__c, base2.a, 'context on "c" after applying context')

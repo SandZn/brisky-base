@@ -181,4 +181,4 @@ b.applyContext(context) // will reset the context of b to instance
 Apply context can return 3 different types
 - `undefined` Context is restored without any differences
 - `Base` A set has happened in the path leading to the target of apply context
-- `null` A remove has happened in the path leading to the target of apply context
+- `null` A remove has happened in the path leading to the target of apply co  ntext
