@@ -46,7 +46,7 @@ test('context - apply and resolve', function (t) {
   t.equal(c.__c, base3.a.b, 'context on "c" after applying context')
   t.equal(base3.a.__c, null, 'no context on "base3.a" after applying context')
 
-  const base4 = new base.Constructor({ key: 'base3' })
+  const base4 = new base.Constructor({ key: 'base4' })
   a = base4.a
   stored = base4.a.storeContext()
   base4.a.set('its my own')
@@ -54,15 +54,17 @@ test('context - apply and resolve', function (t) {
   t.ok(a !== base4.a, 'created new instance for base4.a')
   t.equal(val, base4.a, 'applyContext returns new base')
   t.equal(a.__c, null, 'no context on "a" after applying context after resolve')
-  // // add remove case
-  // const base5 = new base.Constructor({ key: 'base3' })
-  // a = base5.a
-  // b = base5.a.b
-  // stored = base5.a.b.storeContext()
-  // base5.a.remove()
-  // stored2 = c.applyContext(stored)
-  // t.equal(stored2, void 0, 'reduced context level in stored')
-  // t.equal(b.__c, null, 'no context on "b" after applying context')
+
+  const base5 = new base.Constructor({ key: 'base5' })
+  a = base5.a
+  b = base5.a.b
+  stored = base5.a.b.storeContext()
+  base5.a.remove()
+  val = c.applyContext(stored)
+  t.equal(val, null, 'applyContext returns null on removal')
+  // b is now disconnected from base5
+  t.equal(b.__c, null, 'no context on "b" after applying context')
+  // add one more test thing it self if removed!
   t.end()
 })
 
