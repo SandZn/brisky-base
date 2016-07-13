@@ -10,6 +10,7 @@ test('context - apply and resolve', function (t) {
     },
     define: { inspect () { return '' } }
   })
+
   const base2 = new base.Constructor({ key: 'base2' })
   var a = base2.a
   var b = base2.a.b
@@ -32,25 +33,27 @@ test('context - apply and resolve', function (t) {
   t.equal(c.__c, base2.a, 'context on "c" after applying context')
   t.equal(base2.a.__c, null, 'no context on "base2.a" after applying context')
 
-  // const base3 = new base.Constructor({ key: 'base3' })
-  // a = base3.a
-  // b = base3.a.b
-  // c = base3.a.b.c
-  // stored = base3.a.b.c.storeContext()
-  // base3.a.b.set('its my own')
-  // stored2 = c.applyContext(stored)
-  // t.equal(stored2[1], 1, 'reduced context level in stored')
-  // t.equal(a.__c, null, 'no context on "a" after applying context after resolve')
-  // t.equal(b.__c, null, 'no context on "b" after applying context')
-  // t.equal(c.__c, base3.a.b, 'context on "c" after applying context')
-  // t.equal(base3.a.__c, null, 'no context on "base3.a" after applying context')
-  // const base4 = new base.Constructor({ key: 'base3' })
-  // a = base4.a
-  // stored = base4.a.storeContext()
-  // base4.a.set('its my own')
-  // stored2 = a.applyContext(stored)
-  // t.equal(stored2, void 0, 'stored is empty')
-  // t.equal(a.__c, null, 'no context on "a" after applying context after resolve')
+  const base3 = new base.Constructor({ key: 'base3' })
+  a = base3.a
+  b = base3.a.b
+  c = base3.a.b.c
+  stored = base3.a.b.c.storeContext()
+  base3.a.b.set('its my own')
+  val = c.applyContext(stored)
+  t.equal(val, c, 'applyContext returns base when something is changed')
+  t.equal(a.__c, null, 'no context on "a" after applying context after resolve')
+  t.equal(b.__c, null, 'no context on "b" after applying context')
+  t.equal(c.__c, base3.a.b, 'context on "c" after applying context')
+  t.equal(base3.a.__c, null, 'no context on "base3.a" after applying context')
+
+  const base4 = new base.Constructor({ key: 'base3' })
+  a = base4.a
+  stored = base4.a.storeContext()
+  base4.a.set('its my own')
+  val = a.applyContext(stored)
+  t.ok(a !== base4.a, 'created new instance for base4.a')
+  t.equal(val, base4.a, 'applyContext returns new base')
+  t.equal(a.__c, null, 'no context on "a" after applying context after resolve')
   // // add remove case
   // const base5 = new base.Constructor({ key: 'base3' })
   // a = base5.a
