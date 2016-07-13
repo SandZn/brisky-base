@@ -88,12 +88,21 @@ test('context - apply and resolve (double)', function (t) {
   base = d.cA.cB.nestB
   t.same(base.path(), [ 'd', 'cA', 'cB', 'nestB' ], '"d" has correct context')
   context = base.storeContext()
+  base.clearContext()
   val = base.applyContext(context)
   t.same(val, void 0, 'val is "undefined" for "d"')
   t.same(base.path(), [ 'd', 'cA', 'cB', 'nestB' ], 'applied correct context on "d"')
-  console.log(base.path())
+  c.cA.cB.nestB.set('c')
+
+  console.log(' \nhello hello lets go lets go')
+  val = base.applyContext(context)
+  t.same(base.path(), [ 'B', 'nestB' ], 'applied correct context on "d"')
+  t.same(val, c.cA.cB.nestB, 'val is "c.cA.cB.nestB" for "d"')
+
   t.end()
 })
+
+// 3x one with removal tests
 
 // test('context - set restore - dont set context', function (t) {
 //   const base = new Base({
