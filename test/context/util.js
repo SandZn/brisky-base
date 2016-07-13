@@ -76,7 +76,23 @@ test('context - apply and resolve', function (t) {
   t.end()
 })
 
-// // double test
+// double test
+test('context - apply and resolve (double) - simple resolve', function (t) {
+  const base = new Base({
+    a: {
+      b: {
+        c: true
+      }
+    }
+  })
+  const instance = new base.Constructor()
+  const stored = instance.a.b.c.storeContext()
+  instance.a.b.c.set(false)
+  instance.a.b.c.applyContext(stored)
+  t.equal(instance.a.b.c.__c, null, 'dont restore context on a resolved field')
+  t.end()
+})
+
 test('context - apply and resolve (double)', function (t) {
   const b = new Base({
     val: 'b',
@@ -135,21 +151,5 @@ test('context - apply and resolve (double)', function (t) {
   c.cA.cB.nestB.remove()
   val = base.applyContext(context)
   t.equal(val, null, 'applyContext returns null on removal of "c.cA.cB.nestB"')
-  t.end()
-})
-
-test('context - apply and resolve (double) - dont set context', function (t) {
-  const base = new Base({
-    a: {
-      b: {
-        c: true
-      }
-    }
-  })
-  const instance = new base.Constructor()
-  const stored = instance.a.b.c.storeContext()
-  instance.a.b.c.set(false)
-  instance.a.b.c.applyContext(stored)
-  t.equal(instance.a.b.c.__c, null, 'dont restore context on a resolved field')
   t.end()
 })
