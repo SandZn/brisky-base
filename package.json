@@ -4,7 +4,7 @@
   "description": "'injectacble classes'",
   "main": "lib/index.js",
   "scripts": {
-    "test": "node test | tap-difflet && standard",
+    "test": "(ducktape; node test) | tap-difflet && standard",
     "watch": "nodemon test | tap-difflet",
     "cover": "istanbul cover --report none --print detail test/index.js",
     "docs": "node_modules/vigour-doc/bin/vdoc",
@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "ducktape": "^1.0.0",
     "standard": "^7.0.1",
     "tap-difflet": "0.4.0",
     "tape": "4.4.0",
