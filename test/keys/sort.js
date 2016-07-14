@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('keys - sort', (t) => {
+test('keys - sort - instances', (t) => {
   const base = new Base({
     sort: 'val',
     d: { val: 4, field: 2 },
@@ -42,50 +42,71 @@ test('keys - sort', (t) => {
   t.end()
 })
 
-test('keys - references', (t) => {
-  const payload = {
-    '1776869': {
-      'publishedSort': 5,
-      'val': '$root.content.shows.items.1242928.items.1673742.items.1776869'
-    },
-    '1789461': {
-      'publishedSort': 0,
-      'val': '$root.content.shows.items.1595901.items.1617711.items.1789461'
-    },
-    '1789718': {
-      'publishedSort': 1,
-      'val': '$root.content.shows.items.7087.items.1599749.items.1789718'
-    },
-    '1789721': {
-      'publishedSort': 5,
-      'val': '$root.content.shows.items.1578839.items.1599761.items.1789721'
-    },
-    '1790560': {
-      'publishedSort': 9,
-      'val': '$root.content.shows.items.7087.items.1599749.items.1790560'
-    },
-    '1790578': {
-      'publishedSort': 7,
-      'val': '$root.content.shows.items.7087.items.1599749.items.1790578'
-    },
-    '1793478': {
-      'publishedSort': 6,
-      'val': '$root.content.shows.items.7087.items.1599749.items.1793478'
-    },
-    '1793481': {
-      'publishedSort': 0,
-      'val': '$root.content.shows.items.1592893.items.1692126.items.1793481'
-    },
-    '1796073': {
-      'publishedSort': 4,
-      'val': '$root.content.shows.items.1242928.items.1673742.items.1796073'
-    }
-  }
+// test('keys - sort - alphabetical', (t) => {
+//   const expected = [
+//     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
+//   ]
+//   const base = new Base({
+//     sort: 'sortKey',
+//     inject: toSetObject(expected.slice().reverse())
+//   })
+//   t.same(
+//     base.keys().map((key) => base[key].sortKey.compute()),
+//     expected,
+//     'sort in alphabetical order'
+//   )
+//   t.end()
+// })
+
+// test('keys - sort - references - property on referenced objects', (t) => {
+//   const expected = [ 1, 2, 3, 30, 55 ]
+//   const base = new Base({
+//     referenced: toSetObject(expected.slice().reverse()),
+//     references: {
+//       sort: 'sortKey',
+//       a: '$root.referenced.0',
+//       b: '$root.referenced.1',
+//       c: '$root.referenced.2',
+//       d: '$root.referenced.3',
+//       e: '$root.referenced.4'
+//     }
+//   })
+//   const references = base.references
+//   t.same(
+//     references.keys().map((key) => references[key].origin().sortKey.compute()),
+//     expected,
+//     'sort on property in referenced objects'
+//   )
+//   t.end()
+// })
+
+test('keys - sort - references - property on referencer itself', (t) => {
   const base = new Base({
-    items: { sort: 'publishedSort' }
+    referenced: toSetObject([ 10, 20, 30, 40, 50 ]),
+    references: {
+      sort: 'sortKey',
+      a: { val: '$root.referenced.4', sortKey: 5 },
+      b: { val: '$root.referenced.3', sortKey: 4 },
+      c: { val: '$root.referenced.2', sortKey: 3 }
+    }
   })
-  base.items.set(payload)
-  const keys = base.items.keys()
-  t.same(keys.map((val) => base.items[val].publishedSort.compute()), [ 0, 0, 1, 4, 5, 5, 6, 7, 9 ])
+  const references = base.references
+  references.set({
+    d: { val: '$root.referenced.1', sortKey: 2 },
+    e: { val: '$root.referenced.0', sortKey: 1 }
+  })
+
+  t.same(
+    references.keys().map((key) => references[key].sortKey.compute()),
+    [ 1, 2, 3, 4, 5 ],
+    'sort by key on the referencer {val: \'$root.ref\', sortKey: \'X\'}'
+  )
   t.end()
 })
+
+function toSetObject (array) {
+  return array.reduce((o, val, i) => {
+    o[i] = { sortKey: val }
+    return o
+  }, {})
+}
