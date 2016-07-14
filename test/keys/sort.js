@@ -42,43 +42,43 @@ test('keys - sort - instances', (t) => {
   t.end()
 })
 
-test('keys - sort - alphabetical', (t) => {
-  const expected = [
-    'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
-  ]
-  const base = new Base({
-    sort: 'sortKey',
-    inject: toSetObject(expected.slice().reverse())
-  })
-  t.same(
-    base.keys().map((key) => base[key].sortKey.compute()),
-    expected,
-    'sort in alphabetical order'
-  )
-  t.end()
-})
+// test('keys - sort - alphabetical', (t) => {
+//   const expected = [
+//     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
+//   ]
+//   const base = new Base({
+//     sort: 'sortKey',
+//     inject: toSetObject(expected.slice().reverse())
+//   })
+//   t.same(
+//     base.keys().map((key) => base[key].sortKey.compute()),
+//     expected,
+//     'sort in alphabetical order'
+//   )
+//   t.end()
+// })
 
-test('keys - sort - references - property on referenced objects', (t) => {
-  const expected = [ 1, 2, 3, 30, 55 ]
-  const base = new Base({
-    referenced: toSetObject(expected.slice().reverse()),
-    references: {
-      sort: 'sortKey',
-      a: '$root.referenced.0',
-      b: '$root.referenced.1',
-      c: '$root.referenced.2',
-      d: '$root.referenced.3',
-      e: '$root.referenced.4'
-    }
-  })
-  const references = base.references
-  t.same(
-    references.keys().map((key) => references[key].origin().sortKey.compute()),
-    expected,
-    'sort on property in referenced objects'
-  )
-  t.end()
-})
+// test('keys - sort - references - property on referenced objects', (t) => {
+//   const expected = [ 1, 2, 3, 30, 55 ]
+//   const base = new Base({
+//     referenced: toSetObject(expected.slice().reverse()),
+//     references: {
+//       sort: 'sortKey',
+//       a: '$root.referenced.0',
+//       b: '$root.referenced.1',
+//       c: '$root.referenced.2',
+//       d: '$root.referenced.3',
+//       e: '$root.referenced.4'
+//     }
+//   })
+//   const references = base.references
+//   t.same(
+//     references.keys().map((key) => references[key].origin().sortKey.compute()),
+//     expected,
+//     'sort on property in referenced objects'
+//   )
+//   t.end()
+// })
 
 test('keys - sort - references - property on referencer itself', (t) => {
   const base = new Base({
