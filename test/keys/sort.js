@@ -104,6 +104,27 @@ test('keys - sort - references - property on referencer itself', (t) => {
   t.end()
 })
 
+test('keys - sort - single sort index map', (t) => {
+  const base = new Base({
+    field: {
+      rick: 10
+    }
+  })
+
+  const base2 = new base.Constructor({
+    sort: 'rick'
+  })
+
+  t.same(base2.keys()[0], 'field', 'correct keys')
+
+  t.same(
+    base2._keys._,
+    [ 10 ],
+    'has correct keys order index map'
+  )
+  t.end()
+})
+
 function toSetObject (array) {
   return array.reduce((o, val, i) => {
     o[i] = { sortKey: val }
