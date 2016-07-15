@@ -94,11 +94,7 @@ test('keys - sort - references - property on referenced objects', (t) => {
   })
   const references = base.references
 
-  console.log(references)
-
   const result = references.keys().map((key) => references[key].origin().sortKey.compute())
-
-  console.log(result)
 
   t.same(
     result,
@@ -130,7 +126,6 @@ test('keys - sort - references - property on referencer itself', (t) => {
     'sort by key on the referencer {val: \'$root.ref\', sortKey: \'X\'}'
   )
   references.c.remove()
-  console.log(references.keys()._)
   t.same(references.keys()._, [ 1, 2, 4, 5 ], 'remove "references.c"')
   t.end()
 })
