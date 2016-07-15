@@ -58,27 +58,55 @@ test('keys - sort - instances', (t) => {
 //   t.end()
 // })
 
-// test('keys - sort - references - property on referenced objects', (t) => {
-//   const expected = [ 1, 2, 3, 30, 55 ]
-//   const base = new Base({
-//     referenced: toSetObject(expected.slice().reverse()),
-//     references: {
-//       sort: 'sortKey',
-//       a: '$root.referenced.0',
-//       b: '$root.referenced.1',
-//       c: '$root.referenced.2',
-//       d: '$root.referenced.3',
-//       e: '$root.referenced.4'
-//     }
-//   })
-//   const references = base.references
-//   t.same(
-//     references.keys().map((key) => references[key].origin().sortKey.compute()),
-//     expected,
-//     'sort on property in referenced objects'
-//   )
-//   t.end()
-// })
+test('keys - sort - single sort index map', (t) => {
+  const base = new Base({
+    field: {
+      rick: 10
+    }
+  })
+
+  const base2 = new base.Constructor({
+    sort: 'rick'
+  })
+
+  t.same(base2.keys()[0], 'field', 'correct keys')
+
+  t.same(
+    base2._keys._,
+    [ 10 ],
+    'has correct keys order index map'
+  )
+  t.end()
+})
+
+test('keys - sort - references - property on referenced objects', (t) => {
+  const expected = [ 1, 2, 3, 30, 55 ]
+  const base = new Base({
+    referenced: toSetObject(expected.slice().reverse()),
+    references: {
+      sort: 'sortKey',
+      a: '$root.referenced.0',
+      b: '$root.referenced.1',
+      d: '$root.referenced.3',
+      c: '$root.referenced.2',
+      e: '$root.referenced.4'
+    }
+  })
+  const references = base.references
+
+  console.log(references)
+
+  const result = references.keys().map((key) => references[key].origin().sortKey.compute())
+
+  console.log(result)
+
+  t.same(
+    result,
+    expected,
+    'sort on property in referenced objects'
+  )
+  t.end()
+})
 
 test('keys - sort - references - property on referencer itself', (t) => {
   const base = new Base({
@@ -101,27 +129,9 @@ test('keys - sort - references - property on referencer itself', (t) => {
     [ 1, 2, 3, 4, 5 ],
     'sort by key on the referencer {val: \'$root.ref\', sortKey: \'X\'}'
   )
-  t.end()
-})
-
-test('keys - sort - single sort index map', (t) => {
-  const base = new Base({
-    field: {
-      rick: 10
-    }
-  })
-
-  const base2 = new base.Constructor({
-    sort: 'rick'
-  })
-
-  t.same(base2.keys()[0], 'field', 'correct keys')
-
-  t.same(
-    base2._keys._,
-    [ 10 ],
-    'has correct keys order index map'
-  )
+  references.c.remove()
+  console.log(references.keys()._)
+  t.same(references.keys()._, [ 1, 2, 4, 5 ], 'remove "references.c"')
   t.end()
 })
 
@@ -131,3 +141,5 @@ function toSetObject (array) {
     return o
   }, {})
 }
+
+// combined test with filters
