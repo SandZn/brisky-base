@@ -42,22 +42,6 @@ test('keys - sort - instances', (t) => {
   t.end()
 })
 
-// test('keys - sort - alphabetical', (t) => {
-//   const expected = [
-//     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
-//   ]
-//   const base = new Base({
-//     sort: 'sortKey',
-//     inject: toSetObject(expected.slice().reverse())
-//   })
-//   t.same(
-//     base.keys().map((key) => base[key].sortKey.compute()),
-//     expected,
-//     'sort in alphabetical order'
-//   )
-//   t.end()
-// })
-
 test('keys - sort - single sort index map', (t) => {
   const base = new Base({
     field: {
@@ -129,6 +113,47 @@ test('keys - sort - references - property on referencer itself', (t) => {
   t.same(references.keys()._, [ 1, 2, 4, 5 ], 'remove "references.c"')
   t.end()
 })
+
+test('keys - sort - sort with a filter', (t) => {
+  const base = new Base({
+    black: {},
+    define: {
+      filter (key) {
+        if (
+          key !== 'black'
+        ) {
+          return true
+        }
+      }
+    }
+  })
+  const base2 = new base.Constructor({
+    field: { rick: 10 },
+    field2: { rick: 5 },
+    sort: 'rick'
+  })
+  t.same(base2.keys(), [ 'field2', 'field' ], 'correct keys')
+  base2.set({ bla: { rick: -1 } })
+  t.same(base2.keys(), [ 'bla', 'field2', 'field' ], 'correct keys')
+  t.end()
+})
+
+// test('keys - sort - alphabetical', (t) => {
+//   const expected = [
+//     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
+//   ]
+//   const base = new Base({
+//     sort: 'sortKey',
+//     inject: toSetObject(expected.slice().reverse())
+//   })
+
+//   t.same(
+//     base.keys().map((key) => base[key].sortKey.compute()),
+//     expected,
+//     'sort in alphabetical order'
+//   )
+//   t.end()
+// })
 
 function toSetObject (array) {
   return array.reduce((o, val, i) => {
