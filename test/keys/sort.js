@@ -134,10 +134,16 @@ test('keys - sort - sort with a filter', (t) => {
   })
   t.same(base2.keys(), [ 'field2', 'field' ], 'correct keys')
   base2.set({ bla: { rick: -1 } })
-  t.same(base2.keys(), [ 'bla', 'field2', 'field' ], 'correct keys')
+  t.same(base2.keys(), [ 'bla', 'field2', 'field' ], 'add field, correct result')
   t.end()
 })
 
+function toSetObject (array) {
+  return array.reduce((o, val, i) => {
+    o[i] = { sortKey: val }
+    return o
+  }, {})
+}
 // test('keys - sort - alphabetical', (t) => {
 //   const expected = [
 //     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
@@ -154,12 +160,5 @@ test('keys - sort - sort with a filter', (t) => {
 //   )
 //   t.end()
 // })
-
-function toSetObject (array) {
-  return array.reduce((o, val, i) => {
-    o[i] = { sortKey: val }
-    return o
-  }, {})
-}
 
 // combined test with filters
