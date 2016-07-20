@@ -1,6 +1,7 @@
 'use strict'
 const test = require('tape')
 const Base = require('../../../')
+const resort = require('../../../lib/keys/sort')
 
 test('keys - sort - filter', (t) => {
   const base = new Base({
@@ -37,22 +38,11 @@ test('keys - sort - filter', (t) => {
   t.same(base2.keys(), [ 'bla', 'field2', 'else', 'something', 'field', 'blurfx' ], 'remove "gurken" field')
   base2.blurfx.remove()
   t.same(base2.keys(), [ 'bla', 'field2', 'else', 'something', 'field' ], 'remove last field')
-  t.end()
-})
-
-test('keys - sort - filter - resort', (t) => {
-  // const base = new Base({
-  //   black: {},
-  //   define: {
-  //     filter (key) {
-  //       return key !== 'black' && key !== 'white' && key !== 'gurk' && key !== 'blurf'
-  //     }
-  //   }
-  // })
-  // const base2 = new base.Constructor({
-  //   field: { rick: 10 },
-  //   field2: { rick: 5 },
-  //   sort: 'rick'
-  // })
+  base2.blurf.rick.set(10000)
+  base2.field2.rick.set(-10000)
+  base2.black.set({ rick: 200 })
+  delete base2._keys._ // not good...
+  resort(base2, base2._keys, 'rick')
+  t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'remove last field')
   t.end()
 })
