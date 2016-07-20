@@ -1,8 +1,8 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const Base = require('../../../')
 
-test('keys - sort - instances', (t) => {
+test('keys - sort - basic - instances', (t) => {
   const base = new Base({
     sort: 'val',
     d: { val: 4, field: 2 },
@@ -42,7 +42,7 @@ test('keys - sort - instances', (t) => {
   t.end()
 })
 
-test('keys - sort - single sort index map', (t) => {
+test('keys - sort - basic - single sort index map', (t) => {
   const base = new Base({
     field: {
       rick: 10
@@ -63,7 +63,7 @@ test('keys - sort - single sort index map', (t) => {
   t.end()
 })
 
-test('keys - sort - references - property on referenced objects', (t) => {
+test('keys - sort - basic - references - property on referenced objects', (t) => {
   const expected = [ 1, 2, 3, 30, 55 ]
   const base = new Base({
     referenced: toSetObject(expected.slice().reverse()),
@@ -88,7 +88,7 @@ test('keys - sort - references - property on referenced objects', (t) => {
   t.end()
 })
 
-test('keys - sort - references - property on referencer itself', (t) => {
+test('keys - sort - basic - references - property on referencer itself', (t) => {
   const base = new Base({
     referenced: toSetObject([ 10, 20, 30, 40, 50 ]),
     references: {
@@ -111,30 +111,6 @@ test('keys - sort - references - property on referencer itself', (t) => {
   )
   references.c.remove()
   t.same(references.keys()._, [ 1, 2, 4, 5 ], 'remove "references.c"')
-  t.end()
-})
-
-test('keys - sort - sort with a filter', (t) => {
-  const base = new Base({
-    black: {},
-    define: {
-      filter (key) {
-        if (
-          key !== 'black'
-        ) {
-          return true
-        }
-      }
-    }
-  })
-  const base2 = new base.Constructor({
-    field: { rick: 10 },
-    field2: { rick: 5 },
-    sort: 'rick'
-  })
-  t.same(base2.keys(), [ 'field2', 'field' ], 'correct keys')
-  base2.set({ bla: { rick: -1 } })
-  t.same(base2.keys(), [ 'bla', 'field2', 'field' ], 'add field, correct result')
   t.end()
 })
 

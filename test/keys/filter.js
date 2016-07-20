@@ -105,3 +105,17 @@ test('keys - filters - null undefined key on instance', function (t) {
   t.equal(b.keys('thing') !== a.keys('thing'), true, 'copied filters')
   t.end()
 })
+
+test('keys - filters - custom filter', function (t) {
+  const a = new Base({
+    a: true,
+    define: {
+      filter (key) {
+        return !(/blurf/.test(key))
+      }
+    }
+  })
+  a.set({ blurf: true })
+  t.same(a.keys(), [ 'a' ], 'excludes blacklisted items')
+  t.end()
+})
