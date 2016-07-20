@@ -39,3 +39,20 @@ test('keys - sort - filter', (t) => {
   t.same(base2.keys(), [ 'bla', 'field2', 'else', 'something', 'field' ], 'remove last field')
   t.end()
 })
+
+test('keys - sort - filter - resort', (t) => {
+  // const base = new Base({
+  //   black: {},
+  //   define: {
+  //     filter (key) {
+  //       return key !== 'black' && key !== 'white' && key !== 'gurk' && key !== 'blurf'
+  //     }
+  //   }
+  // })
+  // const base2 = new base.Constructor({
+  //   field: { rick: 10 },
+  //   field2: { rick: 5 },
+  //   sort: 'rick'
+  // })
+  t.end()
+})
