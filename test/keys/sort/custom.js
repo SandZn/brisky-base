@@ -7,16 +7,18 @@ const Base = require('../../../')
 test('keys - sort - custom', (t) => {
   const base = new Base({
     sort: {
-      val: 'name',
+      val: 'nr',
       method (a, b) {
-        console.log(a, b)
+        return b > a ? 1 : -1
       }
     },
-    a: { name: 'A' },
-    b: { name: 'b' },
-    z: { name: 'z' }
+    a: { nr: 10 },
+    b: { nr: 50 },
+    z: { nr: 100 }
   })
-  console.log(base.keys())
+  const result = [ 'z', 'b', 'a' ]
+  result._ = [ 100, 50, 10 ]
+  t.same(base.keys(), result, 'inverse sort')
   t.end()
 })
 
