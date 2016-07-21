@@ -42,14 +42,16 @@ test('keys - sort - filter', (t) => {
   base2.blurf.rick.set(10000)
   base2.field2.rick.set(-10000)
   base2.black.set({ rick: 200 })
-  delete base2._keys._ // not good...
-  resort(base2, base2._keys, 'rick')
+  base2._keys._ = [] // not good...
+  resort(base2, base2._keys, 'rick') // maybe make a resort option by default? 'true' that does the delete?
   t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'remove last field')
   base2.field2.rick.set(10000)
   update(base2.field2, 'rick')
+  t.equal(base2._keys[0], 'white', 'update "field2" "_keys[0]" equals "white"')
+  t.same(base2.keys(), [ 'bla', 'else', 'something', 'field', 'field2' ], 'update "field2"')
   t.end()
 })
 
 // test('keys - sort - filter - multiple', (t) => {
-
 // })
+// add option to pass order? to update
