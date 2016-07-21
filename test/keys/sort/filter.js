@@ -46,7 +46,7 @@ test('keys - sort - filter', (t) => {
   resort(base2, base2._keys, 'rick')
   t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'remove last field')
   base2.field2.rick.set(10000)
-  update(base2, base2._keys, 'field2', 'rick')
+  update(base2.field2, 'rick')
   t.end()
 })
 
