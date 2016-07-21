@@ -1,7 +1,7 @@
 'use strict'
 const test = require('tape')
 const Base = require('../../../')
-const resort = require('../../../lib/keys/sort')
+const sort = require('../../../lib/keys/sort')
 const update = require('../../../lib/keys/sort/update')
 
 test('keys - sort - filter', (t) => {
@@ -42,8 +42,7 @@ test('keys - sort - filter', (t) => {
   base2.blurf.rick.set(10000)
   base2.field2.rick.set(-10000)
   base2.black.set({ rick: 200 })
-  base2._keys._ = [] // not good...
-  resort(base2, base2._keys, 'rick') // maybe make a resort option by default? 'true' that does the delete?
+  sort(base2, base2._keys, 'rick') // maybe make a resort option by default? 'true' that does the delete?
   t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'remove last field')
   base2.field2.rick.set(10000)
   update(base2.field2, 'rick')
