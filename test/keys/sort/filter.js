@@ -2,6 +2,7 @@
 const test = require('tape')
 const Base = require('../../../')
 const resort = require('../../../lib/keys/sort')
+const update = require('../../../lib/keys/sort/update')
 
 test('keys - sort - filter', (t) => {
   const base = new Base({
@@ -44,5 +45,11 @@ test('keys - sort - filter', (t) => {
   delete base2._keys._ // not good...
   resort(base2, base2._keys, 'rick')
   t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'remove last field')
+  base2.field2.rick.set(10000)
+  update(base2, base2._keys, 'field2', 'rick')
   t.end()
 })
+
+// test('keys - sort - filter - multiple', (t) => {
+
+// })

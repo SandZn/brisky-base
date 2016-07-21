@@ -34,9 +34,7 @@ function removeKeys () {
     b.set({ [i]: 1 })
   }
   for (let i = 0; i < amount; i++) {
-    // b[i].remove(false, true, true)
     b[i].remove()
-    // b.keys()
   }
 }
 
