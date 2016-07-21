@@ -42,7 +42,7 @@ test('keys - sort - filter', (t) => {
   base2.blurf.rick.set(10000)
   base2.field2.rick.set(-10000)
   base2.black.set({ rick: 200 })
-  sort(base2, base2._keys, 'rick') // maybe make a resort option by default? 'true' that does the delete?
+  sort(base2, base2._keys, 'rick')
   t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'remove last field')
   base2.field2.rick.set(10000)
   update(base2.field2, 'rick')
@@ -63,7 +63,8 @@ test('keys - sort - filter', (t) => {
 test('keys - sort - filter - instances', (t) => {
   const base = new Base({
     rick: {
-      position: 1
+      position: 1,
+      keyType: 'viber'
     },
     escape_something: {
       position: 1
@@ -93,5 +94,18 @@ test('keys - sort - filter - instances', (t) => {
   base.set({ sort: 'key' })
   t.same(base.keys(), [ 'rick', 'youzi' ], 'change sort field')
   t.same(base2.keys(), [ 'james', 'rick', 'youzi' ], 'change sort field, updates instances')
+  const base3 = new base2.Constructor()
+  t.same(base3.keys('viber'), [ 'rick' ], 'keyType filter')
+  // adding keyType messes thigns up..
+  console.log(' \n ADD JAN')
+  base3.set({ jan: { position: -2, keyType: 'viber' } })
+  console.log(base3.keys())
+  t.same(base3.keys(), [ 'james', 'jan', 'rick', 'youzi' ], 'added field to "keyType" filter')
+  console.log(base3.keys('viber'))
+  t.same(base3.keys('viber'), [ 'jan', 'rick' ], 'keyType filter')
+  base.set({ sort: 'position' })
+  console.log(base.keys())
+  console.log(base2.keys())
+  console.log(base3.keys())
   t.end()
 })
