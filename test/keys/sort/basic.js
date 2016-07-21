@@ -120,21 +120,3 @@ function toSetObject (array) {
     return o
   }, {})
 }
-// test('keys - sort - alphabetical', (t) => {
-//   const expected = [
-//     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
-//   ]
-//   const base = new Base({
-//     sort: 'sortKey',
-//     inject: toSetObject(expected.slice().reverse())
-//   })
-
-//   t.same(
-//     base.keys().map((key) => base[key].sortKey.compute()),
-//     expected,
-//     'sort in alphabetical order'
-//   )
-//   t.end()
-// })
-
-// combined test with filters
