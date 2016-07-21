@@ -61,6 +61,6 @@ test('keys - sort - filter', (t) => {
   t.end()
 })
 
-// test('keys - sort - filter - multiple', (t) => {
-// })
-// add option to pass order? to update
+test('keys - sort - filter - instances', (t) => {
+  t.end()
+})
