@@ -62,5 +62,28 @@ test('keys - sort - filter', (t) => {
 })
 
 test('keys - sort - filter - instances', (t) => {
+  const base = new Base({
+    rick: {
+      position: 1
+    },
+    escape_something: {
+      position: 1
+    },
+    sort: 'position',
+    define: {
+      filter: (key) => !/^escape_/.test(key)
+    }
+  })
+  const base2 = new base.Constructor({
+    james: {
+      position: 2
+    }
+  })
+  t.same(base2.keys(), [ 'rick', 'james' ], 'initial')
+  base.set({ youzi: { position: -1 } })
+  t.same(base2.keys(), [ 'youzi', 'rick', 'james' ], 'add field to class')
+  base.rick.position.set(4)
+  update(base.rick, 'position')
+  t.same(base2.keys(), [ 'youzi', 'james', 'rick' ], 'update position of field on class')
   t.end()
 })
