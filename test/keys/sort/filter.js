@@ -103,5 +103,8 @@ test('keys - sort - filter - instances', (t) => {
   t.same(base.keys(), [ 'youzi', 'rick' ], '"base" correct keys')
   t.same(base2.keys(), [ 'youzi', 'james', 'rick' ], '"base2" change sort correct keyType filter')
   t.same(base3.keys(), [ 'youzi', 'james', 'rick', 'jan' ], '"base3" change sort correct keyType filter')
+  base.rick.position.set(2)
+  update(base.rick, 'position')
+  t.same(base3.keys(), [ 'youzi', 'rick', 'james', 'jan' ], '"base3" update "rick"')
   t.end()
 })
