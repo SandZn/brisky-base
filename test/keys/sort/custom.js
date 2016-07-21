@@ -8,9 +8,7 @@ test('keys - sort - custom', (t) => {
   const base = new Base({
     sort: {
       val: 'nr',
-      method (a, b) {
-        return b > a ? 1 : -1
-      }
+      exec: (a, b) => b > a ? 1 : -1
     },
     a: { nr: 10 },
     b: { nr: 50 },
