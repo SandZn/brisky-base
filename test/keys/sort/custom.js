@@ -42,12 +42,25 @@ test('keys - sort - alphabetical', (t) => {
   expected.splice(5, 1)
   expected.push('e1.1')
   expected.sort(natural.caseInsensitive)
-  console.log(expected)
-  console.log(base.keys().map((key) => base[key].compute()), base.keys())
   t.same(
     base.keys().map((key) => base[key].compute()),
     expected,
     'update X'
+  )
+  base.set({ 'mimic': 'e1.1' })
+  expected.push('e1.1')
+  expected.sort(natural.caseInsensitive)
+  t.same(
+    base.keys().map((key) => base[key].compute()),
+    expected,
+    'add "mimic" field'
+  )
+  base.mimic.set('A')
+  update(base.mimic, 'val')
+  t.same(
+    base.keys().map((key) => base[key].compute()),
+    [ 'A', 'A', 'a', 'a1', 'a2', 'a10', 'e1.1', 'X10', 'Z', 'z' ],
+    'update "mimic" to same "A"'
   )
   t.end()
 })
