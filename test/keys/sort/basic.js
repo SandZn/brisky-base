@@ -66,7 +66,7 @@ test('keys - sort - basic - single sort index map', (t) => {
 test('keys - sort - basic - references - property on referenced objects', (t) => {
   const expected = [ 1, 2, 3, 30, 55 ]
   const base = new Base({
-    referenced: toSetObject(expected.slice().reverse()),
+    referenced: (expected.map((val) => { return { sortKey: val } })).reverse(),
     references: {
       sort: 'sortKey',
       a: '$root.referenced.0',
@@ -90,7 +90,7 @@ test('keys - sort - basic - references - property on referenced objects', (t) =>
 
 test('keys - sort - basic - references - property on referencer itself', (t) => {
   const base = new Base({
-    referenced: toSetObject([ 10, 20, 30, 40, 50 ]),
+    referenced: [ 10, 20, 30, 40, 50 ].map((val) => { return { sortKey: val } }),
     references: {
       sort: 'sortKey',
       a: { val: '$root.referenced.4', sortKey: 5 },
@@ -103,7 +103,6 @@ test('keys - sort - basic - references - property on referencer itself', (t) => 
     d: { val: '$root.referenced.1', sortKey: 2 },
     e: { val: '$root.referenced.0', sortKey: 1 }
   })
-
   t.same(
     references.keys().map((key) => references[key].sortKey.compute()),
     [ 1, 2, 3, 4, 5 ],
@@ -113,10 +112,3 @@ test('keys - sort - basic - references - property on referencer itself', (t) => 
   t.same(references.keys()._, [ 1, 2, 4, 5 ], 'remove "references.c"')
   t.end()
 })
-
-function toSetObject (array) {
-  return array.reduce((o, val, i) => {
-    o[i] = { sortKey: val }
-    return o
-  }, {})
-}

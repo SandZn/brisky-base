@@ -1,6 +1,7 @@
 'use strict'
 const test = require('tape')
 const Base = require('../../../')
+// const stringNatural = require('string-natural-compare')
 // const sort = require('../../../lib/keys/sort')
 // const update = require('../../../lib/keys/sort/update')
 
@@ -20,26 +21,18 @@ test('keys - sort - custom', (t) => {
   t.end()
 })
 
-// test('keys - sort - alphabetical', (t) => {
-//   const expected = [
-//     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
-//   ]
-//   const base = new Base({
-//     sort: 'sortKey',
-//     inject: toSetObject(expected.slice().reverse())
-//   })
+test('keys - sort - alphabetical', (t) => {
+  const expected = [
+    'X', 'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z'
+  ]
+  const base = new Base(expected.map((val) => { return { sortKey: val } }))
+  console.log(base.keys())
+  console.log(base.keys().map((key) => base[key].sortKey.compute()))
 
-//   t.same(
-//     base.keys().map((key) => base[key].sortKey.compute()),
-//     expected,
-//     'sort in alphabetical order'
-//   )
-//   t.end()
-// })
-
-// function toSetObject (array) {
-//   return array.reduce((o, val, i) => {
-//     o[i] = { sortKey: val }
-//     return o
-//   }, {})
-// }
+  t.same(
+    base.keys().map((key) => base[key].sortKey.compute()),
+    expected,
+    'sort in alphabetical order'
+  )
+  t.end()
+})
