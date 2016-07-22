@@ -1,7 +1,7 @@
 'use strict'
 const test = require('tape')
 const Base = require('../../../')
-// const stringNatural = require('string-natural-compare')
+const natural = require('string-natural-compare')
 // const sort = require('../../../lib/keys/sort')
 // const update = require('../../../lib/keys/sort/update')
 
@@ -23,16 +23,20 @@ test('keys - sort - custom', (t) => {
 
 test('keys - sort - alphabetical', (t) => {
   const expected = [
-    'X', 'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z'
+    'A', 'X', 'a', 'X10', 'a10', 'a2', 'a1', 'Z', 'z'
   ]
-  const base = new Base(expected.map((val) => { return { sortKey: val } }))
-  console.log(base.keys())
-  console.log(base.keys().map((key) => base[key].sortKey.compute()))
-
+  const base = new Base()
+  base.set(expected)
+  base.set({
+    sort: {
+      val: 'val',
+      exec: natural.caseInsensitive
+    }
+  })
   t.same(
-    base.keys().map((key) => base[key].sortKey.compute()),
-    expected,
-    'sort in alphabetical order'
+    base.keys().map((key) => base[key].compute()),
+    expected.sort(natural.caseInsensitive),
+    'sort in using external compare'
   )
   t.end()
 })
