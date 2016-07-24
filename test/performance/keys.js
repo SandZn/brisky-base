@@ -140,6 +140,30 @@ function orderedManyEscaped () {
   }
 }
 
-test(orderedKeysRandom, setKeysRandom, 2.5)
-test(orderedKeysRandomFilter, orderedKeysRandom, 1.5)
-test(orderedManyEscaped, orderedKeysRandomFilter, 1.25)
+// test(orderedKeysRandom, setKeysRandom, 2.5)
+// test(orderedKeysRandomFilter, orderedKeysRandom, 1.5)
+// test(orderedManyEscaped, orderedKeysRandomFilter, 1.25)
+
+
+const base = new Base({
+  sort: 'order'
+})
+base.keys()
+for (let i = 0; i < amount; i++) {
+  base.set({
+    [i]: {
+      order: ~~(Math.random() * amount)
+    }
+  })
+}
+const update = require('../../lib/keys/sort/update')
+// module.exports = function update (target, field, keys, parent) {
+
+function updateSort () {
+  for (let i = 0; i < amount; i++) {
+    base[i].order.set(~~(Math.random() * amount))
+    update(base[i], 'order')
+  }
+}
+
+test(updateSort, setKeysRandom, 2.5)
