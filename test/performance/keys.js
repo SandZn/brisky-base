@@ -1,7 +1,7 @@
 'use strict'
 const Base = require('../../')
 const test = require('vigour-performance')
-var amount = 10
+var amount = 3e3
 
 // function createBase () {
 //   for (let i = 0; i < amount; i++) {
@@ -74,7 +74,7 @@ function setKeysRandom () {
   const b = new a.Constructor({ key: 'ITS B' })
   b.keys()
   for (let i = 0; i < amount; i++) {
-    b.set({ [i % 2 ? i + 'e' : i]: ~~(Math.random() * amount) })
+    b.set({ [i % 5 ? i + 'e' : i]: ~~(Math.random() * amount) })
   }
 }
 
@@ -85,7 +85,7 @@ function orderedKeysRandom () {
   b.keys()
   for (let i = 0; i < amount; i++) {
     b.set({
-      [i % 2 ? i + 'e' : i]: {
+      [i % 5 ? i + 'e' : i]: {
         order: ~~(Math.random() * amount)
       }
     })
@@ -109,7 +109,7 @@ function orderedKeysRandomFilter () {
   b.keys()
   for (let i = 0; i < amount; i++) {
     b.set({
-      [i % 2 ? i + 'e' : i]: {
+      [i % 5 ? i + 'e' : i]: {
         order: ~~(Math.random() * amount)
       }
     })
@@ -122,9 +122,7 @@ function orderedManyEscaped () {
     e_bla: { order: 2e3 },
     define: {
       filter (key) {
-        if (this[key]) {
-          return /e/.test(key)
-        }
+        return /e/.test(key)
       }
     },
     '1e': { order: 20 },
@@ -142,6 +140,6 @@ function orderedManyEscaped () {
   }
 }
 
-test(orderedKeysRandom, setKeysRandom, 2)
-test(orderedKeysRandomFilter, orderedKeysRandom, 1)
-test(orderedManyEscaped, orderedKeysRandomFilter, 1)
+test(orderedKeysRandom, setKeysRandom, 2.5)
+test(orderedKeysRandomFilter, orderedKeysRandom, 1.5)
+test(orderedManyEscaped, orderedKeysRandomFilter, 1.25)
