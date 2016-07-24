@@ -1,7 +1,7 @@
 'use strict'
 const Base = require('../../')
 const test = require('vigour-performance')
-var amount = 3e3
+var amount = 10
 
 // function createBase () {
 //   for (let i = 0; i < amount; i++) {
@@ -122,7 +122,9 @@ function orderedManyEscaped () {
     e_bla: { order: 2e3 },
     define: {
       filter (key) {
-        return /e/.test(key)
+        if (this[key]) {
+          return /e/.test(key)
+        }
       }
     },
     '1e': { order: 20 },
@@ -133,7 +135,7 @@ function orderedManyEscaped () {
   b.keys()
   for (let i = 0; i < amount; i++) {
     b.set({
-      [i % 2 ? i + 'e' : i]: {
+      [i % 5 ? i + 'e' : i]: {
         order: ~~(Math.random() * amount)
       }
     })
@@ -141,5 +143,5 @@ function orderedManyEscaped () {
 }
 
 test(orderedKeysRandom, setKeysRandom, 2)
-// test(orderedKeysRandomFilter, orderedKeysRandom, 1, 1e2)
-// test(orderedManyEscaped, orderedKeysRandomFilter, 1, 1e2)
+test(orderedKeysRandomFilter, orderedKeysRandom, 1)
+test(orderedManyEscaped, orderedKeysRandomFilter, 1)
