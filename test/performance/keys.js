@@ -69,29 +69,28 @@ var amount = 3e3
 
 // // test(orderedKeysWorst, setKeys, 7.5)
 
-// function setKeysRandom () {
-//   const a = new Base({ a: 100, b: 100 })
-//   const b = new a.Constructor({ key: 'ITS B' })
-//   for (let i = 0; i < amount; i++) {
-//     b.set({ [i]: ~~(Math.random() * amount) })
-//   }
-// }
+function setKeysRandom () {
+  const a = new Base({ a: 100, b: 100 })
+  const b = new a.Constructor({ key: 'ITS B' })
+  b.keys()
+  for (let i = 0; i < amount; i++) {
+    b.set({ [i % 2 ? i + 'e' : i]: ~~(Math.random() * amount) })
+  }
+}
 
-// function orderedKeysRandom () {
-//   const b = new Base({
-//     sort: 'order'
-//   })
-//   b.keys()
-//   for (let i = 0; i < amount; i++) {
-//     b.set({
-//       [i % 5 + i]: {
-//         order: ~~(Math.random() * amount)
-//       }
-//     })
-//   }
-// }
-
-// test(orderedKeysRandom, setKeysRandom, 2)
+function orderedKeysRandom () {
+  const b = new Base({
+    sort: 'order'
+  })
+  b.keys()
+  for (let i = 0; i < amount; i++) {
+    b.set({
+      [i % 2 ? i + 'e' : i]: {
+        order: ~~(Math.random() * amount)
+      }
+    })
+  }
+}
 
 function orderedKeysRandomFilter () {
   const b = new Base({
@@ -110,7 +109,7 @@ function orderedKeysRandomFilter () {
   b.keys()
   for (let i = 0; i < amount; i++) {
     b.set({
-      [i % 5 + i]: {
+      [i % 2 ? i + 'e' : i]: {
         order: ~~(Math.random() * amount)
       }
     })
@@ -120,27 +119,27 @@ function orderedKeysRandomFilter () {
 function orderedManyEscaped () {
   const b = new Base({
     sort: 'order',
-    escape_bla: { order: 2e3 },
+    e_bla: { order: 2e3 },
     define: {
       filter (key) {
-        return /escape/.test(key)
+        return /e/.test(key)
       }
     },
-    '1escape': { order: 20 },
-    '200escape': { order: 1e3 },
-    '30escape': { order: 30 },
-    _escape: { order: 5e2 }
+    '1e': { order: 20 },
+    '200e': { order: 1e3 },
+    '30e': { order: 30 },
+    _e: { order: 5e2 }
   })
   b.keys()
   for (let i = 0; i < amount; i++) {
-    let x = i % 2 ? i : 'escape_' + i
     b.set({
-      [x]: {
+      [i % 2 ? i + 'e' : i]: {
         order: ~~(Math.random() * amount)
       }
     })
   }
 }
 
-// test(orderedKeysRandomFilter, orderedKeysRandom, 1)
-test(orderedManyEscaped, orderedKeysRandomFilter, 1)
+test(orderedKeysRandom, setKeysRandom, 2)
+// test(orderedKeysRandomFilter, orderedKeysRandom, 1, 1e2)
+// test(orderedManyEscaped, orderedKeysRandomFilter, 1, 1e2)
