@@ -112,7 +112,7 @@ test('keys - sort - filter - instances', (t) => {
   t.end()
 })
 
-test('keys - sort - filter - mirror', (t) => {
+test('keys - sort - filter - edge cases', (t) => {
   const base = new Base({
     sort: 'key',
     d: {},
@@ -126,6 +126,10 @@ test('keys - sort - filter - mirror', (t) => {
     b: {},
     c: {}
   })
-  t.same(base.keys(), base._keys._)
+  t.same(base.keys(), base._keys._, 'equals order cache')
+  base.set({ x: { keyType: 'x' } })
+  t.same(base.keys('x'), [ 'x' ], 'correct keyType')
+  base.set({ xx: { keyType: 'x' } })
+  t.same(base.keys('x'), [ 'x', 'xx' ], 'correct keyType after add')
   t.end()
 })
