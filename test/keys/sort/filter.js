@@ -108,8 +108,6 @@ test('keys - sort - filter - instances', (t) => {
   t.same(base3.keys(), [ 'youzi', 'rick', 'james', 'jan' ], '"base3" update "rick"')
   base.rick.position.set(5)
   update(base.rick, 'position')
-  t.same(base3.keys(), [ 'youzi', 'james', 'jan', 'rick' ], '"base3" update "rick" (move to end)')
+  t.same(base3.keys(), [ 'youzi', 'james', 'rick', 'jan' ], '"base3" update "rick" (move to end)')
   t.end()
 })
-
-

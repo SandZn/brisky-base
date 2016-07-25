@@ -1,7 +1,6 @@
 'use strict'
 const test = require('tape')
 const Base = require('../../../')
-const sort = require('../../../lib/keys/sort')
 const update = require('../../../lib/keys/sort/update')
 
 test('keys - sort - basic - instances', (t) => {
@@ -116,9 +115,20 @@ test('keys - sort - basic - references - property on referencer itself', (t) => 
 })
 
 test('keys - sort - update', (t) => {
-  const updates = [
-    15, 18, 16
-  ]
+  testUpdate([ 15, 18, 16 ], t)
+  testUpdate([ 0, 3, 4, 4, 4, 5 ], t)
+  testUpdate([ 2, 4, 17, 10, 12, 4, 15, 14, 6 ], t)
+  testUpdate([ 2, 10, 1, 12, 5, 4, 8, 18, 6, 2, 10 ], t)
+  testUpdate([ 1, 17, 7, 12, 1, 17, 2, 15, 4 ], t)
+  testUpdate([ 7, 9, 14, 13, 2, 0, 1, 3, 8 ], t)
+  testUpdate([ 2, 10, 1, 12, 5, 4, 8, 18, 6, 2, 10 ], t)
+  testUpdate([ 1, 17, 7, 12, 1, 17, 2, 15, 4 ], t)
+  testUpdate([ 9, 15, 15, 13, 2, 18 ], t)
+  testUpdate([ 1, 19, 10, 11, 4, 9, 0, 12 ], t)
+  t.end()
+})
+
+function testUpdate (updates, t) {
   const arr = []
   for (let i = 0; i < updates.length; i++) {
     arr.push(i)
@@ -130,8 +140,6 @@ test('keys - sort - update', (t) => {
     update(base[i], 'val')
   }
   updates.sort((a, b) => a < b ? -1 : b < a ? 1 : 0)
-  t.same(base._keys._, updates, 'correct order after updates')
-  sort(base, base._keys, 'val')
-  t.same(base._keys._, updates, 'correct order after re-sort')
-  t.end()
-})
+  t.same(base._keys._, updates, 'correct order after updates [ ' + updates.join(', ') + ' ]')
+}
+

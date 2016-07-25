@@ -1,7 +1,7 @@
 'use strict'
 const Base = require('../../')
 const test = require('vigour-performance')
-var amount = 20
+var amount = 3e3
 
 // function createBase () {
 //   for (let i = 0; i < amount; i++) {
@@ -191,7 +191,6 @@ function updateSort () {
 function updateSortFilter () {
   for (let i = 0; i < amount; i++) {
     baseFilter[i].order.set(~~(Math.random() * amount))
-    // pretty heavy way of doing things, does amount x sets and needs to find index amount x
     update(baseFilter[i], 'order')
   }
 }
