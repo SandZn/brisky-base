@@ -1,7 +1,7 @@
 'use strict'
 const Base = require('../../')
 const test = require('vigour-performance')
-var amount = 3e3
+var amount = 20
 
 // function createBase () {
 //   for (let i = 0; i < amount; i++) {

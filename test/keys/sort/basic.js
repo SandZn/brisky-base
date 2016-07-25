@@ -1,6 +1,8 @@
 'use strict'
 const test = require('tape')
 const Base = require('../../../')
+const sort = require('../../../lib/keys/sort')
+const update = require('../../../lib/keys/sort/update')
 
 test('keys - sort - basic - instances', (t) => {
   const base = new Base({
@@ -110,5 +112,26 @@ test('keys - sort - basic - references - property on referencer itself', (t) => 
   )
   references.c.remove()
   t.same(references.keys()._, [ 1, 2, 4, 5 ], 'remove "references.c"')
+  t.end()
+})
+
+test('keys - sort - update', (t) => {
+  const updates = [
+    15, 18, 16
+  ]
+  const arr = []
+  for (let i = 0; i < updates.length; i++) {
+    arr.push(i)
+  }
+  const base = new Base({ sort: 'val' })
+  base.set(arr)
+  for (var i in updates) {
+    base[i].set(updates[i])
+    update(base[i], 'val')
+  }
+  updates.sort((a, b) => a < b ? -1 : b < a ? 1 : 0)
+  t.same(base._keys._, updates, 'correct order after updates')
+  sort(base, base._keys, 'val')
+  t.same(base._keys._, updates, 'correct order after re-sort')
   t.end()
 })
