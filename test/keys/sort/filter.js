@@ -111,3 +111,21 @@ test('keys - sort - filter - instances', (t) => {
   t.same(base3.keys(), [ 'youzi', 'james', 'rick', 'jan' ], '"base3" update "rick" (move to end)')
   t.end()
 })
+
+test('keys - sort - filter - mirror', (t) => {
+  const base = new Base({
+    sort: 'key',
+    d: {},
+    define: {
+      filter: (key) => true
+    }
+  })
+  t.same(base.keys(), [ 'd' ], 'empty on init')
+  base.set({
+    a: {},
+    b: {},
+    c: {}
+  })
+  t.same(base.keys(), base._keys._)
+  t.end()
+})
