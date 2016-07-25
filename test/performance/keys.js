@@ -144,11 +144,31 @@ function orderedManyEscaped () {
 // test(orderedKeysRandomFilter, orderedKeysRandom, 1.5)
 // test(orderedManyEscaped, orderedKeysRandomFilter, 1.25)
 
+const baseFilter = new Base({
+  sort: 'order',
+  escape_bla: { order: 2e3 },
+  define: {
+    filter (key) {
+      return !/escape/.test(key)
+    }
+  },
+  '1escape': { order: 20 },
+  '200escape': { order: 1e3 },
+  '30escape': { order: 30 },
+  _escape: { order: 5e2 }
+})
+baseFilter.keys()
+for (let i = 0; i < amount; i++) {
+  baseFilter.set({
+    [i]: {
+      order: ~~(Math.random() * amount)
+    }
+  })
+}
 
 const base = new Base({
   sort: 'order'
 })
-base.keys()
 for (let i = 0; i < amount; i++) {
   base.set({
     [i]: {
@@ -156,14 +176,25 @@ for (let i = 0; i < amount; i++) {
     }
   })
 }
+
 const update = require('../../lib/keys/sort/update')
 // module.exports = function update (target, field, keys, parent) {
 
 function updateSort () {
   for (let i = 0; i < amount; i++) {
     base[i].order.set(~~(Math.random() * amount))
+    // pretty heavy way of doing things, does amount x sets and needs to find index amount x
     update(base[i], 'order')
   }
 }
 
-test(updateSort, setKeysRandom, 2.5)
+function updateSortFilter () {
+  for (let i = 0; i < amount; i++) {
+    baseFilter[i].order.set(~~(Math.random() * amount))
+    // pretty heavy way of doing things, does amount x sets and needs to find index amount x
+    update(baseFilter[i], 'order')
+  }
+}
+
+// test(updateSort, setKeysRandom, 4)
+test(updateSortFilter, updateSort, 1.25, 1)

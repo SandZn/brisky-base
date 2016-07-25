@@ -43,7 +43,7 @@ test('keys - sort - filter', (t) => {
   base2.field2.rick.set(-10000)
   base2.black.set({ rick: 200 })
   sort(base2, base2._keys, 'rick')
-  t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'remove last field')
+  t.same(base2.keys(), [ 'field2', 'bla', 'else', 'something', 'field' ], 'resort')
   base2.field2.rick.set(10000)
   update(base2.field2, 'rick')
   t.equal(base2._keys[0], 'white', 'update "field2" "_keys[0]" equals "white"')
