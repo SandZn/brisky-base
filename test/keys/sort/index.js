@@ -1,5 +1,4 @@
 'use strict'
+require('./custom')
 require('./basic')
-require('./inheritance')
 require('./filter')
-require('./sort')

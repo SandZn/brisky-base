@@ -1,8 +1,9 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const Base = require('../../../')
+const update = require('../../../lib/keys/sort/update')
 
-test('keys - sort - instances', (t) => {
+test('keys - sort - basic - instances', (t) => {
   const base = new Base({
     sort: 'val',
     d: { val: 4, field: 2 },
@@ -42,23 +43,7 @@ test('keys - sort - instances', (t) => {
   t.end()
 })
 
-// test('keys - sort - alphabetical', (t) => {
-//   const expected = [
-//     'a', 'A', 'a1', 'a2', 'a10', 'z', 'Z', 1, 2, 11, 22, '!', '?', '~'
-//   ]
-//   const base = new Base({
-//     sort: 'sortKey',
-//     inject: toSetObject(expected.slice().reverse())
-//   })
-//   t.same(
-//     base.keys().map((key) => base[key].sortKey.compute()),
-//     expected,
-//     'sort in alphabetical order'
-//   )
-//   t.end()
-// })
-
-test('keys - sort - single sort index map', (t) => {
+test('keys - sort - basic - single sort index map', (t) => {
   const base = new Base({
     field: {
       rick: 10
@@ -79,10 +64,10 @@ test('keys - sort - single sort index map', (t) => {
   t.end()
 })
 
-test('keys - sort - references - property on referenced objects', (t) => {
+test('keys - sort - basic - references - property on referenced objects', (t) => {
   const expected = [ 1, 2, 3, 30, 55 ]
   const base = new Base({
-    referenced: toSetObject(expected.slice().reverse()),
+    referenced: (expected.map((val) => { return { sortKey: val } })).reverse(),
     references: {
       sort: 'sortKey',
       a: '$root.referenced.0',
@@ -104,9 +89,9 @@ test('keys - sort - references - property on referenced objects', (t) => {
   t.end()
 })
 
-test('keys - sort - references - property on referencer itself', (t) => {
+test('keys - sort - basic - references - property on referencer itself', (t) => {
   const base = new Base({
-    referenced: toSetObject([ 10, 20, 30, 40, 50 ]),
+    referenced: [ 10, 20, 30, 40, 50 ].map((val) => { return { sortKey: val } }),
     references: {
       sort: 'sortKey',
       a: { val: '$root.referenced.4', sortKey: 5 },
@@ -119,7 +104,6 @@ test('keys - sort - references - property on referencer itself', (t) => {
     d: { val: '$root.referenced.1', sortKey: 2 },
     e: { val: '$root.referenced.0', sortKey: 1 }
   })
-
   t.same(
     references.keys().map((key) => references[key].sortKey.compute()),
     [ 1, 2, 3, 4, 5 ],
@@ -130,11 +114,32 @@ test('keys - sort - references - property on referencer itself', (t) => {
   t.end()
 })
 
-function toSetObject (array) {
-  return array.reduce((o, val, i) => {
-    o[i] = { sortKey: val }
-    return o
-  }, {})
+test('keys - sort - update', (t) => {
+  testUpdate([ 15, 18, 16 ], t)
+  testUpdate([ 0, 3, 4, 4, 4, 5 ], t)
+  testUpdate([ 2, 4, 17, 10, 12, 4, 15, 14, 6 ], t)
+  testUpdate([ 2, 10, 1, 12, 5, 4, 8, 18, 6, 2, 10 ], t)
+  testUpdate([ 1, 17, 7, 12, 1, 17, 2, 15, 4 ], t)
+  testUpdate([ 7, 9, 14, 13, 2, 0, 1, 3, 8 ], t)
+  testUpdate([ 2, 10, 1, 12, 5, 4, 8, 18, 6, 2, 10 ], t)
+  testUpdate([ 1, 17, 7, 12, 1, 17, 2, 15, 4 ], t)
+  testUpdate([ 9, 15, 15, 13, 2, 18 ], t)
+  testUpdate([ 1, 19, 10, 11, 4, 9, 0, 12 ], t)
+  t.end()
+})
+
+function testUpdate (updates, t) {
+  const arr = []
+  for (let i = 0; i < updates.length; i++) {
+    arr.push(i)
+  }
+  const base = new Base({ sort: 'val' })
+  base.set(arr)
+  for (var i in updates) {
+    base[i].set(updates[i])
+    update(base[i], 'val')
+  }
+  updates.sort((a, b) => a < b ? -1 : b < a ? 1 : 0)
+  t.same(base._keys._, updates, 'correct order after updates [ ' + updates.join(', ') + ' ]')
 }
 
-// combined test with filters
