@@ -7,7 +7,6 @@
     "test": "(ducktape; node test) | tap-difflet && standard",
     "watch": "nodemon test | tap-difflet",
     "cover": "istanbul cover --report none --print detail test/index.js",
-    "docs": "node_modules/vigour-doc/bin/vdoc",
     "perf-browser": "budo ./test/performance/index.js -p 8080 --live",
     "travis": "npm run cover -s && istanbul report lcov && ((cat coverage/lcov.info | coveralls) || exit 0) && standard"
   },
@@ -49,7 +48,6 @@
     "nodemon": "^1.9.1",
     "coveralls": "^2.11.9",
     "istanbul": "^0.4.3",
-    "vigour-doc": "^1.0.5",
     "budo": "^8.2.2",
     "human-readable-ids": "^1.0.1",
     "pre-commit": "^1.1.3"
