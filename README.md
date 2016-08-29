@@ -106,7 +106,7 @@ var base = new Base({
       }
     }
   },
-  x: 10 // → z: 10
+  x: 10 // → y: 10
   something: { c: true }, // → else: Base { a: true, b: true, c: true }
   hello: { field: true } // → bye: Base { val: 100, field: true }
 })
