@@ -135,3 +135,30 @@ test('types - share object types constructors', function (t) {
   t.equal(c.types.a, b.types.a, 'shares constructors')
   t.end()
 })
+
+test('types - create types - merge', function (t) {
+  const base = new Base({
+    types: {
+      a: {
+        text: 'hello'
+      }
+    }
+  })
+  base.set({
+    types: {
+      a: {
+        yuzi: 'hello'
+      }
+    }
+  })
+  base.set({
+    bla: {
+      type: 'a'
+    }
+  })
+  t.same(base.bla.serialize(), {
+    yuzi: 'hello',
+    text: 'hello'
+  }, 'merges')
+  t.end()
+})
