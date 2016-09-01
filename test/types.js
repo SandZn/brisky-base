@@ -144,7 +144,6 @@ test('types - create types - merge', function (t) {
       }
     }
   })
-
   base.set({
     types: {
       a: {
@@ -163,5 +162,3 @@ test('types - create types - merge', function (t) {
   }, 'merges')
   t.end()
 })
-
-// single type -- just set it straight
