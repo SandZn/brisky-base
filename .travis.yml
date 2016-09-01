@@ -1,8 +1,6 @@
 # .travis.yml
 language: node_js
 node_js:
-  - '5.4'
-  - '4.4'
   - '6.3'
 script: npm run travis
 notifications:
