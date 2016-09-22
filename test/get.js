@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('get', function (t) {
+test('get', (t) => {
   const a = new Base({
     b: {
       c: {
@@ -18,7 +18,7 @@ test('get', function (t) {
   t.end()
 })
 
-test('get - keys notation', function (t) {
+test('get - keys notation', (t) => {
   const a = new Base({
     b: {
       c: {
@@ -37,8 +37,23 @@ test('get - keys notation', function (t) {
   t.end()
 })
 
-test('get - method support', function (t) {
+test('get - method support', (t) => {
   const a = new Base({ b: { c: true } })
   t.equal(a.get('b.origin.c.origin.compute'), true, 'get a.b.c. using origin')
+  t.end()
+})
+
+test('get - root', (t) => {
+  const base = new Base({
+    a: {
+      b: {
+        c: 'lulz'
+      }
+    },
+    c: 'haha'
+  })
+  const a = new Base({ b: base.a.b.c })
+  t.equal(a.get('b.origin.root.c.compute'), 'haha', 'get a.b.$root.c')
+  t.equal(base.a.b.c.get('root.c.compute'), 'haha', 'get base.a.b.c.$root')
   t.end()
 })
