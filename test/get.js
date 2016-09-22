@@ -43,7 +43,7 @@ test('get - method support', (t) => {
   t.end()
 })
 
-test('get - $root', (t) => {
+test('get - root', (t) => {
   const base = new Base({
     a: {
       b: {
