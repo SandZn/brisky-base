@@ -27,9 +27,9 @@ test('compute - references and override', function (t) {
     val: 100,
     define: {
       extend: {
-        compute (compute, previous, start, stamp) {
+        compute (method, previous, start, stamp) {
           cnt++
-          return compute.call(this, previous, start, stamp)
+          return method.call(this, previous, start, stamp)
         }
       }
     }
