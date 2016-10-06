@@ -57,3 +57,12 @@ test('get - root', (t) => {
   t.equal(base.a.b.c.get('root.c.compute'), 'haha', 'get base.a.b.c.$root')
   t.end()
 })
+
+test('get - array', (t) => {
+  const arr = ['a', 'b', 'c']
+  const base = new Base()
+  base.get(arr, true)
+  t.equal(base.a.b.c.compute(), true, 'set a.b.c: true')
+  t.same(arr, ['a', 'b', 'c'], 'array is unchanged')
+  t.end()
+})
