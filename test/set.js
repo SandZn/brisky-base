@@ -46,3 +46,64 @@ test('set - reserved key error', function (t) {
   }
   t.end()
 })
+
+test('set - param and isNew', function (t) {
+  var results = []
+  var newArray = []
+
+  const base = new Base({
+    child: {
+      define: {
+        extend: {
+          set (method, val, stamp, nocontext, params, isNew) {
+            if (params === 'HELLO') {
+              results.push(this.path())
+            }
+            if (isNew) {
+              newArray.push(this.path())
+            }
+            return method.call(this, val, stamp, nocontext, params, isNew)
+          }
+        }
+      },
+      child: 'Constructor'
+    }
+  })
+
+  base.set({
+    a: {
+      b: true
+    }
+  }, false, false, 'HELLO')
+  t.same(results, [ [ 'a' ], [ 'a', 'b' ] ], 'receives param for normal children')
+  t.same(newArray, [ [ 'a' ], [ 'a', 'b' ] ], 'receives isNew for new children')
+
+  results = []
+  newArray = []
+  base.set({
+    properties: {
+      hello: { text: '100' }
+    },
+    hello: {
+      text: 200
+    }
+  }, false, false, 'HELLO')
+  t.same(results, [ [ 'hello' ], [ 'hello', 'text' ] ], 'receives param for properties')
+  t.same(newArray, [ [ 'hello' ], [ 'hello', 'text' ], [ 'hello' ] ], 'receives isNew for new children')
+
+  results = []
+  newArray = []
+  base.set({
+    types: {
+      hello: { text: '100' }
+    },
+    a: {
+      type: 'hello',
+      text: 200
+    }
+  }, false, false, 'HELLO')
+  t.same(results, [ [ 'a' ], [ 'a', 'text' ] ], 'receives param for types')
+  t.same(newArray, [ [], [ 'text' ], [ 'a' ] ], 'receives isNew for new children')
+
+  t.end()
+})
