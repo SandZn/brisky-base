@@ -46,3 +46,27 @@ test('set - reserved key error', function (t) {
   }
   t.end()
 })
+
+test('set - param', function (t) {
+  const base = new Base({
+    child: {
+      define: {
+        extend: {
+          set (method, val, stamp, nocontext, params, isNew) {
+            console.log(params, isNew)
+            return method.call(this, val, stamp, nocontext, params, isNew)
+          }
+        }
+      },
+      child: 'Constructor'
+    }
+  })
+
+  base.set({
+    a: {
+      b: true
+    }
+  }, false, false, 'HELLO')
+
+  t.end()
+})
