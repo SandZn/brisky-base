@@ -1,8 +1,8 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const Base = require('../../lib/index.js')
 
-test('property - default', function (t) {
+test('property - default', t => {
   const base = new Base({
     properties: { x: true },
     x: 100
@@ -11,7 +11,7 @@ test('property - default', function (t) {
   t.end()
 })
 
-test('property - function', function (t) {
+test('property - function', t => {
   const base = new Base({
     properties: {
       x (val, stamp) { this.y = val * 10 }
@@ -22,10 +22,11 @@ test('property - function', function (t) {
   t.end()
 })
 
-test('property - base', function (t) {
+test('property - base', t => {
   const y = new Base('y')
   const base = new Base({
     types: { z: 'z' },
+    // bla: { type: 'base' }, // so what does this do???
     properties: {
       x: 'x',
       y: y,
@@ -36,6 +37,11 @@ test('property - base', function (t) {
     y: {},
     z: { field: 'z' }
   })
+
+  // this does not work
+
+  console.log(base.properties.base.base === Base.prototype, Base.prototype.noReference)
+
   t.equal(
     base.properties.base.base !== Base.prototype,
     true,
@@ -94,7 +100,7 @@ test('property - base', function (t) {
   t.end()
 })
 
-test('property - null', function (t) {
+test('property - null', t => {
   const base = new Base({
     properties: {
       x: true,
@@ -111,7 +117,7 @@ test('property - null', function (t) {
   t.end()
 })
 
-test('property - override normal field', function (t) {
+test('property - override normal field', t => {
   const base = new Base({
     y: { bye: true }
   })

@@ -1,6 +1,6 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const Base = require('../../base')
 
 test('property - map - set', function (t) {
   const a = new Base()

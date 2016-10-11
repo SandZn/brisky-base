@@ -6,7 +6,7 @@ test('inject - object', function (t) {
   const injectable = {
     val: 'hello'
   }
-  const a = new Base({ inject: injectable })
+  const a = Base({ inject: injectable })
   t.equal(a.val, 'hello', 'injected val')
   a.val = 'bye'
   a.inject(injectable, false) // false is the stamp
@@ -21,7 +21,7 @@ test('inject - function', function (t) {
   const injectable = (base) => {
     base.set('hello')
   }
-  const a = new Base({ inject: injectable })
+  const a = Base({ inject: injectable })
   t.equal(a.val, 'hello', 'injected val')
   a.val = 'bye'
   a.inject(injectable, false)
@@ -35,8 +35,8 @@ test('inject - function', function (t) {
 test('inject - mixin', function (t) {
   const injectMethod = function () {}
   const aMethod = function () {}
-  const special = new Base({ type: 'special!' })
-  const injectable = new Base({
+  const special = Base({ type: 'special!' })
+  const injectable = Base({
     define: {
       method: injectMethod,
       something: {
@@ -66,7 +66,7 @@ test('inject - mixin', function (t) {
     val: 'hello',
     hello: 'greeting'
   })
-  const a = new Base({
+  const a = Base({
     define: { method: aMethod },
     anotherfield: 'another!',
     inject: injectable

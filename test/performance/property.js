@@ -10,7 +10,7 @@ for (var i = 0; i < amount; i++) {
   }
 }
 
-const SpecialBase = new Base({
+const SpecialBase = Base({
   properties: { index: true }
 }).Constructor
 

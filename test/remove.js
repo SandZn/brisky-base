@@ -1,11 +1,11 @@
 'use strict'
 const test = require('tape')
-const Base = require('../')
-const isRemoved = require('vigour-util/is/removed')
+const Base = require('../base')
+const isRemoved = require('brisky-is-removed')
 
-test('remove', function (t) {
+test('remove', t => {
   t.plan(3)
-  var base = new Base({
+  var base = Base({
     a: { b: { c: true } }
   })
   var c = base.a.b.c

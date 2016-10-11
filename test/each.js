@@ -3,7 +3,7 @@ const test = require('tape')
 const Base = require('../')
 
 test('each', function (t) {
-  const a = new Base({
+  const a = Base({
     a: 'a',
     b: 'b',
     c: 'c',

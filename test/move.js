@@ -3,7 +3,7 @@ const test = require('tape')
 const Base = require('../')
 
 test('move', function (t) {
-  var base = new Base({
+  var base = Base({
     b: true,
     d: {
       noReference: null

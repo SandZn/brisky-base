@@ -6,7 +6,7 @@ test('constructor - custom', function (t) {
   function Special (val) {
     this.lullz = val
   }
-  const a = new Base({
+  const a = Base({
     Constructor: Special
   })
   const aInstance = new a.Constructor('hello')

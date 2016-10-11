@@ -1,4 +1,8 @@
 'use strict'
+// require('./context')
+// require('./keys')
+require('./property')
+
 // require('./serialize')
 // require('./tostring')
 // require('./lookup')
@@ -12,12 +16,8 @@
 // require('./inject')
 // require('./compute')
 // require('./instances')
-// require('./property')
-// require('./context')
 // require('./root')
-// require('./keys')
 // require('./types')
 // require('./get')
 // require('./set')
-
-require('./child')
+// require('./child')

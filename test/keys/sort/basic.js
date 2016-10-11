@@ -1,10 +1,10 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../../')
+const base = require('../../../')
 const update = require('../../../lib/keys/sort/update')
 
-test('keys - sort - basic - instances', (t) => {
-  const base = new Base({
+test('keys - sort - basic - instances', t => {
+  const obj = base({
     sort: 'val',
     d: { val: 4, field: 2 },
     b: { val: 2, field: 4 },
@@ -15,16 +15,16 @@ test('keys - sort - basic - instances', (t) => {
   })
   const order = [ 'a', 'b', 'c', 'd', 'e', 'something' ]
   order._ = [ 1, 2, 3, 4, 5, 6 ]
-  t.same(base.keys(), order, 'correct order')
+  t.same(obj.keys(), order, 'correct order')
   const reorder = [ 'something', 'e', 'd', 'c', 'b', 'a' ]
   reorder._ = [ 0, 1, 2, 3, 4, 5 ]
-  base.set({ sort: 'field' })
-  t.same(base.keys(), reorder, 'resort')
-  base.b.remove()
+  obj.set({ sort: 'field' })
+  t.same(obj.keys(), reorder, 'resort')
+  obj.b.remove()
   const remove = [ 'something', 'e', 'd', 'c', 'a' ]
   remove._ = [ 0, 1, 2, 3, 5 ]
-  t.same(base.keys(), remove, 'remove key')
-  const instance = new base.Constructor({ z: true })
+  t.same(obj.keys(), remove, 'remove key')
+  const instance = new obj.Constructor({ z: true })
   const instanceKeys = [ 'something', 'z', 'e', 'd', 'c', 'a' ]
   instanceKeys._ = [ 0, 0, 1, 2, 3, 5 ]
   t.same(instance.keys(), instanceKeys, 'instance - add without field')
@@ -34,7 +34,7 @@ test('keys - sort - basic - instances', (t) => {
   instanceKeys.unshift('x')
   instanceKeys._.unshift(-1)
   t.same(instance.keys(), instanceKeys, 'instance - add with a field')
-  const instance2 = new base.Constructor({ a: null })
+  const instance2 = new obj.Constructor({ a: null })
   const instanceKeys2 = [ 'something', 'e', 'd', 'c' ]
   instanceKeys2._ = [ 0, 1, 2, 3 ]
   t.same(instance2.keys(), instanceKeys2, 'instance - remove')
@@ -43,19 +43,10 @@ test('keys - sort - basic - instances', (t) => {
   t.end()
 })
 
-test('keys - sort - basic - single sort index map', (t) => {
-  const base = new Base({
-    field: {
-      rick: 10
-    }
-  })
-
-  const base2 = new base.Constructor({
-    sort: 'rick'
-  })
-
+test('keys - sort - basic - single sort index map', t => {
+  const obj = base({ field: { rick: 10 } })
+  const base2 = new obj.Constructor({ sort: 'rick' })
   t.same(base2.keys()[0], 'field', 'correct keys')
-
   t.same(
     base2._keys._,
     [ 10 ],
@@ -64,9 +55,9 @@ test('keys - sort - basic - single sort index map', (t) => {
   t.end()
 })
 
-test('keys - sort - basic - references - property on referenced objects', (t) => {
+test('keys - sort - basic - references - property on referenced objects', t => {
   const expected = [ 1, 2, 3, 30, 55 ]
-  const base = new Base({
+  const obj = base({
     referenced: (expected.map((val) => { return { sortKey: val } })).reverse(),
     references: {
       sort: 'sortKey',
@@ -77,10 +68,8 @@ test('keys - sort - basic - references - property on referenced objects', (t) =>
       e: '$root.referenced.4'
     }
   })
-  const references = base.references
-
+  const references = obj.references
   const result = references.keys().map((key) => references[key].origin().sortKey.compute())
-
   t.same(
     result,
     expected,
@@ -89,8 +78,8 @@ test('keys - sort - basic - references - property on referenced objects', (t) =>
   t.end()
 })
 
-test('keys - sort - basic - references - property on referencer itself', (t) => {
-  const base = new Base({
+test('keys - sort - basic - references - property on referencer itself', t => {
+  const obj = base({
     referenced: [ 10, 20, 30, 40, 50 ].map((val) => { return { sortKey: val } }),
     references: {
       sort: 'sortKey',
@@ -99,7 +88,7 @@ test('keys - sort - basic - references - property on referencer itself', (t) => 
       c: { val: '$root.referenced.2', sortKey: 3 }
     }
   })
-  const references = base.references
+  const references = obj.references
   references.set({
     d: { val: '$root.referenced.1', sortKey: 2 },
     e: { val: '$root.referenced.0', sortKey: 1 }
@@ -114,7 +103,7 @@ test('keys - sort - basic - references - property on referencer itself', (t) => 
   t.end()
 })
 
-test('keys - sort - update', (t) => {
+test('keys - sort - update', t => {
   testUpdate([ 15, 18, 16 ], t)
   testUpdate([ 0, 3, 4, 4, 4, 5 ], t)
   testUpdate([ 2, 4, 17, 10, 12, 4, 15, 14, 6 ], t)
@@ -133,13 +122,13 @@ function testUpdate (updates, t) {
   for (let i = 0; i < updates.length; i++) {
     arr.push(i)
   }
-  const base = new Base({ sort: 'val' })
-  base.set(arr)
+  const obj = base({ sort: 'val' })
+  obj.set(arr)
   for (var i in updates) {
-    base[i].set(updates[i])
-    update(base[i], 'val')
+    obj[i].set(updates[i])
+    update(obj[i], 'val')
   }
   updates.sort((a, b) => a < b ? -1 : b < a ? 1 : 0)
-  t.same(base._keys._, updates, 'correct order after updates [ ' + updates.join(', ') + ' ]')
+  t.same(obj._keys._, updates, 'correct order after updates [ ' + updates.join(', ') + ' ]')
 }
 

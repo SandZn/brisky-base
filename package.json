@@ -2,7 +2,7 @@
   "name": "vigour-base",
   "version": "3.6.6",
   "description": "'injectacble classes'",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "(ducktape; node test) | tap-difflet && standard",
     "dev": "nodemon test | tap-difflet",
@@ -20,10 +20,15 @@
     "base"
   ],
   "dependencies": {
-    "vigour-util": "^3.3.0",
-    "lodash.merge": "^4.4.0",
-    "vigour-stamp": "^1.1.1",
-    "bubleify": "0.5.1"
+    "define-configurable": "^1.0.2",
+    "descriptors": "^1.0.3",
+    "brisky-is-obj": "^1.0.2",
+    "brisky-is-empty": "^1.0.0",
+    "brisky-is-removed": "^1.0.0",
+    "brisky-stamp": "^1.1.1",
+    "bubleify": "0.5.1",
+    "regenerator": "0.8.46",
+    "deep-assign": "^2.0.0"
   },
   "browserify": {
     "transform": [

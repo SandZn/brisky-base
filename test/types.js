@@ -3,7 +3,7 @@ var test = require('tape')
 var Base = require('../')
 
 test('types - remove type property', function (t) {
-  const Template = new Base({
+  const Template = Base({
     type: 'template'
   }).Constructor
   const TemplateA = new Template({
@@ -24,7 +24,7 @@ test('types - remove type property', function (t) {
   t.equals(a.type.val, 'this is something', 'a.type has a correct input value')
   const TemplateB = new Template({
     properties: {
-      type: new Base({ type: 'special' })
+      type: Base({ type: 'special' })
     }
   }).Constructor
   const b = new TemplateB({ type: 'this is special' })
@@ -38,9 +38,9 @@ test('types - remove type property', function (t) {
 })
 
 test('types - create types', function (t) {
-  const c = new Base({ special: true })
-  const d = new Base({ specialD: true })
-  const a = new Base({
+  const c = Base({ special: true })
+  const d = Base({ specialD: true })
+  const a = Base({
     types: {
       b: {
         field: true,
@@ -79,7 +79,7 @@ test('types - create types', function (t) {
     },
     'injects for base types'
   )
-  const a4 = new Base({
+  const a4 = Base({
     types: [ { a: true }, { b: true } ]
   })
   a4.set({
@@ -99,7 +99,7 @@ test('types - create types', function (t) {
 })
 
 test('types - inheritance', function (t) {
-  const a = new Base({
+  const a = Base({
     types: {
       special: 'hello',
       something: {
@@ -124,11 +124,11 @@ test('types - inheritance', function (t) {
 
 test('types - share object types constructors', function (t) {
   const a = { val: 'a' }
-  const b = new Base({
+  const b = Base({
     types: { a: a },
     a: { type: 'a' }
   })
-  const c = new Base({
+  const c = Base({
     types: { a: a },
     a: { type: 'a' }
   })
@@ -137,7 +137,7 @@ test('types - share object types constructors', function (t) {
 })
 
 test('types - create types - merge', function (t) {
-  const base = new Base({
+  const base = Base({
     types: {
       a: {
         text: 'hello'

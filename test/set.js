@@ -4,7 +4,7 @@ const Base = require('../')
 
 test('set - resolve context', function (t) {
   t.plan(2)
-  var a = new Base({
+  var a = Base({
     b: {
       c: true
     }
@@ -17,7 +17,7 @@ test('set - resolve context', function (t) {
 
 test('set - type', function (t) {
   t.plan(2)
-  var a = new Base({
+  var a = Base({
     types: {
       x: 'lulllz'
     },
@@ -32,7 +32,7 @@ test('set - type', function (t) {
 
 test('set - reserved key error', function (t) {
   t.plan(1)
-  var a = new Base({
+  var a = Base({
     define: {
       field: { val: 'haha reserved!' }
     }
@@ -51,7 +51,7 @@ test('set - param and isNew', function (t) {
   var results = []
   var newArray = []
 
-  const base = new Base({
+  const base = Base({
     child: {
       define: {
         extend: {

@@ -3,9 +3,9 @@ const test = require('tape')
 const Base = require('../')
 
 test('instances', function (t) {
-  const base = new Base()
-  const instance = new base.Constructor()
-  const instance2 = new base.Constructor()
+  const base = Base()
+  const instance = Base.Constructor()
+  const instance2 = Base.Constructor()
   t.same(base.instances, [ instance, instance2 ], '"base" has correct instances array')
   t.same(instance.instances, null, '"instance" has correct instances array')
   instance.remove()

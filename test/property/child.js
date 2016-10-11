@@ -3,7 +3,7 @@ const test = require('tape')
 const Base = require('../../')
 
 test('property - child', function (t) {
-  const base = new Base({ y: true })
+  const base = Base({ y: true })
   base.set({
     y: {
       properties: {
@@ -24,7 +24,7 @@ test('property - child', function (t) {
 })
 
 test('property - child - enhance property definition', function (t) {
-  const base = new Base({ y: true })
+  const base = Base({ y: true })
   base.set({
     properties: {
       content: {

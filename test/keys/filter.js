@@ -3,7 +3,7 @@ const test = require('tape')
 const Base = require('../../')
 
 test('keys - filters', function (t) {
-  const base = new Base({
+  const base = Base({
     types: {
       thing: {
         keyType: 'thing'
@@ -44,7 +44,7 @@ test('keys - filters', function (t) {
     'correct "thing" keys after remove'
   )
 
-  const instance = new base.Constructor({
+  const instance = Base.Constructor({
     bla: { type: 'thing' },
     field: true
   })
@@ -76,7 +76,7 @@ test('keys - filters', function (t) {
 })
 
 test('keys - filters - remove key on new', function (t) {
-  const a = new Base({
+  const a = Base({
     a: true,
     b: true
   })
@@ -93,7 +93,7 @@ test('keys - filters - remove key on new', function (t) {
 })
 
 test('keys - filters - null undefined key on instance', function (t) {
-  const a = new Base({
+  const a = Base({
     a: true,
     b: {
       keyType: 'thing'
@@ -107,7 +107,7 @@ test('keys - filters - null undefined key on instance', function (t) {
 })
 
 test('keys - filters - custom filter', function (t) {
-  const a = new Base({
+  const a = Base({
     a: true,
     define: {
       filter (key) {

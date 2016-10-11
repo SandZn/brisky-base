@@ -14,7 +14,7 @@ test('serialize', function (t) {
   ]
   t.plan(cases.length)
   cases.forEach(function (item) {
-    const base = new Base(item[0] || item)
+    const base = Base(item[0] || item)
     t.same(base.serialize(), item[1] || item, 'outputs ' + base)
   })
 })
@@ -29,13 +29,13 @@ test('serialize - computed', function (t) {
   ]
   t.plan(cases.length)
   cases.forEach(function (item) {
-    const base = new Base(item[0] || item)
+    const base = Base(item[0] || item)
     t.same(base.serialize(true), item[1] || item, 'outputs ' + base)
   })
 })
 
 test('serialize - filter', function (t) {
-  const base = new Base({
+  const base = Base({
     yuzi: {
       james: {
         marcus: true,

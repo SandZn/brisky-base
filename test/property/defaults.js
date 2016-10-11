@@ -1,34 +1,34 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const base = require('../../')
 
-test('property - defaults - origin', function (t) {
-  const a = new Base()
-  const b = new Base(a)
+test('property - defaults - origin', t => {
+  const a = base()
+  const b = base(a)
   b.set({ origin: 1 })
   t.equal(a.val, 1, 'a.val equals 1')
   t.end()
 })
 
-test('property - defaults - reset', function (t) {
-  const base = new Base({
+test('property - defaults - reset', t => {
+  const obj = base({
     a: true,
     b: true,
     c: true
   })
-  base.set({ reset: true })
-  t.same(base.keys().length, 0, 'removes all keys')
+  obj.set({ reset: true })
+  t.same(obj.keys().length, 0, 'removes all keys')
   t.end()
 })
 
-test('property - defaults - inject', function (t) {
-  const base = new Base({
+test('property - defaults - inject', t => {
+  const obj = base({
     a: true,
     inject: { a: 'hello' }
   })
-  t.equal(base.a.val, 'hello', 'injects object')
-  const inject = base.inject
-  base.set({
+  t.equal(obj.a.val, 'hello', 'injects object')
+  const inject = obj.inject
+  obj.set({
     define: {
       inject () {
         t.equal(
@@ -43,24 +43,24 @@ test('property - defaults - inject', function (t) {
       { a: 'blurf' }
     ]
   }, 'stamp!')
-  t.equal(base.a.val, 'blurf', 'injected a using array')
-  t.equal(base.b.val, 'bla', 'injected b using array')
+  t.equal(obj.a.val, 'blurf', 'injected a using array')
+  t.equal(obj.b.val, 'bla', 'injected b using array')
   t.end()
 })
 
-test('property - defaults - define', function (t) {
-  const base = new Base({
+test('property - defaults - define', t => {
+  const obj = base({
     a: true,
     define: { a () {} }
   })
-  t.equal(typeof base.a, 'function', 'define a method')
-  base.set({
+  t.equal(typeof obj.a, 'function', 'define a method')
+  obj.set({
     define: [
       { b: 'bla' },
       { a: 'blurf' }
     ]
   })
-  t.equal(base.a, 'blurf', 'defined a using array')
-  t.equal(base.b, 'bla', 'defined b using array')
+  t.equal(obj.a, 'blurf', 'defined a using array')
+  t.equal(obj.b, 'bla', 'defined b using array')
   t.end()
 })

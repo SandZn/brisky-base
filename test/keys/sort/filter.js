@@ -5,7 +5,7 @@ const sort = require('../../../lib/keys/sort')
 const update = require('../../../lib/keys/sort/update')
 
 test('keys - sort - filter', (t) => {
-  const base = new Base({
+  const base = Base({
     black: {},
     define: {
       filter (key) {
@@ -13,7 +13,7 @@ test('keys - sort - filter', (t) => {
       }
     }
   })
-  const base2 = new base.Constructor({
+  const base2 = Base.Constructor({
     field: { rick: 10 },
     field2: { rick: 5 },
     sort: 'rick'
@@ -61,7 +61,7 @@ test('keys - sort - filter', (t) => {
 })
 
 test('keys - sort - filter - instances', (t) => {
-  const base = new Base({
+  const base = Base({
     rick: {
       position: 1,
       keyType: 'viber'
@@ -74,7 +74,7 @@ test('keys - sort - filter - instances', (t) => {
       filter: (key) => !/^escape_/.test(key)
     }
   })
-  const base2 = new base.Constructor({
+  const base2 = Base.Constructor({
     james: {
       position: 2
     }
@@ -94,7 +94,7 @@ test('keys - sort - filter - instances', (t) => {
   base.set({ sort: 'key' })
   t.same(base.keys(), [ 'rick', 'youzi' ], 'change sort field')
   t.same(base2.keys(), [ 'james', 'rick', 'youzi' ], 'change sort field, updates instances')
-  const base3 = new base2.Constructor()
+  const base3 = Base2.Constructor()
   t.same(base3.keys('viber'), [ 'rick' ], 'keyType filter')
   base3.set({ jan: { position: 10, keyType: 'viber' } })
   t.same(base3.keys(), [ 'james', 'jan', 'rick', 'youzi' ], 'added field to "keyType" filter')
@@ -113,7 +113,7 @@ test('keys - sort - filter - instances', (t) => {
 })
 
 test('keys - sort - filter - edge cases', (t) => {
-  const base = new Base({
+  const base = Base({
     sort: 'key',
     d: {},
     define: {

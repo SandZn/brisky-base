@@ -3,7 +3,7 @@ const test = require('tape')
 const Base = require('../')
 
 test('compute', function (t) {
-  const d = new Base()
+  const d = Base()
   t.equal(d.compute(), d, 'd - returns itself as default value')
   d.val = function (previous, start, stamp, attach) {
     t.equal(previous, 'previous', 'correct previous')
@@ -22,7 +22,7 @@ test('compute', function (t) {
 
 test('compute - references and override', function (t) {
   var cnt = 0
-  const b = new Base({
+  const b = Base({
     key: 'b',
     val: 100,
     define: {
@@ -34,14 +34,14 @@ test('compute - references and override', function (t) {
       }
     }
   })
-  const a = new Base({
+  const a = Base({
     key: 'a',
     val: b
   })
   t.equal(a.compute(), 100, 'a - correct value')
   t.equal(a.compute('hello'), 'hello', 'correct value (override)')
   t.equal(cnt, 1, 'b does not fire')
-  const c = new Base({
+  const c = Base({
     key: 'c',
     val: a
   })

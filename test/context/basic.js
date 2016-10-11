@@ -1,9 +1,9 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const base = require('../../')
 
-test('context - override (noContext property)', (t) => {
-  const Template = new Base({
+test('context - override (noContext property)', t => {
+  const Template = base({
     key: 'template',
     noContextField: { noContext: true }
   }).Constructor
@@ -22,8 +22,8 @@ test('context - override (noContext property)', (t) => {
   t.end()
 })
 
-test('context - parent', (t) => {
-  const base = new Base({
+test('context - basic - parent', t => {
+  const obj = base({
     a: {
       b: {
         c: {
@@ -32,22 +32,22 @@ test('context - parent', (t) => {
       }
     }
   })
-  const instance = new base.Constructor({
+  const instance = new obj.Constructor({
     a: {
       b: 'my own!'
     }
   })
-  t.equal(instance.a.b.c.d.cParent(), base.a.b.c, 'normal parent')
+  t.equal(instance.a.b.c.d.cParent(), obj.a.b.c, 'normal parent')
   t.equal(instance.a.b.c.cParent(), instance.a.b, 'context')
   const a = instance.a
   const b = instance.a.b
-  a.__c = base
+  a.__c = obj
   t.equal(b.cParent(), a, 'repairs illegal context')
   t.end()
 })
 
-test('context - keys', (t) => {
-  const a = new Base({ a: true })
+test('context - keys', t => {
+  const a = base({ a: true })
   t.equal(a._a, void 0, 'no context key before creation of constructor')
   const A = a.Constructor
   t.equal(a._a, a.a, 'has context key after creation of constructor')
@@ -56,30 +56,30 @@ test('context - keys', (t) => {
   t.end()
 })
 
-test('context - resolvement', function (t) {
-  const base = new Base({ a: { b: 'b' } })
-  const instance = new base.Constructor()
+test('context - resolvement', t => {
+  const obj = base({ a: { b: 'b' } })
+  const instance = new obj.Constructor()
   instance.a.b.set('hello')
-  t.equal(instance._a._b !== base._a._b, true, 'resolved context')
-  const instance2 = new base.Constructor()
+  t.equal(instance._a._b !== obj._a._b, true, 'resolved context')
+  const instance2 = new obj.Constructor()
   instance2.a.b.remove()
   t.equal(instance2._a._b, null, 'removed b from instance2')
-  t.equal(instance2._a !== base._a, true, 'resolved context for a')
+  t.equal(instance2._a !== obj._a, true, 'resolved context for a')
   t.end()
 })
 
-test('context - nested resolvement for override properties', (t) => {
+test('context - nested resolvement for override properties', t => {
   // @todo 10 double check this
-  const On = new Base().Constructor
-  const ref = new Base()
-  const base = new Base({
+  const On = base().Constructor
+  const ref = base()
+  const obj = base({
     properties: {
       on: { val: On, override: '_on' }
     },
     on: {},
     normal: ref
   })
-  const a = new base.Constructor({
+  const a = new obj.Constructor({
     on: { data: 'hello' },
     normal: { data: 'normal-hello' }
   })

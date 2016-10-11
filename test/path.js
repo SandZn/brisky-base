@@ -4,7 +4,7 @@ const Base = require('../')
 
 test('path', function (t) {
   t.plan(6)
-  const base = new Base({ a: { b: { c: true } } })
+  const base = Base({ a: { b: { c: true } } })
   t.same(base.a.b.c.path(), ['a', 'b', 'c'], 'path')
   t.same(base.a.b.c.realPath(), ['a', 'b', 'c'], 'realPath')
   t.same(base.a.b.c.realPath(base.a), ['b', 'c'], 'realPath with limit')
@@ -16,19 +16,19 @@ test('path', function (t) {
 
 test('context-path', function (t) {
   t.plan(2)
-  const base = new Base({ a: { b: { c: true } } })
-  const instance = new base.Constructor({ key: 'instance' })
+  const base = Base({ a: { b: { c: true } } })
+  const instance = Base.Constructor({ key: 'instance' })
   t.same(instance.a.b.c.path(), ['instance', 'a', 'b', 'c'], 'context-path')
   t.same(base.a.b.c.path(), ['a', 'b', 'c'], 'normal')
 })
 
 test('multiple-context-path', function (t) {
-  const base = new Base({ a: { b: { c: true } } })
-  const c = new Base({
+  const base = Base({ a: { b: { c: true } } })
+  const c = Base({
     key: 'c-i',
     x: {
       y: {
-        z: new base.Constructor({
+        z: Base.Constructor({
           noReference: true
         })
       }
@@ -39,7 +39,7 @@ test('multiple-context-path', function (t) {
   })
   t.equal('_z' in d.x.y, true, 'resolved context for d.x.y.z')
   t.same(d.x.y.z.a.b.c.path(), ['d-i', 'x', 'y', 'z', 'a', 'b', 'c'], 'correct double context path')
-  const e = new Base({ key: 'its e' })
+  const e = Base({ key: 'its e' })
   const refToContext = d.x.y.z.a.b.c
   d.x.y.__c = e // set incorrect context
   refToContext._parent._parent.__c = e // set more incorrect context

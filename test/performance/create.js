@@ -11,7 +11,7 @@ function createNormalObject () {
 
 function createBase () {
   for (var i = 0; i < amount; i++) {
-    var a = new Base(i) //eslint-disable-line
+    var a = Base(i) //eslint-disable-line
   }
 }
 

@@ -3,12 +3,12 @@ const test = require('tape')
 const Base = require('../')
 
 test('references - "$.field" notation', function (t) {
-  const base = new Base({
+  const base = Base({
     field: 'something',
     other: '$root.field'
   })
   t.equal(base.other.val, base.field, 'other equals field')
-  const base2 = new Base({ field: { a: '$root.field.b' } })
+  const base2 = Base({ field: { a: '$root.field.b' } })
   t.equal(base2.field.a.val, base2.field.b, 'field.a created a reference to field.b')
   base.set('other', '$root.field')
   t.equal(base2.field.a.val, base2.field.b, '"$root.field" notation works')
@@ -24,7 +24,7 @@ test('references - "$.field" notation', function (t) {
   t.equal(base.field.a.b.val, base.field.c, '"$.parent.parent.c" notation works')
   t.equal(base.other[0].val, base.other[0].b, '"$.[field]" notation works')
 
-  const a = new Base({
+  const a = Base({
     etc: {},
     a: {
       b: {
@@ -33,7 +33,7 @@ test('references - "$.field" notation', function (t) {
     }
   })
 
-  var special = new Base({
+  var special = Base({
     other: {
       field: {
         noReference: true
@@ -50,7 +50,7 @@ test('references - "$.field" notation', function (t) {
   })
   t.equal(a.etc.gurk.val, a.etc.a, 'creating a new instance using noReference')
 
-  const b = new Base({
+  const b = Base({
     properties: {
       x: {
         type: 'base',
@@ -70,7 +70,7 @@ test('references - "$.field[0]"', function (t) {
     consolevalue = val
     // rconsole.apply(this, arguments)
   }
-  const base = new Base({
+  const base = Base({
     field: {
       hello: 1,
       bye: 2,
@@ -92,14 +92,14 @@ test('references - "$.field[0]"', function (t) {
   t.equal(consolevalue, 'key notation - cant find key "[-10]" in "field"', 'logs warning when unavailable')
   base.other.set('$root.random[-10]')
   t.equal(consolevalue, 'key notation - cant find key "[-10]" in "random"', 'logs warning on non-existing')
-  new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
+  Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
   t.equal(consolevalue, 'key notation - cant find key "[0]" in "field"', 'logs warning on non-existing')
   console.log = rconsole
   t.end()
 })
 
 test('references - isParent unequal case', function (t) {
-  const base = new Base({
+  const base = Base({
     a: {
       b: {},
       c: {}

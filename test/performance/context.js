@@ -4,7 +4,7 @@ const test = require('vigour-performance')
 var amount = 1e4
 
 function setKeys () {
-  const a = new Base({ a: 100, b: 100 })
+  const a = Base({ a: 100, b: 100 })
   const b = new a.Constructor({ key: 'ITS B' })
   for (let i = 0; i < amount; i++) {
     b.set({ [i]: 1 })
@@ -12,7 +12,7 @@ function setKeys () {
 }
 
 function setKeysContext () {
-  const a = new Base({ a: 100, b: 100 })
+  const a = Base({ a: 100, b: 100 })
   const b = new a.Constructor({ key: 'ITS B' }) //eslint-disable-line
   for (let i = 0; i < amount; i++) {
     // much better stratgy is to set it straight on the correct field vs doing weird context getter shit later
@@ -25,7 +25,7 @@ test(setKeysContext, setKeys, 1)
 
 function createConstructors () {
   for (let i = 0; i < amount / 3; i++) {
-    let a = new Base({ a: 100, b: 100 })  //eslint-disable-line
+    let a = Base({ a: 100, b: 100 })  //eslint-disable-line
     let b = new a.Constructor({ key: 'ITS B' }) //eslint-disable-line
   }
 }
