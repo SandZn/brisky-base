@@ -2,7 +2,7 @@
 var test = require('tape')
 var Base = require('../')
 
-test('child', function (t) {
+test('child', t => {
   const bchild = Base('bye')
   function Special (val) {
     this.internalStuff = val
@@ -26,7 +26,7 @@ test('child', function (t) {
   t.end()
 })
 
-test('child - merge', function (t) {
+test('child - merge', t => {
   const a = Base({
     child: { child: 'Constructor' },
     inject: [
@@ -47,7 +47,7 @@ test('child - merge', function (t) {
   t.end()
 })
 
-test('child - recursive optmization', function (t) {
+test('child - recursive optmization', t => {
   const moduleA = {
 
   }

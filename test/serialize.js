@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('serialize', function (t) {
+test('serialize', t => {
   const cases = [
     { a: true, b: { c: 'yo' } },
     [
@@ -19,7 +19,7 @@ test('serialize', function (t) {
   })
 })
 
-test('serialize - computed', function (t) {
+test('serialize - computed', t => {
   const cases = [
     { a: true, b: { c: 'yo' } },
     [
@@ -34,7 +34,7 @@ test('serialize - computed', function (t) {
   })
 })
 
-test('serialize - filter', function (t) {
+test('serialize - filter', t => {
   const base = Base({
     yuzi: {
       james: {

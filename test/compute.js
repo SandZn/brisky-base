@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('compute', function (t) {
+test('compute', t => {
   const d = Base()
   t.equal(d.compute(), d, 'd - returns itself as default value')
   d.val = function (previous, start, stamp, attach) {
@@ -20,7 +20,7 @@ test('compute', function (t) {
   t.end()
 })
 
-test('compute - references and override', function (t) {
+test('compute - references and override', t => {
   var cnt = 0
   const b = Base({
     key: 'b',

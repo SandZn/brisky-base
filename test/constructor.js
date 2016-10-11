@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('constructor - custom', function (t) {
+test('constructor - custom', t => {
   function Special (val) {
     this.lullz = val
   }

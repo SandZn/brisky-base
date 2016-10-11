@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../../base')
 
-test('property - map - set', function (t) {
+test('property - map - set', t => {
   const a = new Base()
   t.equal(a._mapTarget, Base.prototype, 'mapTarget equals base')
   t.equal(a._mapProperty, null, '_mapProperty equals null')

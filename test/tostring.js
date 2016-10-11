@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('toString - inspect', function (t) {
+test('toString - inspect', t => {
   const a = Base('hello')
   t.equal(a.inspect(), 'Base "hello"')
   const b = Base({

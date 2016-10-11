@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('noReference', function (t) {
+test('noReference', t => {
   const a = Base({
     val: 'a',
     noReference: true,

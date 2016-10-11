@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('move', function (t) {
+test('move', t => {
   var base = Base({
     b: true,
     d: {

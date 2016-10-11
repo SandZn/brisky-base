@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../../')
 
-test('keys - filters', function (t) {
+test('keys - filters', t => {
   const base = Base({
     types: {
       thing: {
@@ -75,7 +75,7 @@ test('keys - filters', function (t) {
   t.end()
 })
 
-test('keys - filters - remove key on new', function (t) {
+test('keys - filters - remove key on new', t => {
   const a = Base({
     a: true,
     b: true
@@ -92,7 +92,7 @@ test('keys - filters - remove key on new', function (t) {
   t.end()
 })
 
-test('keys - filters - null undefined key on instance', function (t) {
+test('keys - filters - null undefined key on instance', t => {
   const a = Base({
     a: true,
     b: {
@@ -106,7 +106,7 @@ test('keys - filters - null undefined key on instance', function (t) {
   t.end()
 })
 
-test('keys - filters - custom filter', function (t) {
+test('keys - filters - custom filter', t => {
   const a = Base({
     a: true,
     define: {

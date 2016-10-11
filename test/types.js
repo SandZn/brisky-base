@@ -38,7 +38,7 @@ test('types - remove type property', t => {
   t.end()
 })
 
-test('types - create types', function (t) {
+test('types - create types', t => {
   const c = base({ special: true })
   const d = base({ specialD: true })
   const a = base({
@@ -99,7 +99,7 @@ test('types - create types', function (t) {
   t.end()
 })
 
-test('types - inheritance', function (t) {
+test('types - inheritance', t => {
   const a = base({
     types: {
       special: 'hello',
@@ -123,7 +123,7 @@ test('types - inheritance', function (t) {
   t.end()
 })
 
-test('types - share object types constructors', function (t) {
+test('types - share object types constructors', t => {
   const a = { val: 'a' }
   const b = base({
     types: { a: a },
@@ -137,7 +137,7 @@ test('types - share object types constructors', function (t) {
   t.end()
 })
 
-test('types - create types - merge', function (t) {
+test('types - create types - merge', t => {
   const obj = base({
     types: {
       a: {

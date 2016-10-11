@@ -80,7 +80,7 @@ test('context - apply and resolve', t => {
 })
 
 // double test
-test('context - apply and resolve (double) - simple resolve', function (t) {
+test('context - apply and resolve (double) - simple resolve', t => {
   const obj = base({
     a: {
       b: {

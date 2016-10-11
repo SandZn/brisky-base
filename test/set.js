@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('set - resolve context', function (t) {
+test('set - resolve context', t => {
   t.plan(2)
   var a = Base({
     b: {
@@ -15,7 +15,7 @@ test('set - resolve context', function (t) {
   t.equal(b.hasOwnProperty('_b'), true, 'resolved b.b after set')
 })
 
-test('set - type', function (t) {
+test('set - type', t => {
   t.plan(2)
   var a = Base({
     types: {
@@ -30,7 +30,7 @@ test('set - type', function (t) {
   t.end()
 })
 
-test('set - reserved key error', function (t) {
+test('set - reserved key error', t => {
   t.plan(1)
   var a = Base({
     define: {
@@ -47,7 +47,7 @@ test('set - reserved key error', function (t) {
   t.end()
 })
 
-test('set - param and isNew', function (t) {
+test('set - param and isNew', t => {
   var results = []
   var newArray = []
 

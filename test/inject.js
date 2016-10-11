@@ -2,7 +2,7 @@
 const test = require('tape')
 const Base = require('../')
 
-test('inject - object', function (t) {
+test('inject - object', t => {
   const injectable = {
     val: 'hello'
   }
@@ -17,7 +17,7 @@ test('inject - object', function (t) {
   t.end()
 })
 
-test('inject - function', function (t) {
+test('inject - function', t => {
   const injectable = (base) => {
     base.set('hello')
   }
@@ -32,7 +32,7 @@ test('inject - function', function (t) {
   t.end()
 })
 
-test('inject - mixin', function (t) {
+test('inject - mixin', t => {
   const injectMethod = function () {}
   const aMethod = function () {}
   const special = Base({ type: 'special!' })

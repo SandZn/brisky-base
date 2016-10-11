@@ -2,7 +2,7 @@
 const test = require('tape')
 const base = require('../')
 
-test('path', function (t) {
+test('path', t => {
   t.plan(6)
   const obj = base({ a: { b: { c: true } } })
   t.same(obj.a.b.c.path(), ['a', 'b', 'c'], 'path')
@@ -14,7 +14,7 @@ test('path', function (t) {
   t.equal(obj.a.b.c.realPath(false, true), mempath, 'returns same memoized path')
 })
 
-test('context-path', function (t) {
+test('context-path', t => {
   t.plan(2)
   const obj = base({ a: { b: { c: true } } })
   const instance = new obj.Constructor({ key: 'instance' })
@@ -22,7 +22,7 @@ test('context-path', function (t) {
   t.same(obj.a.b.c.path(), ['a', 'b', 'c'], 'normal')
 })
 
-test('multiple-context-path', function (t) {
+test('multiple-context-path', t => {
   const obj = base({ a: { b: { c: true } } })
   const c = base({
     key: 'c-i',
