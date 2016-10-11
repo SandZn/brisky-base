@@ -1,4 +1,4 @@
 'use strict'
 require('./basic')
-// require('./custom')
-// require('./filter')
+require('./custom')
+require('./filter')

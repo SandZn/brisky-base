@@ -27,7 +27,8 @@ There are 4 types of property definitions:
 
 **basic**
 ```javascript
-var base = new Base({
+const briskyBase = require('brisky-base')
+const base = briskyBase({
   properties: {
     normal: true,
     special (val, stamp) {
@@ -53,11 +54,13 @@ base.set({
 
 **set**
 ```javascript
-var special = new Base({
+const briskyBase = require('brisky-base')
+
+const special = briskyBase({
   type: 'special'
 })
 
-var base = new Base({
+const base = briskyBase({
   properties: {
     // uses "noReference" for a base
     special: special
@@ -89,7 +92,9 @@ It has 3 options:
 - `:val` property value
 
 ```javascript
-var base = new Base({
+const briskyBase = require('brisky-base')
+
+const base = new briskyBase({
   properties: {
     define: {
       x: { key: 'y' },
@@ -143,7 +148,9 @@ Stores information on fields about first non-shared ancestors.
 Notice that `base.a.b.c === instance.a.b.c` is true but the paths are different
 
 ```javascript
-const base = new Base({
+const briskyBase = require('brisky-base')
+
+const base = briskyBase({
   key: 'base'
   a: { b: { c: 'its c' } }
 })
@@ -165,7 +172,9 @@ Consists of 2 methods
 - storeContext()
 
 ```javascript
-const base = new Base({
+const briskyBase = require('brisky-base')
+
+const base = briskyBase({
   key: 'base'
   a: { b: { c: 'its c' } }
 })
