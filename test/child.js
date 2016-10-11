@@ -46,3 +46,10 @@ test('child - merge', function (t) {
   t.same(a.x.a.keys(), [ 'a', 'b' ], 'merged correctly')
   t.end()
 })
+
+test('child - recursive optmization', function (t) {
+  const a = new Base({
+    child: { child: 'Constructor' }
+  })
+  t.end()
+})
