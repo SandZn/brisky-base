@@ -1,9 +1,10 @@
 'use strict'
-var test = require('tape')
-var Base = require('../')
+const test = require('tape')
+const base = require('../')
+const Base = require('../base')
 
-test('types - remove type property', function (t) {
-  const Template = Base({
+test('types - remove type property', t => {
+  const Template = base({
     type: 'template'
   }).Constructor
   const TemplateA = new Template({
@@ -24,7 +25,7 @@ test('types - remove type property', function (t) {
   t.equals(a.type.val, 'this is something', 'a.type has a correct input value')
   const TemplateB = new Template({
     properties: {
-      type: Base({ type: 'special' })
+      type: base({ type: 'special' })
     }
   }).Constructor
   const b = new TemplateB({ type: 'this is special' })
@@ -38,9 +39,9 @@ test('types - remove type property', function (t) {
 })
 
 test('types - create types', function (t) {
-  const c = Base({ special: true })
-  const d = Base({ specialD: true })
-  const a = Base({
+  const c = base({ special: true })
+  const d = base({ specialD: true })
+  const a = base({
     types: {
       b: {
         field: true,
@@ -79,7 +80,7 @@ test('types - create types', function (t) {
     },
     'injects for base types'
   )
-  const a4 = Base({
+  const a4 = base({
     types: [ { a: true }, { b: true } ]
   })
   a4.set({
@@ -99,7 +100,7 @@ test('types - create types', function (t) {
 })
 
 test('types - inheritance', function (t) {
-  const a = Base({
+  const a = base({
     types: {
       special: 'hello',
       something: {
@@ -124,11 +125,11 @@ test('types - inheritance', function (t) {
 
 test('types - share object types constructors', function (t) {
   const a = { val: 'a' }
-  const b = Base({
+  const b = base({
     types: { a: a },
     a: { type: 'a' }
   })
-  const c = Base({
+  const c = base({
     types: { a: a },
     a: { type: 'a' }
   })
@@ -137,26 +138,26 @@ test('types - share object types constructors', function (t) {
 })
 
 test('types - create types - merge', function (t) {
-  const base = Base({
+  const obj = base({
     types: {
       a: {
         text: 'hello'
       }
     }
   })
-  base.set({
+  obj.set({
     types: {
       a: {
         yuzi: 'hello'
       }
     }
   })
-  base.set({
+  obj.set({
     bla: {
       type: 'a'
     }
   })
-  t.same(base.bla.serialize(), {
+  t.same(obj.bla.serialize(), {
     yuzi: 'hello',
     text: 'hello'
   }, 'merges')
