@@ -1,5 +1,5 @@
 'use strict'
-const Base = require('../../')
+const Base = require('../../base')
 const test = require('vigour-performance')
 var amount = 3e3
 

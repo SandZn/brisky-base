@@ -20,12 +20,12 @@
     "base"
   ],
   "dependencies": {
-    "define-configurable": "^1.0.2",
-    "descriptors": "^1.0.3",
     "brisky-is-obj": "^1.0.2",
     "brisky-is-empty": "^1.0.0",
     "brisky-is-removed": "^1.0.0",
-    "brisky-stamp": "^1.1.1",
+    "brisky-stamp": "^1.0.0",
+    "define-configurable": "^1.0.2",
+    "descriptors": "^1.0.3",
     "bubleify": "0.5.1",
     "regenerator": "0.8.46",
     "deep-assign": "^2.0.0"
