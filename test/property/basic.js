@@ -26,7 +26,6 @@ test('property - base', t => {
   const y = new Base('y')
   const base = new Base({
     types: { z: 'z' },
-    // bla: { type: 'base' }, // so what does this do???
     properties: {
       x: 'x',
       y: y,
@@ -37,10 +36,6 @@ test('property - base', t => {
     y: {},
     z: { field: 'z' }
   })
-
-  // this does not work
-
-  console.log(base.properties.base.base === Base.prototype, Base.prototype.noReference)
 
   t.equal(
     base.properties.base.base !== Base.prototype,
