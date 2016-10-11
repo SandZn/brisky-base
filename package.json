@@ -1,6 +1,6 @@
 {
-  "name": "vigour-base",
-  "version": "3.6.6",
+  "name": "brisky-base",
+  "version": "0.0.0",
   "description": "'injectacble classes'",
   "main": "index.js",
   "scripts": {
