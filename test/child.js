@@ -49,7 +49,8 @@ test('child - merge', function (t) {
 
 test('child - recursive optmization', function (t) {
   const a = new Base({
-    child: { child: 'Constructor' }
+    child: {
+      child: 'Constructor' }
   })
   t.end()
 })
