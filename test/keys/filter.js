@@ -1,9 +1,9 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const bBase = require('../../')
 
 test('keys - filters', t => {
-  const base = Base({
+  const base = bBase({
     types: {
       thing: {
         keyType: 'thing'
@@ -44,7 +44,7 @@ test('keys - filters', t => {
     'correct "thing" keys after remove'
   )
 
-  const instance = Base.Constructor({
+  const instance = new base.Constructor({
     bla: { type: 'thing' },
     field: true
   })
@@ -76,7 +76,7 @@ test('keys - filters', t => {
 })
 
 test('keys - filters - remove key on new', t => {
-  const a = Base({
+  const a = bBase({
     a: true,
     b: true
   })
@@ -93,7 +93,7 @@ test('keys - filters - remove key on new', t => {
 })
 
 test('keys - filters - null undefined key on instance', t => {
-  const a = Base({
+  const a = bBase({
     a: true,
     b: {
       keyType: 'thing'
@@ -107,7 +107,7 @@ test('keys - filters - null undefined key on instance', t => {
 })
 
 test('keys - filters - custom filter', t => {
-  const a = Base({
+  const a = bBase({
     a: true,
     define: {
       filter (key) {

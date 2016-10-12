@@ -141,14 +141,16 @@ test('types - create types - merge', t => {
   const obj = base({
     types: {
       a: {
-        text: 'hello'
+        text: 'hello',
+        field: {}
       }
     }
   })
   obj.set({
     types: {
       a: {
-        yuzi: 'hello'
+        yuzi: 'hello',
+        field: { a: true }
       }
     }
   })
@@ -158,6 +160,7 @@ test('types - create types - merge', t => {
     }
   })
   t.same(obj.bla.serialize(), {
+    field: { a: true },
     yuzi: 'hello',
     text: 'hello'
   }, 'merges')

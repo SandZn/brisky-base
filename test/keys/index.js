@@ -2,4 +2,4 @@
 require('./basic')
 require('./inheritance')
 require('./sort')
-// require('./filter')
+require('./filter')
