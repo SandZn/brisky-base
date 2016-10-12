@@ -1,6 +1,6 @@
 {
   "name": "brisky-base",
-  "version": "0.0.0",
+  "version": "3.6.6",
   "description": "'injectacble classes'",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "brisky-is-obj": "^1.0.2",
     "brisky-is-empty": "^1.0.0",
     "brisky-is-removed": "^1.0.0",
-    "brisky-stamp": "^1.0.0",
+    "brisky-stamp": "^1.5.6",
     "define-configurable": "^1.0.2",
     "descriptors": "^1.0.3",
     "bubleify": "0.5.1",
