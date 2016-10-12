@@ -1,6 +1,6 @@
 'use strict'
-require('./basic')
-require('./define')
-require('./defaults')
-require('./map')
+// require('./basic')
+// require('./define')
+// require('./defaults')
+// require('./map')
 require('./child')

@@ -82,23 +82,16 @@ test('property - child - enhance property definition', t => {
   t.end()
 })
 
-/*
-'use strict'
-var test = require('tape')
-var Base = require('../')
-
 test('child', t => {
   const bchild = Base('bye')
   function Special (val) {
     this.internalStuff = val
   }
-
   const a = Base({
     child: { val: 'hello' },
     b: { child: bchild },
     c: { child: Special }
   })
-
   t.same(a.b.serialize(), 'hello', 'object notation')
   a.b.set({ c: {} })
   t.same(a.b.c.serialize(), 'bye', 'base notation')
@@ -107,7 +100,6 @@ test('child', t => {
   a.set({ child: { field: true } })
   t.same(a.b.field.serialize(), true, 'b - use set when child is allready defined')
   t.same(a.c.field.serialize(), true, 'c - use set when child is allready defined')
-
   t.end()
 })
 
@@ -132,22 +124,46 @@ test('child - merge', t => {
   t.end()
 })
 
-test('child - recursive optmization', t => {
+test('child - recursive optimization', t => {
   const moduleA = {
-
+    child: {
+      a: true,
+      child: 'Constructor'
+    }
   }
 
   const moduleB = {
-
+    child: {
+      b: true,
+      child: 'Constructor'
+    }
   }
 
   const moduleC = {
-
+    child: {
+      c: true,
+      child: 'Constructor'
+    }
   }
 
   const a = Base({
-    child: { child: 'Constructor' }
+    child: {
+      // properties: {
+      //   a: true,
+      //   b: true,
+      //   c: true
+      // },
+      child: 'Constructor'
+    },
+    inject: [ moduleA, moduleB, moduleC ]
   })
+
+  a.set({
+    x: { y: { z: true } }
+  })
+
+  // console.log(a, a.x.a, a.x.b, a.x.c)
+  // console.log(a.x.c)
+
   t.end()
 })
-*/
