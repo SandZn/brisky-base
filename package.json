@@ -28,8 +28,7 @@
     "define-configurable": "^1.0.2",
     "descriptors": "^1.0.3",
     "bubleify": "0.5.1",
-    "regenerator": "0.8.46",
-    "deep-assign": "^2.0.0"
+    "regenerator": "0.8.46"
   },
   "browserify": {
     "transform": [
