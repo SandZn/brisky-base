@@ -147,6 +147,13 @@ test('child - recursive optimization', t => {
   }
 
   const a = new Base({
+    types: {
+      a: { type: 'base', child: 'Constructor' }
+    },
+    child: { type: 'a' },
+    bla: {
+      bla: true
+    },
     inject: [ moduleA, moduleB, moduleC ]
   })
 
@@ -158,6 +165,28 @@ test('child - recursive optimization', t => {
   t.equal(a.x.a.child.prototype.child, child, 'a.child.child equals a.child')
   t.equal(a.x.b.child.prototype.child, child, 'a.child.child equals a.child')
   t.equal(a.x.c.child.prototype.child, child, 'a.child.child equals a.child')
+  t.equal(a.x.c.child.prototype.child, child, 'a.child.child equals a.child')
+
+  a.set({
+    types: {
+      a: {
+        hello: true,
+        child: 'Constructor'
+      }
+    }
+  })
+
+  a.set({
+    types: {
+      a: {
+        bye: true,
+        child: 'Constructor'
+      }
+    }
+  })
+
+  t.equal(a.x.y.z.bye.compute(), true, 'injecting on a type adds to everything')
+  t.equal(a.x.y.z.hello.compute(), true, 'injecting on a type adds to everything')
 
   t.end()
 })
