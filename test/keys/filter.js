@@ -109,6 +109,7 @@ test('keys - filters - null undefined key on instance', t => {
 test('keys - filters - custom filter', t => {
   const a = bBase({
     a: true,
+    x: { keyType: 'bla' },
     define: {
       filter (key) {
         return !(/blurf/.test(key))
@@ -116,6 +117,6 @@ test('keys - filters - custom filter', t => {
     }
   })
   a.set({ blurf: true })
-  t.same(a.keys(), [ 'a' ], 'excludes blacklisted items')
+  t.same(a.keys(), [ 'a', 'x' ], 'excludes blacklisted items')
   t.end()
 })
