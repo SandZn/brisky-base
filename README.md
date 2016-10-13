@@ -50,6 +50,8 @@ base.set({
 ```
 
 **set**
+Set a base object, allways merges
+
 ```javascript
 const briskyBase = require('brisky-base')
 
@@ -77,6 +79,22 @@ base.set({
   }
 })
 // → base.special.aField.val === true, inherits from the property
+```
+
+**reset**
+Overwrite base, removes all properties that end up in `.keys()`
+
+```javascript
+const base = require('brisky-base')
+const b = base({
+  a: true,
+  b: true,
+  properties: { c: true },
+  c: 'haha non-key property'
+})
+
+b.reset(true) // or b.set({ reset: true })
+// removes a and b, but not c
 ```
 
 **define**

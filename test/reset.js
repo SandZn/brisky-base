@@ -3,7 +3,6 @@ const test = require('tape')
 const base = require('../')
 
 test('reset', t => {
-  t.plan(3)
   const obj = base({
     a: { b: { c: true } },
     properties: {
@@ -12,5 +11,8 @@ test('reset', t => {
     bla: 'bla'
   })
 
-  t.
+  obj.reset()
+  t.equal(obj.bla, 'bla', 'keeps properties')
+  t.equal(obj.a, null, 'removes properties that end up in keys')
+  t.end()
 })
