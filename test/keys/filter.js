@@ -70,7 +70,7 @@ test('keys - filters', t => {
     'original did not get polluted by instance'
   )
   instance.reset()
-  t.same(instance.keys('thing'), [], 'reset keys')
+  t.same(instance.keys('thing'), [ 'bla' ], 'reset keys')
   t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
   t.end()
 })

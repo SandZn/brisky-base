@@ -4,6 +4,7 @@ const Base = require('../')
 
 test('toString - inspect', t => {
   const a = Base('hello')
+  a.type = 'base'
   t.equal(a.inspect(), 'Base "hello"')
   const b = Base({
     properties: { type: null },
