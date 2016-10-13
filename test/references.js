@@ -97,7 +97,7 @@ test('references - "$.field[0]"', t => {
   t.end()
 })
 
-test('references - isParent unequal case', t => {
+test('references - isParent unequal case', rm t => {
   const obj = base({
     a: {
       b: {},
