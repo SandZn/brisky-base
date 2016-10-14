@@ -58,3 +58,24 @@ test('property - child - complex', t => {
   t.equal(a.x.syncUp, true, 'does not replace higher up')
   t.end()
 })
+
+test('property - child - complex - properties deep', function (t) {
+  const otherState = {
+    child: {
+      child: 'Constructor',
+      properties: {
+        current: { lulz: true } // this results in a max call stack
+      }
+    }
+  }
+  const obj = base({
+    inject: otherState,
+    x: {
+      y: {
+        z: { current: true }
+      }
+    }
+  })
+  t.equal(obj.x.y.z.current.lulz.compute(), true, 'correct current property')
+  t.end()
+})
