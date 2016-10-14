@@ -50,9 +50,6 @@
     "human-readable-ids": "^1.0.1",
     "pre-commit": "^1.1.3"
   },
-  "browser": {
-    "./lib/iterator/index.js": "./lib/iterator/browser.js"
-  },
   "author": "jim de beer",
   "license": "ISC",
   "bugs": {
