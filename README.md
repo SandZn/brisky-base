@@ -13,73 +13,24 @@ Extendable object constructors, build for speed, low memory consumption and simp
 - inject pattern
 
 -
-###Properties
-The properties field is used to add property definitions for certain keys within set objects.
-
-There are 4 types of property definitions:
-- `true` clears any special base behaviour for the key
-- `function` calls the function when the key is set instead of the normal behaviour
-- `null` removes property definition and any existing instances
-- `anything else` uses the set function
-
-**basic**
-```javascript
-const briskyBase = require('brisky-base')
-const base = briskyBase({
-  properties: {
-    normal: true,
-    special (val, stamp) {
-      this.special = val * 10
-    },
-    base: { nested: true }
-  }
-})
-
-base.set({
-  normal: 'hello', // → 'hello'
-  special: 10, // → 100
-  base: 'a base' // → Base { val: 'a base', nested: true }
-})
-
-base.set({
-  properties: {
-    normal: null
-    // removes property defintion and removes "normal"
-  }
-})
-```
+###Set
+Set method, set values or objects on a base object, allways merges objects
 
 **set**
 
-Set a base object, allways merges
-
 ```javascript
-const briskyBase = require('brisky-base')
+const base = require('brisky-base')
 
-const special = briskyBase({
-  type: 'special'
+const obj = base({
+  a: true,
+  b: true
 })
 
-const base = briskyBase({
-  properties: {
-    // uses "noReference" for a base
-    special: special
+obj.set({
+  a: {
+    c: true
   }
-})
-
-base.set({
-  special: 10 // → Special 10
-})
-
-// add something to the "special" property
-base.set({
-  properties: {
-    special: {
-      aField: true
-    }
-  }
-})
-// → base.special.aField.val === true, inherits from the property
+}) // → results in { a: { val: true, c: true }, b: true }
 ```
 
 **reset**
@@ -92,11 +43,79 @@ const b = base({
   a: true,
   b: true,
   properties: { c: true },
-  c: 'haha non-key property'
+  c: 'haha non-key property' // c is not a part of .keys()
 })
 
-b.reset(true) // or b.set({ reset: true })
-// removes a and b, but not c
+b.set({ reset: true, x: true }) // removes a and b, but not c, adds x
+// reset can also be used as a method b.reset()
+```
+
+-
+###Properties
+The properties field is used to add property definitions for certain keys within set objects.
+
+There are 4 types of property definitions:
+- `true` clears any special base behaviour for the key
+- `function` calls the function when the key is set instead of the normal behaviour
+- `null` removes property definition and any existing instances
+- `anything else` uses the set function
+
+**basic**
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  properties: {
+    normal: true,
+    special (val, stamp) {
+      this.special = val * 10
+    },
+    base: { nested: true }
+  }
+})
+
+obj.set({
+  normal: 'hello', // → 'hello'
+  special: 10, // → 100
+  base: 'a base' // → Base { val: 'a base', nested: true }
+})
+
+obj.set({
+  properties: {
+    normal: null
+    // removes property defintion and removes "normal"
+  }
+})
+```
+
+**set**
+
+```javascript
+const base = require('brisky-base')
+
+const special = base({
+  type: 'special'
+})
+
+const obj = base({
+  properties: {
+    // uses "noReference" for a base
+    special: special
+  }
+})
+
+obj.set({
+  special: 10 // → Special 10
+})
+
+// add something to the "special" property
+obj.set({
+  properties: {
+    special: {
+      aField: true
+    }
+  }
+})
+// → base.special.aField.val === true, inherits from the property
 ```
 
 **define**
@@ -111,7 +130,7 @@ It has 3 options:
 ```javascript
 const briskyBase = require('brisky-base')
 
-const base = new briskyBase({
+const obj = new base({
   properties: {
     define: {
       x: { key: 'y' },
@@ -133,7 +152,7 @@ const base = new briskyBase({
   hello: { field: true } // → bye: Base { val: 100, field: true }
 })
 
-base.set({
+obj.set({
   properties: {
     define: {
       something: {
@@ -159,19 +178,20 @@ base.set({
 ###Context
 Context enables deep memory efficient prototypes.
 Stores information on fields about first non-shared ancestors.
+The context syntax can be used to create mem efficient immutables for example
 
 **basic**
 
 Notice that `base.a.b.c === instance.a.b.c` is true but the paths are different
 
 ```javascript
-const briskyBase = require('brisky-base')
+const base = require('brisky-base')
 
-const base = briskyBase({
+const obj = base({
   key: 'base'
   a: { b: { c: 'its c' } }
 })
-const instance = new base.Constructor({
+const instance = new obj.Constructor({
   key: 'instance'
 })
 console.log(base.a.b.c === instance.a.b.c) // → true
@@ -189,18 +209,18 @@ Consists of 2 methods
 - storeContext()
 
 ```javascript
-const briskyBase = require('brisky-base')
+const base = require('brisky-base')
 
-const base = briskyBase({
+const obj = base({
   key: 'base'
   a: { b: { c: 'its c' } }
 })
-const instance = new base.Constructor({
+const instance = new obj.Constructor({
   key: 'instance'
 })
 const b = instance.a.b
 const context = b.storeContext()
-console.log(base.a.b.c) // this will remove the context "instance", and replace it with base
+console.log(obj.a.b.c) // this will remove the context "instance", and replace it with base
 b.applyContext(context) // will reset the context of b to instance
 ```
 
@@ -208,3 +228,41 @@ Apply context can return 3 different types
 - `undefined` Context is restored without any differences
 - `Base` A set has happened in the path leading to the target of apply context
 - `null` A remove has happened in the path leading to the target of apply co  ntext
+
+
+-
+###Get
+Get by path, get with a default
+
+```javascript
+const base = require('brisky-base')
+
+const obj = base({
+  a: { b: { c: 'c!' } }
+})
+
+var c = obj.get('a.b.c') // get c
+c = obj.get(['a', 'b', 'c']) // also gets c
+c = obj.get('[0][0][0]') // also get c (gets first key of every object)
+c = obj.get('[-1][-1][-1]') // also get c (gets last key of every object)
+
+const d = obj.get('a.b.d', {}) // creates new property d with as a default value an empty object
+```
+
+-
+###Each
+Loop trough values of a base object
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  key: 'base'
+  a: {},
+  b: {}
+})
+
+obj.each(p => {
+  console.log(p) // iterators over each key
+  // returning a value in each will break the each loop -- this is usefull for performance
+})
+```
