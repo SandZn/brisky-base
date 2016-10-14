@@ -89,8 +89,8 @@ test('property - base', t => {
   )
   t.equal(
     instance.z.field.val,
-    'z',
-    'merged field from .z, exclude set on property (field)'
+    'yuz',
+    'merged field from .z, include set on property (field)'
   )
   t.end()
 })
