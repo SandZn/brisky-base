@@ -23,6 +23,19 @@ test('property - child', t => {
   t.end()
 })
 
+test('property - child - true', t => {
+  const base = new Base({ child: true })
+  base.set({
+    x: {},
+    y: {},
+    z: {}
+  })
+  t.same(base.x, {}, 'x is normal object')
+  t.same(base.y, {}, 'y is normal object')
+  t.same(base.z, {}, 'z is normal object')
+  t.end()
+})
+
 test('property - child - enhance property definition', t => {
   const base = new Base({ y: true })
   base.set({
@@ -131,21 +144,18 @@ test('child - recursive optimization', t => {
       a: true
     }
   }
-
   const moduleB = {
     child: {
       b: true,
       child: 'Constructor'
     }
   }
-
   const moduleC = {
     child: {
       c: true,
       child: 'Constructor'
     }
   }
-
   const a = new Base({
     types: {
       a: { type: 'base', child: 'Constructor' }
@@ -156,17 +166,13 @@ test('child - recursive optimization', t => {
     },
     inject: [ moduleA, moduleB, moduleC ]
   })
-
   a.set({ x: { y: { z: true } } })
-
   const child = a.child
-
   t.equal(child.prototype.child, child, 'a.child.child equals a.child')
   t.equal(a.x.a.child.prototype.child, child, 'a.child.child equals a.child')
   t.equal(a.x.b.child.prototype.child, child, 'a.child.child equals a.child')
   t.equal(a.x.c.child.prototype.child, child, 'a.child.child equals a.child')
   t.equal(a.x.c.child.prototype.child, child, 'a.child.child equals a.child')
-
   a.set({
     types: {
       a: {
@@ -175,7 +181,6 @@ test('child - recursive optimization', t => {
       }
     }
   })
-
   a.set({
     types: {
       a: {
@@ -184,9 +189,7 @@ test('child - recursive optimization', t => {
       }
     }
   })
-
   t.equal(a.x.y.z.bye.compute(), true, 'injecting on a type adds to everything')
   t.equal(a.x.y.z.hello.compute(), true, 'injecting on a type adds to everything')
-
   t.end()
 })
