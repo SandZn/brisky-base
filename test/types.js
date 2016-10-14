@@ -166,3 +166,41 @@ test('types - create types - merge', t => {
   }, 'merges')
   t.end()
 })
+
+test('types - child - recursive types', t => {
+  const elem = base({
+    types: {
+      ul: {
+        tag: 'ul',
+        child: {
+          type: 'ul'
+        }
+      },
+      lulz: {
+        tag: 'lulz',
+        field: {
+          type: 'lulz'
+        }
+      }
+    }
+  })
+  elem.set({ list: { type: 'ul' } })
+  elem.set({
+    list: {
+      field: {
+        flups: true
+      }
+    }
+  })
+  t.equal(elem.list.field.tag.compute(), 'ul', 'list children are instances of the same type')
+  elem.set({
+    lulz: {
+      type: 'lulz',
+      field: {
+        flups: 'glurrrf'
+      }
+    }
+  })
+  t.equal(elem.lulz.field.field.tag.compute(), 'lulz', 'recursive children')
+  t.end()
+})
