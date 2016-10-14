@@ -262,7 +262,7 @@ const obj = base({
 })
 
 obj.each(p => {
-  console.log(p) // iterators over each key
+  console.log(p) // iterates over each key
   // returning a value in each will break the each loop -- this is usefull for performance
 })
 ```
