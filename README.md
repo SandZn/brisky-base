@@ -50,6 +50,7 @@ base.set({
 ```
 
 **set**
+
 Set a base object, allways merges
 
 ```javascript
@@ -82,6 +83,7 @@ base.set({
 ```
 
 **reset**
+
 Overwrite base, removes all properties that end up in `.keys()`
 
 ```javascript
