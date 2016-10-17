@@ -436,6 +436,7 @@ console.log(a.c.e.compute()) // → returns "its b!"
 
 -
 ###Serialize
+
 Serialize base objects to normal objects, that you can set again
 
 **basic**
@@ -487,6 +488,7 @@ base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: {
 
 -
 ###Define
+
 Shortcut for `Object.defineProperty`
 Wraps [define-configurable](https://www.npmjs.com/package/define-configurable)
 
@@ -510,8 +512,9 @@ obj.define({
 ```
 
 -
-###Helper Properties
-Base object add 3 proeprties for convience
+###Traversal
+
+Base objects have properties and methods to make object traversal easier
 
 **parent**
 
@@ -535,4 +538,28 @@ console.log(obj.a.b.root === obj) // → true
 const base = require('brisky-base')
 const obj = base({ a: { b: true } })
 console.log(obj.a.b.key) // → "b"
+```
+
+**path**
+
+Generates a path array, works over context paths (virtual paths)
+
+```javascript
+const base = require('brisky-base')
+const obj = base({ a: { b: true } })
+console.log(obj.a.b.path()) // → [ "a", "b" ]
+```
+
+**lookUp**
+
+Look up to find if a parent has certain properties
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  a: { b: { c: true } },
+  b: true
+})
+obj.a.b.c.lookUp('b') // → returns "obj.b"
+obj.b.lookUp([ 'a', 'b', 'c' ]) // → returns "obj"
 ```
