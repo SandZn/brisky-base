@@ -10,7 +10,7 @@ test('keys - filters', t => {
       }
     },
     define: {
-      filter (key) {
+      keyFilter (key) {
         return !this[key].keyType
       }
     },
@@ -111,7 +111,7 @@ test('keys - filters - custom filter', t => {
     a: true,
     x: { keyType: 'bla' },
     define: {
-      filter (key) {
+      keyFilter (key) {
         return !(/blurf/.test(key))
       }
     }

@@ -374,7 +374,6 @@ const article = {
 }
 
 base({
-  inject: article,
   field: { type: 'article' } // will make field into an instance of article,
   nested: {
     types: {
