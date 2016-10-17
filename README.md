@@ -436,7 +436,7 @@ console.log(a.c.e.compute()) // → returns "its b!"
 
 -
 ###Serialize
-Serialize base objects to normal objects
+Serialize base objects to normal objects, that you can set again
 
 **basic**
 
@@ -471,7 +471,7 @@ obj.serialize(true) // → { a: 'hello', b: 'hello' }
 
 **filter**
 
-Computes values instead of making them into set objects
+Filter certain fields that you, for example, don't want to send from a server to a client
 
 ```javascript
 const base = Base({
