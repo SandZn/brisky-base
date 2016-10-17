@@ -8,9 +8,8 @@ test('array - reduce', t => {
     b: 'b',
     c: 'c'
   })
-
-  const sum = a.reduce((acc, x) => acc + x.compute())
-  t.same(sum, 'abc')
+  const sum = a.reduce((acc, x) => acc + x.compute(), '')
+  t.same(sum, 'abc', 'sum becomes "abc"')
   t.end()
 })
 
@@ -29,7 +28,7 @@ test('array - filter', t => {
     a: 'a',
     b: 'b'
   })
-  const arr = a.map(val => val.compute() === 'a')
+  const arr = a.filter(val => val.compute() === 'a')
   t.same(arr, [ a.a ], 'returns filtered array')
   t.end()
 })
