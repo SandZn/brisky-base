@@ -294,19 +294,44 @@ const d = obj.get('a.b.d', {}) // creates new property d with as a default value
 ```
 
 -
-###Each
-Loop trough values of a base object
+###Iteration
+
+**standard**
+
+Like standard array methods, but iterating over base properties
+
+[map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map),
+[filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter),
+[reduce](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce),
+[forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+
+**push**
+
+```javascript
+const base = require('brisky-base')
+base.push('hello') // creates a key based on `Date.now()`  → { 21321232323: 'hello' }
+
+```
+
+**each**
+
+Loop trough values of a base object, differs slightly from `forEach`
 
 ```javascript
 const base = require('brisky-base')
 const obj = base({
   key: 'base'
   a: {},
-  b: {}
+  b: {},
+  c: { keyType: 'hello' }
 })
 
 obj.each(p => {
   console.log(p) // iterates over each key
-  // returning a value in each will break the each loop -- this is usefull for performance
+  // returning a value in each will break the each loop and return the value
 })
+
+obj.each(p => {
+  // iterates over keyType 'hello'
+}, 'hello')
 ```
