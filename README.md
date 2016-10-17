@@ -375,12 +375,13 @@ const article = {
 }
 
 base({
-  field: { type: 'article' } // will make field into an instance of article,
+  field: { type: 'article' }, // will make field into an instance of article,
+  bla: { type: 'article' }, // will make bla into an instance of article
   nested: {
     types: {
       article: { text: 'lullz special article' },
     },
-    field: { type: 'article' } // will get the fist "types.article" it can find in a parent
+    something: { type: 'article' } // will get the fist "types.article" it can find in a parent
   }
 })
 ```
