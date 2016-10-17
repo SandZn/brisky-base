@@ -83,7 +83,6 @@ const b = base()
 const someModule = require('someModule')
 // somemodule is { a: 'hello' }
 
-
 const otherModule = require('someModule')
 // otherModule is { b: 'bye' }
 
