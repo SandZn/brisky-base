@@ -276,21 +276,34 @@ Apply context can return 3 different types
 
 -
 ###Get
-Get by path, get with a default
+Simple get api, usefull when dealing with defaults
+
+**basic**
 
 ```javascript
 const base = require('brisky-base')
-
-const obj = base({
-  a: { b: { c: 'c!' } }
-})
-
+const obj = base({ a: { b: { c: 'c!' } } })
 var c = obj.get('a.b.c') // get c
 c = obj.get(['a', 'b', 'c']) // also gets c
+```
+
+**default**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({ a: { b: { c: 'c!' } } })
+const d = obj.get('a.b.d', {}) // creates new property d with as a value an empty object
+const c = obj.get('a.b.c', 'default!') // gets a.b.c, does not set it to "default!""
+```
+
+**index**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({ a: { b: { c: 'c!' } } })
 c = obj.get('[0][0][0]') // also get c (gets first key of every object)
 c = obj.get('[-1][-1][-1]') // also get c (gets last key of every object)
-
-const d = obj.get('a.b.d', {}) // creates new property d with as a default value an empty object
+c = obj.get('[2]') // returns undefined (tries to get the 3rd key)
 ```
 
 -
@@ -337,4 +350,22 @@ obj.each(p => {
 obj.each(p => {
   // iterates over keyType 'hello'
 }, 'hello')
+```
+
+
+-
+###Types
+
+Types is a special api to reduce complexity of dealing with classes, prototypes and components.
+Especialy usefull for ui composition, combined with inject
+
+**push**
+
+```javascript
+const base = require('brisky-base')
+
+
+base.push('hello') // creates a key based on `Date.now()`  → { 21321232323: 'hello' }
+base.push('hello') // pushing at the same time adds a decimal → {   '21321232323.1': 'hello'  }
+
 ```
