@@ -356,16 +356,33 @@ obj.each(p => {
 -
 ###Types
 
-Types is a special api to reduce complexity of dealing with classes, prototypes and components.
-Especialy usefull for ui composition, combined with inject
+Use the types api to reduce complexity of dealing with classes, prototypes and components.
+Especialy usefull for composition when combined with inject
 
-**push**
+**basic**
 
 ```javascript
 const base = require('brisky-base')
 
+const article = {
+  types: {
+    article: {
+      text: 'some text',
+      title: 'hello'
+    }
+  }
+}
 
-base.push('hello') // creates a key based on `Date.now()`  → { 21321232323: 'hello' }
-base.push('hello') // pushing at the same time adds a decimal → {   '21321232323.1': 'hello'  }
-
+base({
+  inject: article,
+  field: { type: 'article' } // will make field into an instance of article,
+  nested: {
+    types: {
+      article: { text: 'lullz special article' },
+    },
+    field: { type: 'article' } // will get the fist "types.article" it can find in a parent
+  }
+})
 ```
+
+Big advantage of this system is that it allows you to change types not as dependents but as extensions, bit smilair to for example web components.
