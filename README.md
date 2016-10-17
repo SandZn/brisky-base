@@ -490,8 +490,6 @@ base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: {
 Shortcut for `Object.defineProperty`
 Wraps [define-configurable](https://www.npmjs.com/package/define-configurable)
 
-**basic**
-
 ```javascript
 const base = require('brisky-base')
 const obj = base({
@@ -509,4 +507,32 @@ obj.define({
     }
   }
 })
+```
+
+-
+###Helper Properties
+Base object add 3 proeprties for convience
+
+**parent**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({ a: { b: true } })
+console.log(obj.a.b.parent === obj.a) // → true
+```
+
+**root**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({ a: { b: true } })
+console.log(obj.a.b.root === obj) // → true
+```
+
+**key**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({ a: { b: true } })
+console.log(obj.a.b.key) // → "b"
 ```
