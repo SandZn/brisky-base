@@ -35,7 +35,7 @@ obj.set({
 
 **remove**
 
-Move a property to another proeprty
+Remove a base object
 
 ```javascript
 const base = require('brisky-base')
@@ -64,12 +64,35 @@ b.set({ reset: true, x: true }) // removes a and b, but not c, adds x
 
 **move**
 
-Move a property to another proeprty
+Move a property to another property
 
 ```javascript
 const base = require('brisky-base')
 const b = base({ a: true, b: true, })
 b.move('a', 'b') // move a to b → 100
+```
+
+**inject**
+
+Like a set but only called once, used for composition of modules and behvaiour
+
+```javascript
+const base = require('brisky-base')
+const b = base()
+
+const someModule = require('someModule')
+// somemodule is { a: 'hello' }
+
+
+const otherModule = require('someModule')
+// otherModule is { b: 'bye' }
+
+b.inject(someModule, otherModule) // calls a set for both modules
+b.set({
+  inject: [ someModule, otherModule ] // set notation
+})
+// when inject gets called again, and module is allready
+// set will not do it again, this is usefull for inheritance / nested deps
 ```
 
 -
