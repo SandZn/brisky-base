@@ -386,3 +386,35 @@ base({
 ```
 
 Big advantage of this system is that it allows you to change types not as dependents but as extensions, bit smilair to for example web components.
+
+
+-
+###References
+
+Serializable references, this is handy for, for example dealing with server/client side or multiple processes.
+
+**basic**
+
+```javascript
+const base = require('brisky-base')
+const a = base('a')
+const b = base(a)
+console.log(b.compute()) // → "a"
+a.set('A!')
+console.log(b.compute()) // → "A!"
+```
+
+**string notation**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  a: '$root.b', // creates b on the root when its not there
+  c: {
+    d: '$.parent.parent.a', // gets a
+    e: '$.parent.d' // gets the parent object "d"
+  }
+})
+obj.set({ b: 'its b!' })
+console.log(a.c.e.compute()) // → returns "its b!"
+```
