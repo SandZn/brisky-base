@@ -296,7 +296,9 @@ const d = obj.get('a.b.d', {}) // creates new property d with as a default value
 -
 ###Iteration
 
-**standard**
+Base exposes as much standard apis for iteration as possible, `.each` is the exception
+
+**array**
 
 Like standard array methods, but iterating over base properties
 
@@ -312,7 +314,7 @@ Similair to array push, but generates a key based on current time
 ```javascript
 const base = require('brisky-base')
 base.push('hello') // creates a key based on `Date.now()`  → { 21321232323: 'hello' }
-base.push('hello') // pushing at the same time adds a decimal → { '21321232323.1': 'hello'  }
+base.push('hello') // pushing at the same time adds a decimal → {   '21321232323.1': 'hello'  }
 ```
 
 **each**

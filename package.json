@@ -23,11 +23,10 @@
   "dependencies": {
     "brisky-is-obj": "^1.0.2",
     "brisky-is-empty": "^1.0.0",
-    "brisky-is-removed": "^1.0.0",
     "brisky-stamp": "^1.5.6",
     "define-configurable": "^1.0.2",
     "bubleify": "0.5.1",
-    "regenerator": "0.8.46"
+    "monotonic-timestamp": "0.0.9"
   },
   "browserify": {
     "transform": [
@@ -37,6 +36,7 @@
     ]
   },
   "devDependencies": {
+    "brisky-is-removed": "^1.0.0",
     "ducktape": "^1.0.0",
     "standard": "^8.1.0",
     "tap-difflet": "0.6.0",
