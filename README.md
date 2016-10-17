@@ -487,7 +487,7 @@ base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: {
 
 -
 ###Define
-Shortcut for object define property in object format
+Shortcut for `Object.defineProperty`
 Wraps [define-configurable](https://www.npmjs.com/package/define-configurable)
 
 **basic**
