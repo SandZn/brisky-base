@@ -74,7 +74,7 @@ b.move('a', 'b') // move a to b → 100
 
 **inject**
 
-Like a set but only called once, used for composition of modules and behvaiour
+Like a set but only called once, used for composition of modules and behaviour
 
 ```javascript
 const base = require('brisky-base')
