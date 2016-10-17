@@ -8,7 +8,7 @@ test('array - reduce', t => {
     b: 'b',
     c: 'c'
   })
-  const sum = a.reduce((acc, x) => acc + x.compute(), '')
+  const sum = a.reduce((prev, cur) => prev + cur.compute(), '')
   t.same(sum, 'abc', 'sum becomes "abc"')
   t.end()
 })

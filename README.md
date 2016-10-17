@@ -322,12 +322,13 @@ Like standard array methods, but iterating over base properties
 
 **push**
 
-Similair to array push, but generates a key based on current time
+Similair to array push, but generates a key based on current time, does not support multiple arguments
 
 ```javascript
 const base = require('brisky-base')
 base.push('hello') // creates a key based on `Date.now()`  → { 21321232323: 'hello' }
 base.push('hello') // pushing at the same time adds a decimal → {   '21321232323.1': 'hello'  }
+base.push('x', 111) // second argument is stamp, does not support multiple values
 ```
 
 **each**
