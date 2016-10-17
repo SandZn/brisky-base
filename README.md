@@ -33,6 +33,18 @@ obj.set({
 }) // → results in { a: { val: true, c: true }, b: true }
 ```
 
+**remove**
+
+Move a property to another proeprty
+
+```javascript
+const base = require('brisky-base')
+const b = base({ a: true, b: true, })
+b.a.remove() //  → removes a and all nested properties
+b.set({ b: null }) //  → same as .remove()
+b.set(null) // removes b and all nested properties
+```
+
 **reset**
 
 Overwrite base, removes all properties that end up in `.keys()`
@@ -48,6 +60,16 @@ const b = base({
 
 b.set({ reset: true, x: true }) // removes a and b, but not c, adds x
 // reset can also be used as a method b.reset()
+```
+
+**move**
+
+Move a property to another proeprty
+
+```javascript
+const base = require('brisky-base')
+const b = base({ a: true, b: true, })
+b.move('a', 'b') // move a to b → 100
 ```
 
 -
@@ -205,8 +227,8 @@ Allows storage and restoration of context.
 Usefull for edge cases where you need to make a handle to a nested field in a certain context
 
 Consists of 2 methods
-- applyContext(context)
-- storeContext()
+- `applyContext(context)`
+- `storeContext()`
 
 ```javascript
 const base = require('brisky-base')
