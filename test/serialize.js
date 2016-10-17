@@ -1,6 +1,6 @@
 'use strict'
 const test = require('tape')
-const Base = require('../')
+const briskyBase = require('../')
 
 test('serialize', t => {
   const cases = [
@@ -14,7 +14,7 @@ test('serialize', t => {
   ]
   t.plan(cases.length)
   cases.forEach(function (item) {
-    const base = Base(item[0] || item)
+    const base = briskyBase(item[0] || item)
     t.same(base.serialize(), item[1] || item, 'outputs ' + base)
   })
 })
@@ -28,14 +28,14 @@ test('serialize - computed', t => {
     ]
   ]
   t.plan(cases.length)
-  cases.forEach(function (item) {
-    const base = Base(item[0] || item)
+  cases.forEach(item => {
+    const base = briskyBase(item[0] || item)
     t.same(base.serialize(true), item[1] || item, 'outputs ' + base)
   })
 })
 
 test('serialize - filter', t => {
-  const base = Base({
+  const base = briskyBase({
     yuzi: {
       james: {
         marcus: true,
@@ -44,7 +44,7 @@ test('serialize - filter', t => {
     }
   })
   t.same(
-    base.serialize(false, (prop) => prop.key !== 'secret'),
+    base.serialize(false, prop => prop.key !== 'secret'),
     { yuzi: { james: { marcus: true } } },
     'filters results'
   )

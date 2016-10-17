@@ -390,6 +390,20 @@ Big advantage of this system is that it allows you to change types not as depend
 
 
 -
+###Compute
+
+Compute is used to return the computed value of a base object - this allows for special hooks and, for example function support
+
+**basic**
+
+```javascript
+const base = require('brisky-base')
+const a = base(() => Date.now())
+a.compute() // → "return the current date"
+```
+
+
+-
 ###References
 
 Serializable references, this is handy for, for example dealing with server/client side or multiple processes.
@@ -418,4 +432,55 @@ const obj = base({
 })
 obj.set({ b: 'its b!' })
 console.log(a.c.e.compute()) // → returns "its b!"
+```
+
+-
+###Serialize
+Serialize base objects to normal objects
+
+**basic**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  a: 'a!',
+  b: {
+    val: 'b!',
+    c: true
+  }
+})
+obj.set({ d: obj.a })
+obj.serialize() // → { a: 'a!', b: { val: 'b!', c: true }, d: '$root.a' }
+```
+
+**compute**
+
+Computes values instead of making them into set objects
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  a: {
+    val: 'hello',
+    b: true
+  },
+  b: '$root.a'
+})
+obj.serialize(true) // → { a: 'hello', b: 'hello' }
+```
+
+**filter**
+
+Computes values instead of making them into set objects
+
+```javascript
+const base = Base({
+  yuzi: {
+    james: {
+      marcus: true,
+      secret: true
+    }
+  }
+})
+base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: { marcus: true } } },
 ```
