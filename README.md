@@ -307,10 +307,12 @@ Like standard array methods, but iterating over base properties
 
 **push**
 
+Similair to array push, but generates a key based on current time
+
 ```javascript
 const base = require('brisky-base')
 base.push('hello') // creates a key based on `Date.now()`  → { 21321232323: 'hello' }
-
+base.push('hello') // pushing at the same time adds a decimal → { '21321232323.1': 'hello'  }
 ```
 
 **each**
@@ -324,7 +326,6 @@ const obj = base({
   a: {},
   b: {},
   c: { keyType: 'hello' }
-})
 
 obj.each(p => {
   console.log(p) // iterates over each key
