@@ -484,3 +484,29 @@ const base = Base({
 })
 base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: { marcus: true } } },
 ```
+
+-
+###Define
+Shortcut for object define property in object format
+Wraps [define-configurable](https://www.npmjs.com/package/define-configurable)
+
+**basic**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  key: 'base'
+  define: {
+    x: true, // defines { value: true }
+    bla (val) {} // defines a method "bla"
+  }
+})
+
+obj.define({
+  extend: {
+    bla (method, val) { // extends "bla" method
+      return method.call(this, val)
+    }
+  }
+})
+```
