@@ -8,9 +8,9 @@ Extendable object constructors, build for speed, low memory consumption and simp
 - set method
 - easy extendable property defintions
 - deep, memory efficient prototypes
-- parent and key fields
-- types (easy inheritance)
+- types (simple inheritance)
 - inject pattern
+- traversal helpers
 
 -
 ###Set
