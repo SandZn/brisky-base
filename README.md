@@ -601,4 +601,72 @@ obj.b.lookUp([ 'a', 'b', 'c' ]) // → returns "obj"
 -
 ###Child
 
-The child property is used
+The child property is used to set default types for properties of a Base
+The default child of a base object is a base
+
+**object**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+ child: { text: 'hello' },
+ foo: {},
+ bar: {}
+})
+
+console.log(obj.foo.text.compute()) // → "hello"
+console.log(obj.bar.text.compute()) // → "hello"
+// both fields are instances of the base.child
+```
+
+**types**
+
+Mixit with types
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+ types: { myType: { text: 'hello' } },
+ child: { type: 'myType' },
+ foo: {},
+ bar: {}
+})
+
+console.log(obj.foo.text.compute()) // → "hello"
+console.log(obj.bar.text.compute()) // → "hello"
+// both fields are instances of the base.child
+```
+
+**constructor**
+
+Using a string `Constructor` as a child value, means use myself for my children (creates deep inheritance)
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  child: {
+    text: 'hello',
+    child: 'Constructor'
+  },
+  x: { y: { z: true } }
+})
+
+console.log(obj.x.y.z.text.compute()) // → "hello"
+// all fields (deep and shallow) inherit text: 'hello'
+```
+
+**default behvaiour**
+
+Using `true` as a child value, results in using normal objects / primitives for child values
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  child: true
+  x: 'hello'
+})
+
+console.log(obj.x) // → "hello"
+// all properties of obj that you set will become "normal" object properties
+```
+
