@@ -13,38 +13,41 @@ Extendable object constructors, build for speed, low memory consumption and simp
 - traversal helpers
 
 -
-###Set
-Set method, set values or objects on a base object, allways merges objects
+###Manipulation
 
 **set**
 
-Set allways does a deep merge
+Set method, set values or objects on a base object, always does a deep merge on objects
 
 ```javascript
 const base = require('brisky-base')
 
-const obj = base({ a: {}, b: {} })
+const foo = base({
+  a: {},
+  b: {}
+}) // → Base { a: {}, b: {} }
 
-obj.set({
-  a: { c: true }
-}) // → results in { a: { c: true }, b: {} }
+foo.set({
+  a: {
+    c: true
+  }
+}) // → Base { a: { c: true }, b: {} }
 ```
 
 Base objects allow fields to be an object and a primitive at the same time
 
 ```javascript
 const base = require('brisky-base')
-
-const obj = base({
+const foo = base({
   a: true,
   b: true // internaly primitives are stored on the field .val
-})
+}) // → Base { a: true, b: true }
 
-obj.set({
+foo.set({
   a: {
     c: true
   }
-}) // → results in { a: { val: true, c: true }, b: true }
+}) // → Base { a: { val: true, c: true }, b: true }
 ```
 
 **remove**
@@ -54,9 +57,9 @@ Remove a base object
 ```javascript
 const base = require('brisky-base')
 const foo = base({ a: true, bar: true, })
-foo.a.remove() //  → removes a and all nested properties
+foo.a.remove() // → removes a and all nested properties
 foo.set({ bar: null }) //  → same as foo.bar.remove()
-foo.set(null) // removes b and all nested properties
+foo.set(null) // removes foo and all nested properties
 ```
 
 **reset**
@@ -65,15 +68,15 @@ Overwrite base, removes all properties that end up in `.keys()`
 
 ```javascript
 const base = require('brisky-base')
-const b = base({
+const foo = base({
   a: true,
   b: true,
   properties: { c: true },
   c: 'haha non-key property' // c is not a part of .keys()
 })
 
-b.set({ reset: true, x: true }) // removes a and b, but not c, adds x
-// reset can also be used as a method b.reset()
+foo.set({ reset: true, x: true }) // removes a and b, but not c, adds x
+// reset can also be used as a method foo.reset()
 ```
 
 **move**
@@ -82,8 +85,9 @@ Move a property to another property
 
 ```javascript
 const base = require('brisky-base')
-const b = base({ a: true, b: true, })
-b.move('a', 'b') // move a to b → 100
+const foo = base({ a: 100, b: true, }) // → { a: 100, b: true }
+foo.move('a', 'b') // → { b: 100 }
+foo.move('b', 'c') // → { c: 100 }
 ```
 
 **inject**
@@ -92,7 +96,7 @@ Like a set but only called once, used for composition of modules and behaviour
 
 ```javascript
 const base = require('brisky-base')
-const b = base()
+const foo = base()
 
 const someModule = require('someModule')
 // somemodule is { a: 'hello' }
@@ -100,12 +104,12 @@ const someModule = require('someModule')
 const otherModule = require('someModule')
 // otherModule is { b: 'bye' }
 
-b.inject(someModule, otherModule) // calls a set for both modules
-b.set({
+foo.inject(someModule, otherModule) // calls a set for both modules
+foo.set({
   inject: [ someModule, otherModule ] // set notation
 })
-// when inject gets called again, and module is allready
-// set will not do it again, this is usefull for inheritance / nested deps
+// when inject gets called again, and module is already
+// set will not do it again, this is useful for inheritance / nested deps
 ```
 
 -
@@ -121,7 +125,7 @@ There are 4 types of property definitions:
 **basic**
 ```javascript
 const base = require('brisky-base')
-const obj = base({
+const foo = base({
   properties: {
     normal: true,
     special (val, stamp) {
@@ -131,13 +135,13 @@ const obj = base({
   }
 })
 
-obj.set({
+foo.set({
   normal: 'hello', // → 'hello'
   special: 10, // → 100
   base: 'a base' // → Base { val: 'a base', nested: true }
 })
 
-obj.set({
+foo.set({
   properties: {
     normal: null
     // removes property defintion and removes "normal"
@@ -260,7 +264,7 @@ console.log(base.a.b.c.path()) // → [ 'base', 'a', 'b', 'c' ]
 **store and apply context**
 
 Allows storage and restoration of context.
-Usefull for edge cases where you need to make a handle to a nested field in a certain context
+Useful for edge cases where you need to make a handle to a nested field in a certain context
 
 Consists of 2 methods
 - `applyContext(context)`
@@ -285,12 +289,12 @@ b.applyContext(context) // will reset the context of b to instance
 Apply context can return 3 different types
 - `undefined` Context is restored without any differences
 - `Base` A set has happened in the path leading to the target of apply context
-- `null` A remove has happened in the path leading to the target of apply co  ntext
+- `null` A remove has happened in the path leading to the target of apply context
 
 
 -
 ###Get
-Simple get api, usefull when dealing with defaults
+Simple get api, useful when dealing with defaults
 
 **basic**
 
@@ -416,7 +420,7 @@ Like standard array methods, but iterating over base properties
 
 **push**
 
-Similair to array push, but generates a key based on current time, does not support multiple arguments
+Similar to array push, but generates a key based on current time, does not support multiple arguments
 
 ```javascript
 const base = require('brisky-base')
@@ -452,7 +456,7 @@ obj.each(p => {
 ###Types
 
 Use the types api to reduce complexity of dealing with classes, prototypes and components.
-Especialy usefull for composition when combined with inject
+Especialy useful for composition when combined with inject
 
 ```javascript
 const base = require('brisky-base')
@@ -488,7 +492,7 @@ base({
 })
 ```
 
-Big advantage of this system is that it allows you to change types not as dependents but as extensions, bit smilair to for example web components.
+Big advantage of this system is that it allows you to change types not as dependents but as extensions, bit similar to for example web components.
 
 
 -
