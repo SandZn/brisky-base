@@ -653,7 +653,7 @@ console.log(obj.x.y.z.text.compute()) // → "hello"
 // all fields (deep and shallow) inherit text: 'hello'
 ```
 
-**default behvaiour**
+**default behaviour**
 
 Using `true` as a child value, results in using normal objects / primitives for child values
 
