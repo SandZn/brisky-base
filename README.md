@@ -14,7 +14,7 @@ Extendable object constructors, build for speed, low memory consumption and simp
 
 -
 ###Set
-Set method, set values or objects on a base object, allways merges objects
+Set method, set values or objects on a base object, al ways merges objects
 
 **set**
 
@@ -365,7 +365,7 @@ Especialy usefull for composition when combined with inject
 ```javascript
 const base = require('brisky-base')
 
-const article = {
+const articleModule = {
   types: {
     article: {
       text: 'some text',
@@ -375,6 +375,7 @@ const article = {
 }
 
 base({
+  inject: articleModule,
   field: { type: 'article' }, // will make field into an instance of article,
   bla: { type: 'article' }, // will make bla into an instance of article
   nested: {
@@ -383,6 +384,15 @@ base({
     },
     something: { type: 'article' } // will get the fist "types.article" it can find in a parent
   }
+})
+
+base({
+  types: {
+    // types is just an object
+    myType: { field: 'hello' }
+  },
+  bla: { type: 'myType' },
+  hello: { type: 'base' } // base is a default type
 })
 ```
 
@@ -563,3 +573,8 @@ const obj = base({
 obj.a.b.c.lookUp('b') // → returns "obj.b"
 obj.b.lookUp([ 'a', 'b', 'c' ]) // → returns "obj"
 ```
+
+-
+###Child
+
+Base objects have properties and methods to make object traversal easier
