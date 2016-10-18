@@ -22,16 +22,16 @@ Set method, set values or objects on a base object, always does a deep merge on 
 ```javascript
 const base = require('brisky-base')
 
-const obj = base({
+const foo = base({
   a: {},
   b: {}
-}) // → { a: {}, b: {} }
+}) // → Base { a: {}, b: {} }
 
-obj.set({
+foo.set({
   a: {
     c: true
   }
-}) // → { a: { c: true }, b: {} }
+}) // → Base { a: { c: true }, b: {} }
 ```
 
 Base objects allow fields to be an object and a primitive at the same time
@@ -41,13 +41,13 @@ const base = require('brisky-base')
 const foo = base({
   a: true,
   b: true // internaly primitives are stored on the field .val
-})
+}) // → Base { a: true, b: true }
 
 foo.set({
   a: {
     c: true
   }
-}) // → results in { a: { val: true, c: true }, b: true }
+}) // → Base { a: { val: true, c: true }, b: true }
 ```
 
 **remove**
@@ -57,7 +57,7 @@ Remove a base object
 ```javascript
 const base = require('brisky-base')
 const foo = base({ a: true, bar: true, })
-foo.a.remove() //  → removes a and all nested properties
+foo.a.remove() // → removes a and all nested properties
 foo.set({ bar: null }) //  → same as foo.bar.remove()
 foo.set(null) // removes foo and all nested properties
 ```
