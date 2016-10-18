@@ -346,20 +346,29 @@ Loop trough values of a base object, differs slightly from `forEach`
 
 ```javascript
 const base = require('brisky-base')
-const obj = base({
-  key: 'base'
+const foo = base({
   a: {},
   b: {},
   c: { keyType: 'hello' }
+})
 
-obj.each(p => {
+foo.each(p => {
   console.log(p) // iterates over each key
   // returning a value in each will break the each loop and return the value
 })
 
-obj.each(p => {
+foo.each(p => {
   // iterates over keyType 'hello'
 }, 'hello')
+```
+
+```javascript
+const base = require('brisky-base')
+const foo = base({
+  a: {}, b: {}, c: {}
+})
+console.log(foo.each(p => p.key === 'b' ? 'hello' : false)) // → "hello"
+// returning a truthy value in each will break the each loop and return the value
 ```
 
 
