@@ -14,11 +14,11 @@ Extendable object constructors, build for speed, low memory consumption and simp
 
 -
 ###Set
-Set method, set values or objects on a base object, allways merges objects
+Set method, set values or objects on a base object, always merges objects
 
 **set**
 
-Set allways does a deep merge
+Set always does a deep merge
 
 ```javascript
 const base = require('brisky-base')
@@ -260,7 +260,7 @@ console.log(base.a.b.c.path()) // → [ 'base', 'a', 'b', 'c' ]
 **store and apply context**
 
 Allows storage and restoration of context.
-Usefull for edge cases where you need to make a handle to a nested field in a certain context
+Useful for edge cases where you need to make a handle to a nested field in a certain context
 
 Consists of 2 methods
 - `applyContext(context)`
@@ -285,12 +285,12 @@ b.applyContext(context) // will reset the context of b to instance
 Apply context can return 3 different types
 - `undefined` Context is restored without any differences
 - `Base` A set has happened in the path leading to the target of apply context
-- `null` A remove has happened in the path leading to the target of apply co  ntext
+- `null` A remove has happened in the path leading to the target of apply context
 
 
 -
 ###Get
-Simple get api, usefull when dealing with defaults
+Simple get api, useful when dealing with defaults
 
 **basic**
 
@@ -336,7 +336,7 @@ Like standard array methods, but iterating over base properties
 
 **push**
 
-Similair to array push, but generates a key based on current time, does not support multiple arguments
+Similar to array push, but generates a key based on current time, does not support multiple arguments
 
 ```javascript
 const base = require('brisky-base')
@@ -372,7 +372,7 @@ obj.each(p => {
 ###Types
 
 Use the types api to reduce complexity of dealing with classes, prototypes and components.
-Especialy usefull for composition when combined with inject
+Especialy useful for composition when combined with inject
 
 ```javascript
 const base = require('brisky-base')
@@ -408,7 +408,7 @@ base({
 })
 ```
 
-Big advantage of this system is that it allows you to change types not as dependents but as extensions, bit smilair to for example web components.
+Big advantage of this system is that it allows you to change types not as dependents but as extensions, bit similar to for example web components.
 
 
 -
@@ -653,7 +653,7 @@ console.log(obj.x.y.z.text.compute()) // → "hello"
 // all fields (deep and shallow) inherit text: 'hello'
 ```
 
-**default behvaiour**
+**default behaviour**
 
 Using `true` as a child value, results in using normal objects / primitives for child values
 
