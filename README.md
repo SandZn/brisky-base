@@ -338,7 +338,7 @@ const obj = base({ foo: {}, bar: {} })
 console.log(obj.keys()) // → [ 'foo', 'bar' ]
 ```
 
-**keyFilter**
+**keyType**
 
 Default filter used for keys, default of base requires the property to be a base object
 
@@ -353,7 +353,7 @@ console.log(obj.keys()) // → [ 'bar', 'baz' ] other keyTypes get filtered out
 console.log(obj.keys('special')) // → [ 'foo' ]
 ```
 
-**keyType**
+**keyFilter**
 
 ```javascript
 const base = require('brisky-base')
