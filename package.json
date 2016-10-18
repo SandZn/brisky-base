@@ -1,7 +1,7 @@
 {
   "name": "brisky-base",
   "version": "4.0.0",
-  "description": "'injectacble classes'",
+  "description": "Extendable object constructors, build for speed, low memory consumption and simplicity",
   "main": "index.js",
   "scripts": {
     "test": "(ducktape; node test) | tap-difflet && standard",
