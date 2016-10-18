@@ -293,7 +293,7 @@ console.log(obj.keys()) // → [ 'bar', 'foo' ]
 
 obj.list.set({ sort: 'val' }) // corresponds to the primitive value (val)
 // val is the default field used in sort
-console.log(obj.list.keys()) // → [ 1, 2, 3, 4, 5 ]
+console.log(obj.list.keys()) // → [ 2, 1, 3, 0, 4 ]
 ```
 
 Replace the internal method, follows default js sort (default field is val)
