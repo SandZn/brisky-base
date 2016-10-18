@@ -14,16 +14,30 @@ Extendable object constructors, build for speed, low memory consumption and simp
 
 -
 ###Set
-Set method, set values or objects on a base object, al ways merges objects
+Set method, set values or objects on a base object, allways merges objects
 
 **set**
+
+Set allways does a deep merge
+
+```javascript
+const base = require('brisky-base')
+
+const obj = base({ a: {}, b: {} })
+
+obj.set({
+  a: { c: {} }
+}) // → results in { a: { c: true }, b: {} }
+```
+
+Base objects allow fields to be an object andt a primitive at the same time.
 
 ```javascript
 const base = require('brisky-base')
 
 const obj = base({
   a: true,
-  b: true
+  b: true // internaly primitives are stored on the field .val
 })
 
 obj.set({
