@@ -320,6 +320,86 @@ c = obj.get('[-1][-1][-1]') // also get c (gets last key of every object)
 c = obj.get('[2]') // returns undefined (tries to get the 3rd key)
 ```
 
+
+-
+###Keys
+
+The `.keys()` method allows fast object iteration, sorting and filtering of properties
+
+**basic**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({ foo: {}, bar: {} })
+console.log(obj.keys()) // → [ 'foo', 'bar' ]
+```
+
+**keyFilter**
+
+Default filter used for keys, default of base requires the property to be a base object
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  foo: { keyType: 'special' }, // by setting keyType it will not show up in .keys()
+  bar: true,
+  baz: true,
+})
+console.log(obj.keys()) // → [ 'bar', 'baz' ] other keyTypes get filtered out
+console.log(obj.keys('special')) // → [ 'foo' ]
+```
+
+**keyType**
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  foo: true,
+  bar: true,
+  baz: true,
+  keyFilter: (key) => key[0] === 'b'
+})
+console.log(obj.keys()) // → [ 'bar', 'baz' ]
+```
+
+**sort**
+
+As a key
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  sort: 'name',
+  foo: { name: 'foo' },
+  bar: { name: 'bar' },
+  list: [ 5, 2, 1, 3, 4 ]
+})
+console.log(obj.keys()) // → [ 'bar', 'foo' ]
+
+obj.list.set({ sort: 'val' }) // corresponds to the primitive value (val)
+// val is the default field used in sort
+console.log(obj.list.keys()) // → [ 1, 2, 3, 4, 5 ]
+```
+
+Replace the internal method, follows default js sort (default field is val)
+
+```javascript
+const base = require('brisky-base')
+const obj = base({
+  sort: {
+    exec: (a, b) => a < b ? 1 : a > b ? -1 : 0,
+    val: 'val'
+  },
+  foo: 1,
+  bar: 2
+})
+console.log(obj.keys()) // → [ 'bar', 'foo' ]
+
+obj.set({ sort: (a, b) => a > b ? 1 : a < b ? -1 : 0 })
+// reverse sort order
+console.log(obj.keys()) // → [ 'foo', 'bar' ]
+```
+
 -
 ###Iteration
 
