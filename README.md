@@ -136,14 +136,14 @@ foo.define({
 })
 ```
 
-To conclude `.set()` is used to hook into non-default object behvaiour added by base, `define()` creates non-euumerable configurable objects.
+To conclude `.set()` is used to hook into non-default object behvaiour added by base, `define()` creates non-eunumerable, configurable objects. Non-enumerable means, these properties won't appear in keys list, on iterations or serializations.
 
 ```javascript
 const base = require('brisky-base')
 const foo = base()
 foo.set({ bar: true }) // → Base "bar"
 foo.bar = true // → true (normal object)
-foor.define({ bar: true }) // → non enummerable, configurable property descriptor
+foor.define({ bar: true }) // → non enumerable, configurable property descriptor
 ```
 
 
