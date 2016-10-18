@@ -144,7 +144,7 @@ const foo = base()
 foo.set({ bar: true }) // → Base "bar"
 foo.bar = true // → true (normal object)
 foor.define({ bar: true }) // → non enummerable, configurable property descriptor
-``
+```
 
 
 -
