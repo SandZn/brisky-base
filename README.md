@@ -778,7 +778,7 @@ obj.set({
 
 Some fun use cases
 
-**Create an immutable**
+**Create an immutable class**
 
 ```javascript
 const Immutable = base({
@@ -787,4 +787,8 @@ const Immutable = base({
   },
   child: 'Constructor'
 }).Constructor
+
+const state1 = new Immutable(10)
+const state2 = state1.change(20)
+const state3 = state3.change(30)
 ```
