@@ -249,9 +249,7 @@ const obj = base({ foo: {}, bar: {} })
 console.log(obj.keys()) // → [ 'foo', 'bar' ]
 ```
 
-**keyFilter**
-
-Default filter used for keys, default of base requires the property to be a base object
+**keyType**
 
 ```javascript
 const base = require('brisky-base')
@@ -264,7 +262,9 @@ console.log(obj.keys()) // → [ 'bar', 'baz' ] other keyTypes get filtered out
 console.log(obj.keys('special')) // → [ 'foo' ]
 ```
 
-**keyType**
+**keyFilter**
+
+Default filter used for keys, default of base requires the property to be a base object
 
 ```javascript
 const base = require('brisky-base')
@@ -362,13 +362,14 @@ foo.each(p => {
 }, 'hello')
 ```
 
+Returning a truthy value in each will break the each loop and return the value
+
 ```javascript
 const base = require('brisky-base')
 const foo = base({
   a: {}, b: {}, c: {}
 })
 console.log(foo.each(p => p.key === 'b' ? 'hello' : false)) // → "hello"
-// returning a truthy value in each will break the each loop and return the value
 ```
 
 
