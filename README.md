@@ -374,8 +374,6 @@ obj.each(p => {
 Use the types api to reduce complexity of dealing with classes, prototypes and components.
 Especialy usefull for composition when combined with inject
 
-**basic**
-
 ```javascript
 const base = require('brisky-base')
 
