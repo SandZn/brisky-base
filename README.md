@@ -773,3 +773,18 @@ obj.set({
   }
 })
 ```
+
+###Examples
+
+Some fun use cases
+
+**Create an immutable**
+
+```javascript
+const Immutable = base({
+  define: {
+    change ( val, stamp) { return new this.Constructor(val, stamp) }
+  },
+  child: 'Constructor'
+}).Constructor
+```
