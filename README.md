@@ -85,31 +85,31 @@ Move a property to another property
 
 ```javascript
 const base = require('brisky-base')
-const foo = base({ a: 100, b: true, }) // → { a: 100, b: true }
-foo.move('a', 'b') // → { b: 100 }
-foo.move('b', 'c') // → { c: 100 }
+const foo = base({ a: 100, b: true, }) // → Base { a: 100, b: true }
+foo.move('a', 'b') // → Base { b: 100 }
+foo.move('b', 'c') // → Base { c: 100 }
 ```
 
 **inject**
 
-Like a set but only called once, used for composition of modules and behaviour
+Like a set but only called once, used for composition of modules and behaviour.
+
+When injecting an module or object (injectable) several times, it will only execute the first time. This is useful when working in a highly modularized structure where multiple modules might inject the same injectable.
 
 ```javascript
 const base = require('brisky-base')
 const foo = base()
 
 const someModule = require('someModule')
-// somemodule is { a: 'hello' }
+// somemodule is eg. { a: 'hello' }
 
 const otherModule = require('someModule')
-// otherModule is { b: 'bye' }
+// otherModule is eg. { b: 'bye' }
 
-foo.inject(someModule, otherModule) // calls a set for both modules
+foo.inject(someModule, otherModule) // calls a set for both modules → Base { a: 'hello', b: 'bye' }
 foo.set({
   inject: [ someModule, otherModule ] // set notation
 })
-// when inject gets called again, and module is already
-// set will not do it again, this is useful for inheritance / nested deps
 ```
 
 
@@ -215,9 +215,9 @@ const obj = base({ foo: {}, bar: {} })
 console.log(obj.keys()) // → [ 'foo', 'bar' ]
 ```
 
-**keyType**
+**keyFilter**
 
-Filter certain keys based on the `keyType` property
+Default filter used for keys, default of base requires the property to be a base object
 
 ```javascript
 const base = require('brisky-base')
@@ -230,9 +230,7 @@ console.log(obj.keys()) // → [ 'bar', 'baz' ] other keyTypes get filtered out
 console.log(obj.keys('special')) // → [ 'foo' ]
 ```
 
-**keyFilter**
-
-Default filter used for keys, default of base requires the property to be a base object
+**keyType**
 
 ```javascript
 const base = require('brisky-base')
