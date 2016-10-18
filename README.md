@@ -53,10 +53,10 @@ Remove a base object
 
 ```javascript
 const base = require('brisky-base')
-const b = base({ a: true, b: true, })
-b.a.remove() //  → removes a and all nested properties
-b.set({ b: null }) //  → same as .remove()
-b.set(null) // removes b and all nested properties
+const foo = base({ a: true, bar: true, })
+foo.a.remove() //  → removes a and all nested properties
+foo.set({ bar: null }) //  → same as .remove()
+foo.set(null) // removes b and all nested properties
 ```
 
 **reset**
