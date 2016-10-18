@@ -728,9 +728,9 @@ It has 3 options:
 - `:val` property value
 
 ```javascript
-const briskyBase = require('brisky-base')
+const base = require('brisky-base')
 
-const obj = new base({
+const obj = base({
   properties: {
     define: {
       x: { key: 'y' },
