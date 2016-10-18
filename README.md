@@ -55,7 +55,7 @@ Remove a base object
 const base = require('brisky-base')
 const foo = base({ a: true, bar: true, })
 foo.a.remove() //  → removes a and all nested properties
-foo.set({ bar: null }) //  → same as .remove()
+foo.set({ bar: null }) //  → same as foo.bar.remove()
 foo.set(null) // removes b and all nested properties
 ```
 
@@ -458,6 +458,16 @@ obj.set({ b: 'its b!' })
 console.log(a.c.e.compute()) // → returns "its b!"
 ```
 
+**no reference field**
+
+In some cases you may want to escape the behaviour of creating references and just set a base object as a field
+
+```javascript
+const base = require('brisky-base')
+const a = base({ noReference: true })
+const obj = base({ a }) // obj.a === a (no reference)
+```
+
 -
 ###Serialize
 
@@ -591,4 +601,4 @@ obj.b.lookUp([ 'a', 'b', 'c' ]) // → returns "obj"
 -
 ###Child
 
-Base objects have properties and methods to make object traversal easier
+The child property is used
