@@ -112,6 +112,40 @@ foo.set({
 })
 ```
 
+**define**
+
+Shortcut for `Object.defineProperty`
+Wraps [define-configurable](https://www.npmjs.com/package/define-configurable)
+
+```javascript
+const base = require('brisky-base')
+const foo = base({
+  key: 'base'
+  define: {
+    x: true, // defines { value: true }
+    bla (val) {} // defines a method "bla"
+  }
+})
+
+foo.define({
+  extend: {
+    bla (method, val) { // extends "bla" method
+      return method.call(this, val)
+    }
+  }
+})
+```
+
+To conclude `.set()` is used to hook into non-default object behvaiour added by base, `define()` creates non-euumerable configurable objects.
+
+```javascript
+const base = require('brisky-base')
+const foo = base()
+foo.set({ bar: true }) // → Base "bar"
+foo.bar = true // → true (normal object)
+foor.define({ bar: true }) // → non enummerable, configurable property descriptor
+``
+
 
 -
 ###Context
@@ -479,30 +513,6 @@ const base = Base({
 base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: { marcus: true } } },
 ```
 
--
-###Define
-
-Shortcut for `Object.defineProperty`
-Wraps [define-configurable](https://www.npmjs.com/package/define-configurable)
-
-```javascript
-const base = require('brisky-base')
-const obj = base({
-  key: 'base'
-  define: {
-    x: true, // defines { value: true }
-    bla (val) {} // defines a method "bla"
-  }
-})
-
-obj.define({
-  extend: {
-    bla (method, val) { // extends "bla" method
-      return method.call(this, val)
-    }
-  }
-})
-```
 
 -
 ###Traversal
