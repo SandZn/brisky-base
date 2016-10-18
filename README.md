@@ -30,7 +30,7 @@ obj.set({
 }) // → results in { a: { c: true }, b: {} }
 ```
 
-Base objects allow fields to be an object andt a primitive at the same time.
+Base objects allow fields to be an object and a primitive at the same time.
 
 ```javascript
 const base = require('brisky-base')
