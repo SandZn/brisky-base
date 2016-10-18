@@ -783,7 +783,7 @@ Some fun use cases
 ```javascript
 const Immutable = base({
   define: {
-    change ( val, stamp) { return new this.Constructor(val, stamp) }
+    change (val, stamp) { return new this.Constructor(val, stamp) }
   },
   child: 'Constructor'
 }).Constructor
