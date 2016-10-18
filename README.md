@@ -458,7 +458,7 @@ obj.set({ b: 'its b!' })
 console.log(a.c.e.compute()) // → returns "its b!"
 ```
 
-**no reference field**
+**no reference**
 
 In some cases you may want to escape the behaviour of creating references and just set a base object as a field
 
