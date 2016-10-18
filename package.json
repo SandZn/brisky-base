@@ -1,6 +1,6 @@
 {
   "name": "brisky-base",
-  "version": "3.6.6",
+  "version": "4.0.0",
   "description": "'injectacble classes'",
   "main": "index.js",
   "scripts": {
