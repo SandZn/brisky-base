@@ -9,8 +9,8 @@ Extendable object constructors, build for speed, low memory consumption and simp
 
 [![Build Status](https://travis-ci.org/vigour-io/brisky-base.svg?branch=master)](https://travis-ci.org/vigour-io/brisky-base)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![npm version](https://badge.fury.io/js/vigour-base.svg)](https://badge.fury.io/js/brisky-base)
-[![Coverage Status](https://coveralls.io/repos/github/vigour-io/base/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/brisky-base?branch=master)
+[![npm version](https://badge.fury.io/js/brisky-base.svg)](https://badge.fury.io/js/brisky-base)
+[![Coverage Status](https://coveralls.io/repos/github/vigour-io/brisky-base/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/brisky-base?branch=master)
 
 -
 ###Manipulation
