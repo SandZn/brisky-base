@@ -1,24 +1,24 @@
 'use strict'
-const Base = require('../../')
+const Base = require('../../base')
 const test = require('vigour-performance')
 var amount = 3e3
 
 // function createBase () {
 //   for (let i = 0; i < amount; i++) {
-//     const a = new Base(i) //eslint-disable-line
+//     const a = Base(i) //eslint-disable-line
 //   }
 // }
 
 // function createBaseKeys () {
 //   for (let i = 0; i < amount; i++) {
-//     const a = new Base({ a: i }) //eslint-disable-line
+//     const a = Base({ a: i }) //eslint-disable-line
 //   }
 // }
 
 // // test(createBaseKeys, createBase, 10)
 
 // function setKeys () {
-//   const a = new Base({ a: 100, b: 100 })
+//   const a = Base({ a: 100, b: 100 })
 //   const b = new a.Constructor({ key: 'ITS B' })
 //   for (let i = 0; i < amount; i++) {
 //     b.set({ [i]: 1 })
@@ -27,7 +27,7 @@ var amount = 3e3
 
 // // test(setKeys, createBaseKeys, 5)
 // function removeKeys () {
-//   const a = new Base({ a: 100, b: 100 })
+//   const a = Base({ a: 100, b: 100 })
 //   const b = new a.Constructor({ key: 'ITS B' })
 //   for (let i = 0; i < amount; i++) {
 //     b.set({ [i]: 1 })
@@ -40,7 +40,7 @@ var amount = 3e3
 // // test(removeKeys, setKeys, 3, 20)
 
 // function orderedKeysBest () {
-//   const b = new Base({
+//   const b = Base({
 //     sort: 'order'
 //   })
 //   for (let i = 0; i < amount; i++) {
@@ -55,7 +55,7 @@ var amount = 3e3
 // // test(orderedKeysBest, setKeys, 1.5)
 
 // function orderedKeysWorst () {
-//   const b = new Base({
+//   const b = Base({
 //     sort: 'order'
 //   })
 //   for (let i = 0; i < amount; i++) {
@@ -70,7 +70,7 @@ var amount = 3e3
 // // test(orderedKeysWorst, setKeys, 7.5)
 
 // function setKeysRandom () {
-//   const a = new Base({ a: 100, b: 100 })
+//   const a = Base({ a: 100, b: 100 })
 //   const b = new a.Constructor({ key: 'ITS B' })
 //   b.keys()
 //   for (let i = 0; i < amount; i++) {
@@ -79,7 +79,7 @@ var amount = 3e3
 // }
 
 // function orderedKeysRandom () {
-//   const b = new Base({
+//   const b = Base({
 //     sort: 'order'
 //   })
 //   b.keys()
@@ -93,7 +93,7 @@ var amount = 3e3
 // }
 
 // function orderedKeysRandomFilter () {
-//   const b = new Base({
+//   const b = Base({
 //     sort: 'order',
 //     escape_bla: { order: 2e3 },
 //     define: {
@@ -117,7 +117,7 @@ var amount = 3e3
 // }
 
 // function orderedManyEscaped () {
-//   const b = new Base({
+//   const b = Base({
 //     sort: 'order',
 //     e_bla: { order: 2e3 },
 //     define: {
@@ -144,7 +144,7 @@ var amount = 3e3
 // test(orderedKeysRandomFilter, orderedKeysRandom, 1.5)
 // test(orderedManyEscaped, orderedKeysRandomFilter, 1.25)
 
-const baseFilter = new Base({
+const baseFilter = Base({
   sort: 'order',
   escape_bla: { order: 2e3 },
   define: {
@@ -166,7 +166,7 @@ for (let i = 0; i < amount; i++) {
   })
 }
 
-const base = new Base({
+const base = Base({
   sort: 'order'
 })
 for (let i = 0; i < amount; i++) {

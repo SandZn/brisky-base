@@ -1,9 +1,9 @@
 'use strict'
 const test = require('tape')
-const Base = require('../')
+const base = require('../../')
 
-test('each', function (t) {
-  const a = new Base({
+test('each', t => {
+  const a = base({
     a: 'a',
     b: 'b',
     c: 'c',
@@ -11,7 +11,7 @@ test('each', function (t) {
       keyType: 'special'
     },
     define: {
-      filter (key) {
+      keyFilter (key) {
         return !this[key].keyType
       }
     },

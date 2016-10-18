@@ -1,15 +1,15 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const base = require('../../')
 
-test('context - double - override (noContext property)', function (t) {
-  const b = new Base({
+test('context - double - override (noContext property)', t => {
+  const b = base({
     val: 'b',
     key: 'B',
     nestB: 'nestB',
     noReference: true
   })
-  const c = new Base({ cA: { cB: new b.Constructor() } })
+  const c = base({ cA: { cB: new b.Constructor() } })
   const d = new c.Constructor()
   t.same(d.cA.cB.nestB.path(), [ 'cA', 'cB', 'nestB' ], 'double context has correct path')
   d.cA.cB.nestB.set('resolve d!')

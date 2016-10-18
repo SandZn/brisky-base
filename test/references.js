@@ -1,18 +1,18 @@
 'use strict'
 const test = require('tape')
-const Base = require('../')
+const base = require('../')
 
-test('references - "$.field" notation', function (t) {
-  const base = new Base({
+test('references - "$.field" notation', t => {
+  const obj = base({
     field: 'something',
     other: '$root.field'
   })
-  t.equal(base.other.val, base.field, 'other equals field')
-  const base2 = new Base({ field: { a: '$root.field.b' } })
-  t.equal(base2.field.a.val, base2.field.b, 'field.a created a reference to field.b')
-  base.set('other', '$root.field')
-  t.equal(base2.field.a.val, base2.field.b, '"$root.field" notation works')
-  base.set({
+  t.equal(obj.other.val, obj.field, 'other equals field')
+  const obj2 = base({ field: { a: '$root.field.b' } })
+  t.equal(obj2.field.a.val, obj2.field.b, 'field.a created a reference to field.b')
+  obj.set('other', '$root.field')
+  t.equal(obj2.field.a.val, obj2.field.b, '"$root.field" notation works')
+  obj.set({
     field: {
       c: 'c',
       a: { b: '$.parent.parent.c' }
@@ -21,10 +21,10 @@ test('references - "$.field" notation', function (t) {
       0: '$.b'
     }
   })
-  t.equal(base.field.a.b.val, base.field.c, '"$.parent.parent.c" notation works')
-  t.equal(base.other[0].val, base.other[0].b, '"$.[field]" notation works')
+  t.equal(obj.field.a.b.val, obj.field.c, '"$.parent.parent.c" notation works')
+  t.equal(obj.other[0].val, obj.other[0].b, '"$.[field]" notation works')
 
-  const a = new Base({
+  const a = base({
     etc: {},
     a: {
       b: {
@@ -33,7 +33,7 @@ test('references - "$.field" notation', function (t) {
     }
   })
 
-  var special = new Base({
+  var special = base({
     other: {
       field: {
         noReference: true
@@ -50,7 +50,7 @@ test('references - "$.field" notation', function (t) {
   })
   t.equal(a.etc.gurk.val, a.etc.a, 'creating a new instance using noReference')
 
-  const b = new Base({
+  const b = base({
     properties: {
       x: {
         type: 'base',
@@ -63,14 +63,13 @@ test('references - "$.field" notation', function (t) {
   t.end()
 })
 
-test('references - "$.field[0]"', function (t) {
+test('references - "$.field[0]"', t => {
   var consolevalue
   const rconsole = console.log
-  console.log = function (val) {
+  console.log = val => {
     consolevalue = val
-    // rconsole.apply(this, arguments)
   }
-  const base = new Base({
+  const obj = base({
     field: {
       hello: 1,
       bye: 2,
@@ -78,34 +77,34 @@ test('references - "$.field[0]"', function (t) {
     },
     other: {}
   })
-  base.other.set('$root.x.y[0]')
+  obj.other.set('$root.x.y[0]')
   t.equal(consolevalue, 'key notation - cant find key "[0]" in ""', 'logs warning on non-existing')
-  base.other.set('$root.field[0]')
-  t.equal(base.other.val, base.field.hello, '"$root.field[0]" gets first key')
-  base.other.set('$root.field[-1]')
-  t.equal(base.other.val, base.field.blurf, '"$root.field[-1]" gets last key')
-  base.other.set('$root.field[1]')
-  t.equal(base.other.val, base.field.bye, '"$root.field[1]" gets second key')
-  base.other.set('$root.field[-2]')
-  t.equal(base.other.val, base.field.bye, '"$root.field[-2]" gets second key')
-  base.other.set('$root.field[-10]')
+  obj.other.set('$root.field[0]')
+  t.equal(obj.other.val, obj.field.hello, '"$root.field[0]" gets first key')
+  obj.other.set('$root.field[-1]')
+  t.equal(obj.other.val, obj.field.blurf, '"$root.field[-1]" gets last key')
+  obj.other.set('$root.field[1]')
+  t.equal(obj.other.val, obj.field.bye, '"$root.field[1]" gets second key')
+  obj.other.set('$root.field[-2]')
+  t.equal(obj.other.val, obj.field.bye, '"$root.field[-2]" gets second key')
+  obj.other.set('$root.field[-10]')
   t.equal(consolevalue, 'key notation - cant find key "[-10]" in "field"', 'logs warning when unavailable')
-  base.other.set('$root.random[-10]')
+  obj.other.set('$root.random[-10]')
   t.equal(consolevalue, 'key notation - cant find key "[-10]" in "random"', 'logs warning on non-existing')
-  new Base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
+  base({ field: { a: '$root.field.b[0]' } }) //eslint-disable-line
   t.equal(consolevalue, 'key notation - cant find key "[0]" in "field"', 'logs warning on non-existing')
   console.log = rconsole
   t.end()
 })
 
-test('references - isParent unequal case', function (t) {
-  const base = new Base({
+test('references - isParent unequal case', t => {
+  const obj = base({
     a: {
       b: {},
       c: {}
     }
   })
-  base.set({
+  obj.set({
     a: {
       c: {
         d: {
@@ -114,6 +113,6 @@ test('references - isParent unequal case', function (t) {
       }
     }
   })
-  t.same(base.a.c.d.x.val, base.a.b.d.thing, 'correct reference')
+  t.same(obj.a.c.d.x.val, obj.a.b.d.thing, 'correct reference')
   t.end()
 })

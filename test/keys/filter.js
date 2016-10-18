@@ -1,16 +1,16 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const bBase = require('../../')
 
-test('keys - filters', function (t) {
-  const base = new Base({
+test('keys - filters', t => {
+  const base = bBase({
     types: {
       thing: {
         keyType: 'thing'
       }
     },
     define: {
-      filter (key) {
+      keyFilter (key) {
         return !this[key].keyType
       }
     },
@@ -70,13 +70,13 @@ test('keys - filters', function (t) {
     'original did not get polluted by instance'
   )
   instance.reset()
-  t.same(instance.keys('thing'), [], 'reset keys')
+  t.same(instance.keys('thing'), [ 'bla' ], 'reset keys')
   t.same(base.keys('thing'), [ 'other' ], 'original did not get polluted by instance')
   t.end()
 })
 
-test('keys - filters - remove key on new', function (t) {
-  const a = new Base({
+test('keys - filters - remove key on new', t => {
+  const a = bBase({
     a: true,
     b: true
   })
@@ -92,8 +92,8 @@ test('keys - filters - remove key on new', function (t) {
   t.end()
 })
 
-test('keys - filters - null undefined key on instance', function (t) {
-  const a = new Base({
+test('keys - filters - null undefined key on instance', t => {
+  const a = bBase({
     a: true,
     b: {
       keyType: 'thing'
@@ -106,16 +106,17 @@ test('keys - filters - null undefined key on instance', function (t) {
   t.end()
 })
 
-test('keys - filters - custom filter', function (t) {
-  const a = new Base({
+test('keys - filters - custom filter', t => {
+  const a = bBase({
     a: true,
+    x: { keyType: 'bla' },
     define: {
-      filter (key) {
+      keyFilter (key) {
         return !(/blurf/.test(key))
       }
     }
   })
   a.set({ blurf: true })
-  t.same(a.keys(), [ 'a' ], 'excludes blacklisted items')
+  t.same(a.keys(), [ 'a', 'x' ], 'excludes blacklisted items')
   t.end()
 })

@@ -3,7 +3,7 @@ const test = require('tape')
 const Base = require('../')
 
 test('get', (t) => {
-  const a = new Base({
+  const a = Base({
     b: {
       c: {
         d: 'hello'
@@ -19,7 +19,7 @@ test('get', (t) => {
 })
 
 test('get - keys notation', (t) => {
-  const a = new Base({
+  const a = Base({
     b: {
       c: {
         a: true,
@@ -38,13 +38,13 @@ test('get - keys notation', (t) => {
 })
 
 test('get - method support', (t) => {
-  const a = new Base({ b: { c: true } })
+  const a = Base({ b: { c: true } })
   t.equal(a.get('b.origin.c.origin.compute'), true, 'get a.b.c. using origin')
   t.end()
 })
 
 test('get - root', (t) => {
-  const base = new Base({
+  const base = Base({
     a: {
       b: {
         c: 'lulz'
@@ -52,7 +52,7 @@ test('get - root', (t) => {
     },
     c: 'haha'
   })
-  const a = new Base({ b: base.a.b.c })
+  const a = Base({ b: base.a.b.c })
   t.equal(a.get('b.origin.root.c.compute'), 'haha', 'get a.b.$root.c')
   t.equal(base.a.b.c.get('root.c.compute'), 'haha', 'get base.a.b.c.$root')
   t.end()
@@ -60,7 +60,7 @@ test('get - root', (t) => {
 
 test('get - array', (t) => {
   const arr = ['a', 'b', 'c']
-  const base = new Base()
+  const base = Base()
   base.get(arr, true)
   t.equal(base.a.b.c.compute(), true, 'set a.b.c: true')
   t.same(arr, ['a', 'b', 'c'], 'array is unchanged')

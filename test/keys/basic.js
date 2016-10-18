@@ -1,26 +1,26 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
-const isEmpty = require('vigour-util/is/empty')
-test('keys', function (t) {
-  const base = new Base({
+const base = require('../../')
+const isEmpty = require('brisky-is-empty')
+test('keys', t => {
+  const obj = base({
     a: true,
     b: true,
     val: 'something'
   })
-  t.equal(base.keys().length, 2, 'correct length')
-  base.removeProperty(base.a, 'a')
-  t.equal(base.keys().length, 1, 'correct length after removal')
-  base.setKey('c', true)
-  t.equal(base.keys().length, 2, 'correct length after setKey')
-  base.reset()
-  t.equal(isEmpty(base), true, 'empty after reset')
-  t.equal(base.keys().length, 0, 'keys are false after reset')
-  base.set({ d: true })
-  t.equal(base.keys().length, 1, 'correct length after set')
-  base.set({ c: null })
-  t.equal(base.keys().length, 1, 'correct length after set with null')
-  base.set({ d: null })
-  t.equal(base.keys().length, 0, 'correct length after set with null of 1 key')
+  t.equal(obj.keys().length, 2, 'correct length')
+  obj.removeProperty(obj.a, 'a')
+  t.equal(obj.keys().length, 1, 'correct length after removal')
+  obj.setKey('c', true)
+  t.equal(obj.keys().length, 2, 'correct length after setKey')
+  obj.reset()
+  t.equal(isEmpty(obj), true, 'empty after reset')
+  t.equal(obj.keys().length, 0, 'keys are false after reset')
+  obj.set({ d: true })
+  t.equal(obj.keys().length, 1, 'correct length after set')
+  obj.set({ c: null })
+  t.equal(obj.keys().length, 1, 'correct length after set with null')
+  obj.set({ d: null })
+  t.equal(obj.keys().length, 0, 'correct length after set with null of 1 key')
   t.end()
 })

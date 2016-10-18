@@ -1,5 +1,5 @@
 'use strict'
-const Base = require('../../')
+const Base = require('../../base')
 const test = require('vigour-performance')
 var amount = 1e4
 var hri = require('human-readable-ids').hri
@@ -10,7 +10,7 @@ for (var i = 0; i < amount; i++) {
   }
 }
 
-const SpecialBase = new Base({
+const SpecialBase = Base({
   properties: { index: true }
 }).Constructor
 

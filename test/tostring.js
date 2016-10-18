@@ -2,10 +2,11 @@
 const test = require('tape')
 const Base = require('../')
 
-test('toString - inspect', function (t) {
-  const a = new Base('hello')
+test('toString - inspect', t => {
+  const a = Base('hello')
+  a.type = 'base'
   t.equal(a.inspect(), 'Base "hello"')
-  const b = new Base({
+  const b = Base({
     properties: { type: null },
     val: 'hello',
     type: {}

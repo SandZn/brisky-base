@@ -1,39 +1,38 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../')
+const base = require('../../')
 
-test('property - define - default', function (t) {
-  const base = new Base({
+test('property - define - default', t => {
+  const obj = base({
     properties: {
       define: {
         x: { key: 'y', val: true }
       }
     }
   })
-  base.set({ x: 0 })
-  t.equal(base.y, 0, 'default type')
-  t.same(base.properties.keyMap, { x: 'y' }, 'has correct key map')
-  base.set({
+  obj.set({ x: 0 })
+  t.equal(obj.y, 0, 'default type')
+  t.same(obj.properties.keyMap, { x: 'y' }, 'has correct key map')
+  obj.set({
     properties: {
       define: {
         x: { key: 'z' }
       }
     }
   })
-  t.equal(base.z === 0 && base.y === null, true, 'moved property y → z')
-  t.same(base.properties.keyMap, { x: 'z' }, 'has correct key map after move')
-  base.set({
+  t.equal(obj.z === 0 && obj.y === null, true, 'moved property y → z')
+  t.same(obj.properties.keyMap, { x: 'z' }, 'has correct key map after move')
+  obj.set({
     properties: {
       define: {
         x: { key: null }
       }
     }
   })
-  t.equal(base.x === 0 && base.z === null, true, 'moved property z → x')
-  base.set({ x: 'hello' })
-  t.equal(base.x, 'hello', 'redefined property x → x')
-
-  base.set({
+  t.equal(obj.x === 0 && obj.z === null, true, 'moved property z → x')
+  obj.set({ x: 'hello' })
+  t.equal(obj.x, 'hello', 'redefined property x → x')
+  obj.set({
     properties: {
       define: {
         x: {
@@ -45,34 +44,34 @@ test('property - define - default', function (t) {
       }
     }
   })
-  t.equal(base.x, 'hello', 'no reset')
+  t.equal(obj.x, 'hello', 'no reset')
   t.end()
 })
 
-test('property - define - base', function (t) {
-  const base = new Base({
+test('property - define - base', t => {
+  const obj = base({
     properties: {
       define: {
         x: { key: 'y', val: 0 }
       }
     }
   })
-  base.set({ x: 0 })
-  t.equal(base.y && base.y.val, 0, 'base type')
-  t.same(base.properties.keyMap, { x: 'y' }, 'has correct key map')
-  base.getConstructor()
-  base.set({
+  obj.set({ x: 0 })
+  t.equal(obj.y && obj.y.val, 0, 'base type')
+  t.same(obj.properties.keyMap, { x: 'y' }, 'has correct key map')
+  obj.getConstructor()
+  obj.set({
     properties: {
       define: { x: { key: 'z' } }
     },
     x: 'its z!',
     other: {}
   })
-  t.equal(base.z && base.z.val === 'its z!' && base.y === null, true, 'moved property y → z')
-  t.equal(base.properties.x.base.key, 'z', 'property got correct key')
-  t.same(base.properties.keyMap, { x: 'z' }, 'has correct key map after move')
-  t.same(base.keys(), [ 'z', 'other' ], 'correct keys after move')
-  base.set({
+  t.equal(obj.z && obj.z.val === 'its z!' && obj.y === null, true, 'moved property y → z')
+  t.equal(obj.properties.x.base.key, 'z', 'property got correct key')
+  t.same(obj.properties.keyMap, { x: 'z' }, 'has correct key map after move')
+  t.same(obj.keys(), [ 'z', 'other' ], 'correct keys after move')
+  obj.set({
     properties: {
       define: {
         x: {
@@ -82,11 +81,11 @@ test('property - define - base', function (t) {
       }
     }
   })
-  t.equal(base.x && base.x.isBase && base.z === null, true, 'moved property z → x')
-  t.same(base.keys(), [ 'other', 'x' ], 'correct keys after move')
-  t.equal(base.x && base.x.field.val, 'hello', 'set property x')
-  t.equal(base.properties.keyMap, null, 'remove property map')
-  base.set({
+  t.equal(obj.x && obj.x.isBase && obj.z === null, true, 'moved property z → x')
+  t.same(obj.keys(), [ 'other', 'x' ], 'correct keys after move')
+  t.equal(obj.x && obj.x.field.val, 'hello', 'set property x')
+  t.equal(obj.properties.keyMap, null, 'remove property map')
+  obj.set({
     properties: {
       define: {
         g: {
@@ -96,8 +95,8 @@ test('property - define - base', function (t) {
       }
     }
   })
-  t.same(base.properties.keyMap, { g: 'dawg' }, 're-added property map')
-  base.set({
+  t.same(obj.properties.keyMap, { g: 'dawg' }, 're-added property map')
+  obj.set({
     g: 'do it',
     properties: {
       define: {
@@ -108,10 +107,10 @@ test('property - define - base', function (t) {
       }
     }
   })
-  t.equal(base.dawg, 'do it', 'did not move keys with reset false')
-  base.set({ g: 'hello' })
-  t.equal(base.blurg, 'hello', 'did add key to blurg')
-  const instance = new base.Constructor({
+  t.equal(obj.dawg, 'do it', 'did not move keys with reset false')
+  obj.set({ g: 'hello' })
+  t.equal(obj.blurg, 'hello', 'did add key to blurg')
+  const instance = new obj.Constructor({
     properties: {
       define: {
         x: {
@@ -121,7 +120,7 @@ test('property - define - base', function (t) {
     }
   })
   t.equal(instance.y && instance.y.val, 'its z!', 'moved property x → y on instance')
-  t.equal(base.x && base.x.isBase && !base.y, true, 'did not influence base')
+  t.equal(obj.x && obj.x.isBase && !obj.y, true, 'did not influence base')
   instance.set({
     properties: {
       define: {

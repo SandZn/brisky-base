@@ -5,7 +5,7 @@ const natural = require('string-natural-compare')
 const update = require('../../../lib/keys/sort/update')
 
 test('keys - sort - custom', (t) => {
-  const base = new Base({
+  const base = Base({
     sort: {
       val: 'nr',
       exec: (a, b) => b > a ? 1 : -1
@@ -24,7 +24,7 @@ test('keys - sort - alphabetical', (t) => {
   const expected = [
     'A', 'X', 'a', 'X10', 'a10', 'a2', 'a1', 'Z', 'z'
   ]
-  const base = new Base()
+  const base = Base()
   base.set(expected)
   base.set({
     sort: {

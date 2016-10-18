@@ -1,14 +1,14 @@
 'use strict'
 const test = require('tape')
-const Base = require('../../../')
+const Base = require('../../../base')
 const sort = require('../../../lib/keys/sort')
 const update = require('../../../lib/keys/sort/update')
 
-test('keys - sort - filter', (t) => {
+test('keys - sort - filter', t => {
   const base = new Base({
     black: {},
     define: {
-      filter (key) {
+      keyFilter (key) {
         return key !== 'black' && key !== 'white' && key !== 'gurk' && key !== 'blurf'
       }
     }
@@ -60,7 +60,7 @@ test('keys - sort - filter', (t) => {
   t.end()
 })
 
-test('keys - sort - filter - instances', (t) => {
+test('keys - sort - filter - instances', t => {
   const base = new Base({
     rick: {
       position: 1,
@@ -71,7 +71,7 @@ test('keys - sort - filter - instances', (t) => {
     },
     sort: 'position',
     define: {
-      filter: (key) => !/^escape_/.test(key)
+      keyFilter: (key) => !/^escape_/.test(key)
     }
   })
   const base2 = new base.Constructor({
@@ -112,12 +112,12 @@ test('keys - sort - filter - instances', (t) => {
   t.end()
 })
 
-test('keys - sort - filter - edge cases', (t) => {
+test('keys - sort - filter - edge cases', t => {
   const base = new Base({
     sort: 'key',
     d: {},
     define: {
-      filter: (key) => true
+      keyFilter: key => true
     }
   })
   t.same(base.keys(), [ 'd' ], 'empty on init')

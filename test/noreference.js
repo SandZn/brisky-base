@@ -2,17 +2,17 @@
 const test = require('tape')
 const Base = require('../')
 
-test('noReference', function (t) {
-  const a = new Base({
+test('noReference', t => {
+  const a = Base({
     val: 'a',
     noReference: true,
     b: { val: 'b', noReference: true }
   })
   const b = new a.Constructor()
-  const c = new Base({ b: b })
-  const d = new Base(c.b)
+  const c = Base({ b: b })
+  const d = Base(c.b)
   const abInstance = new a.b.Constructor()
-  const e = new Base({ key: 'e', b: abInstance })
+  const e = Base({ key: 'e', b: abInstance })
 
   t.plan(3)
   t.equal(c.b, b, 'inherited noReference')

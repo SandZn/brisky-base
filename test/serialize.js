@@ -1,8 +1,8 @@
 'use strict'
 const test = require('tape')
-const Base = require('../')
+const briskyBase = require('../')
 
-test('serialize', function (t) {
+test('serialize', t => {
   const cases = [
     { a: true, b: { c: 'yo' } },
     [
@@ -14,12 +14,12 @@ test('serialize', function (t) {
   ]
   t.plan(cases.length)
   cases.forEach(function (item) {
-    const base = new Base(item[0] || item)
+    const base = briskyBase(item[0] || item)
     t.same(base.serialize(), item[1] || item, 'outputs ' + base)
   })
 })
 
-test('serialize - computed', function (t) {
+test('serialize - computed', t => {
   const cases = [
     { a: true, b: { c: 'yo' } },
     [
@@ -28,14 +28,14 @@ test('serialize - computed', function (t) {
     ]
   ]
   t.plan(cases.length)
-  cases.forEach(function (item) {
-    const base = new Base(item[0] || item)
+  cases.forEach(item => {
+    const base = briskyBase(item[0] || item)
     t.same(base.serialize(true), item[1] || item, 'outputs ' + base)
   })
 })
 
-test('serialize - filter', function (t) {
-  const base = new Base({
+test('serialize - filter', t => {
+  const base = briskyBase({
     yuzi: {
       james: {
         marcus: true,
@@ -44,7 +44,7 @@ test('serialize - filter', function (t) {
     }
   })
   t.same(
-    base.serialize(false, (prop) => prop.key !== 'secret'),
+    base.serialize(false, prop => prop.key !== 'secret'),
     { yuzi: { james: { marcus: true } } },
     'filters results'
   )

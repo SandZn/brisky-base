@@ -1,9 +1,10 @@
 'use strict'
-var test = require('tape')
-var Base = require('../')
+const test = require('tape')
+const base = require('../')
+const Base = require('../base')
 
-test('types - remove type property', function (t) {
-  const Template = new Base({
+test('types - remove type property', t => {
+  const Template = base({
     type: 'template'
   }).Constructor
   const TemplateA = new Template({
@@ -24,7 +25,7 @@ test('types - remove type property', function (t) {
   t.equals(a.type.val, 'this is something', 'a.type has a correct input value')
   const TemplateB = new Template({
     properties: {
-      type: new Base({ type: 'special' })
+      type: base({ type: 'special' })
     }
   }).Constructor
   const b = new TemplateB({ type: 'this is special' })
@@ -37,10 +38,10 @@ test('types - remove type property', function (t) {
   t.end()
 })
 
-test('types - create types', function (t) {
-  const c = new Base({ special: true })
-  const d = new Base({ specialD: true })
-  const a = new Base({
+test('types - create types', t => {
+  const c = base({ special: true })
+  const d = base({ specialD: true })
+  const a = base({
     types: {
       b: {
         field: true,
@@ -79,7 +80,7 @@ test('types - create types', function (t) {
     },
     'injects for base types'
   )
-  const a4 = new Base({
+  const a4 = base({
     types: [ { a: true }, { b: true } ]
   })
   a4.set({
@@ -98,8 +99,8 @@ test('types - create types', function (t) {
   t.end()
 })
 
-test('types - inheritance', function (t) {
-  const a = new Base({
+test('types - inheritance', t => {
+  const a = base({
     types: {
       special: 'hello',
       something: {
@@ -122,13 +123,13 @@ test('types - inheritance', function (t) {
   t.end()
 })
 
-test('types - share object types constructors', function (t) {
+test('types - share object types constructors', t => {
   const a = { val: 'a' }
-  const b = new Base({
+  const b = base({
     types: { a: a },
     a: { type: 'a' }
   })
-  const c = new Base({
+  const c = base({
     types: { a: a },
     a: { type: 'a' }
   })
@@ -136,29 +137,70 @@ test('types - share object types constructors', function (t) {
   t.end()
 })
 
-test('types - create types - merge', function (t) {
-  const base = new Base({
+test('types - create types - merge', t => {
+  const obj = base({
     types: {
       a: {
-        text: 'hello'
+        text: 'hello',
+        field: {}
       }
     }
   })
-  base.set({
+  obj.set({
     types: {
       a: {
-        yuzi: 'hello'
+        yuzi: 'hello',
+        field: { a: true }
       }
     }
   })
-  base.set({
+  obj.set({
     bla: {
       type: 'a'
     }
   })
-  t.same(base.bla.serialize(), {
+  t.same(obj.bla.serialize(), {
+    field: { a: true },
     yuzi: 'hello',
     text: 'hello'
   }, 'merges')
+  t.end()
+})
+
+test('types - child - recursive types', t => {
+  const elem = base({
+    types: {
+      ul: {
+        tag: 'ul',
+        child: {
+          type: 'ul'
+        }
+      },
+      lulz: {
+        tag: 'lulz',
+        field: {
+          type: 'lulz'
+        }
+      }
+    }
+  })
+  elem.set({ list: { type: 'ul' } })
+  elem.set({
+    list: {
+      field: {
+        flups: true
+      }
+    }
+  })
+  t.equal(elem.list.field.tag.compute(), 'ul', 'list children are instances of the same type')
+  elem.set({
+    lulz: {
+      type: 'lulz',
+      field: {
+        flups: 'glurrrf'
+      }
+    }
+  })
+  t.equal(elem.lulz.field.field.tag.compute(), 'lulz', 'recursive children')
   t.end()
 })
