@@ -288,14 +288,14 @@ braces@^1.8.2:
     repeat-element "^1.1.2"
 
 brisky-is-empty@^1.0.0:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/brisky-is-empty/-/brisky-is-empty-1.0.4.tgz#297d56c0f4a2e87a638a1533c8fdaf63c27b573c"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/brisky-is-empty/-/brisky-is-empty-1.0.5.tgz#a6e6cbb8d98b055d6c640ae839a67dae9c0d6f25"
   dependencies:
     bubleify "0.5.1"
 
 brisky-is-obj@^1.0.2:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/brisky-is-obj/-/brisky-is-obj-1.0.4.tgz#3c01131b34fa16cd9ecaaad26a65baeb75168993"
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/brisky-is-obj/-/brisky-is-obj-1.0.5.tgz#e6b6d1d73aa3c43ed203b764684236045bce309d"
   dependencies:
     bubleify "0.5.1"
 
@@ -314,8 +314,8 @@ brisky-performance@^1.3.2:
     tape "^4.4.0"
 
 brisky-stamp@^1.5.6:
-  version "1.5.8"
-  resolved "https://registry.yarnpkg.com/brisky-stamp/-/brisky-stamp-1.5.8.tgz#a933380b8bd51f53b7c302aefbcd142f0a811784"
+  version "1.5.9"
+  resolved "https://registry.yarnpkg.com/brisky-stamp/-/brisky-stamp-1.5.9.tgz#d7ff2caafbb657ad92977fcfb3d45ffeeb1bd379"
   dependencies:
     bubleify "0.5.1"
 
