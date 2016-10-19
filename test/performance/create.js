@@ -1,5 +1,5 @@
 'use strict'
-const Base = require('../../base')
+const base = require('../..')
 const test = require('brisky-performance')
 var amount = 1e4
 
@@ -11,7 +11,7 @@ function createNormalObject () {
 
 function createBase () {
   for (var i = 0; i < amount; i++) {
-    var a = Base(i) //eslint-disable-line
+    var a = base(i) //eslint-disable-line
   }
 }
 
