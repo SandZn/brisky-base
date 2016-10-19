@@ -1,6 +1,6 @@
 'use strict'
 const Base = require('../../base')
-const test = require('vigour-performance')
+const test = require('brisky-performance')
 var amount = 3e3
 
 // function createBase () {
