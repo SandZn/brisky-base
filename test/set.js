@@ -1,38 +1,35 @@
 'use strict'
 const test = require('tape')
-const Base = require('../')
+const base = require('../')
 
 test('set - resolve context', t => {
   t.plan(2)
-  var a = Base({
-    b: {
-      c: true
-    }
-  })
-  var b = new a.Constructor({ key: 'b' })
+  const a = base({ b: { c: true } })
+  const b = new a.Constructor({ key: 'b' })
   t.same(b.b.c.path(), [ 'b', 'b', 'c' ], 'correct resolved contextPath')
   b.b.set({ something: true })
   t.equal(b.hasOwnProperty('_b'), true, 'resolved b.b after set')
 })
 
 test('set - type', t => {
-  t.plan(2)
-  var a = Base({
+  const a = base({
     types: {
       x: 'lulllz'
     },
     x: 'something'
   })
-  var x = a.x.uid()
+  const x = a.x.uid()
   a.set({ x: { type: 'x' } })
   t.equal(a.x.val, 'lulllz', 'created new x type')
   t.equal(x !== a.x.uid(), true, 'overwritten old x property')
+  const y = new a.x.Constructor()
+  t.ok(y.uid() !== a.x.uid(), 'instance uid is not equal to original')
   t.end()
 })
 
 test('set - reserved key error', t => {
   t.plan(1)
-  var a = Base({
+  const a = base({
     define: {
       field: { val: 'haha reserved!' }
     }
@@ -51,7 +48,7 @@ test('set - param and isNew', t => {
   var results = []
   var newArray = []
 
-  const base = Base({
+  const obj = base({
     child: {
       define: {
         extend: {
@@ -70,7 +67,7 @@ test('set - param and isNew', t => {
     }
   })
 
-  base.set({
+  obj.set({
     a: {
       b: true
     }
@@ -80,7 +77,7 @@ test('set - param and isNew', t => {
 
   results = []
   newArray = []
-  base.set({
+  obj.set({
     properties: {
       hello: { text: '100' }
     },
@@ -93,7 +90,7 @@ test('set - param and isNew', t => {
 
   results = []
   newArray = []
-  base.set({
+  obj.set({
     types: {
       hello: { text: '100' }
     },
