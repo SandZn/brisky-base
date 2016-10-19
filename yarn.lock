@@ -300,8 +300,8 @@ brisky-is-obj@^1.0.2:
     bubleify "0.5.1"
 
 brisky-is-removed@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/brisky-is-removed/-/brisky-is-removed-1.0.2.tgz#befef794b3999dbdbe43cc986b65f762e9e2ba7b"
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/brisky-is-removed/-/brisky-is-removed-1.0.4.tgz#1dca8d261aebde7ff0b8168560f8f69ac301b08b"
   dependencies:
     bubleify "0.5.1"
 
@@ -840,8 +840,8 @@ deep-is@~0.1.3, deep-is@0.1.x:
   resolved "https://registry.yarnpkg.com/deep-is/-/deep-is-0.1.3.tgz#b369d6fb5dbc13eecf524f91b070feedc357cf34"
 
 define-configurable@^1.0.2:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/define-configurable/-/define-configurable-1.0.9.tgz#e239156fab2ca69f01bbdb113eca641c89693b7e"
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/define-configurable/-/define-configurable-1.0.12.tgz#339c6192a2d22eb344bb8b71c9b7eb6c055ce44c"
   dependencies:
     bubleify "^0.5.1"
 
