@@ -150,3 +150,32 @@ test('property - define - base', t => {
   t.equal(instance.x && instance.x.hello.val, true, 'set on x')
   t.end()
 })
+
+test('property - define - types', t => {
+  const obj = base({
+    types: {
+      emitter: { define: { isEmitter: true } }
+    },
+    properties: {
+      define: {
+        on: {
+          val: {
+            child: { type: 'emitter' },
+            properties: {
+              data: {}
+            }
+          },
+          key: 'emitters'
+        }
+      }
+    },
+    on: {}
+  })
+
+  obj.set({
+    on: { x: {}, data: {} }
+  })
+  t.ok(obj.emitters.x.isEmitter, 'child is emitter')
+  t.ok(obj.emitters.data.isEmitter, 'data is emitter')
+  t.end()
+})
