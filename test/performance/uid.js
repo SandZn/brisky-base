@@ -19,4 +19,4 @@ function nr () {
   }
 }
 
-test(uid, nr, 10)
+test(uid, nr, 3)
