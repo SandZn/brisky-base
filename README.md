@@ -13,6 +13,7 @@ Extendable object constructors, build for speed, low memory consumption and simp
 [![Coverage Status](https://coveralls.io/repos/github/vigour-io/brisky-base/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/brisky-base?branch=master)
 
 -
+
 ###Manipulation
 
 **set**
@@ -148,6 +149,7 @@ foor.define({ bar: true }) // → non enumerable, configurable property descript
 
 
 -
+
 ###Context
 Context enables deep memory efficient prototypes.
 Stores information on fields about first non-shared ancestors.
@@ -204,6 +206,7 @@ Apply context can return 3 different types
 
 
 -
+
 ###Get
 Simple get api, useful when dealing with defaults
 
@@ -237,6 +240,7 @@ c = obj.get('[2]') // returns undefined (tries to get the 3rd key)
 
 
 -
+
 ###Keys
 
 The `.keys()` method allows fast object iteration, sorting and filtering of properties
@@ -316,6 +320,7 @@ console.log(obj.keys()) // → [ 'foo', 'bar' ]
 ```
 
 -
+
 ###Iteration
 
 Base exposes as much standard apis for iteration as possible, `.each` is the exception
@@ -374,6 +379,7 @@ console.log(foo.each(p => p.key === 'b' ? 'hello' : false)) // → "hello"
 
 
 -
+
 ###Types
 
 Use the types api to reduce complexity of dealing with classes, prototypes and components.
@@ -417,6 +423,7 @@ Big advantage of this system is that it allows you to change types not as depend
 
 
 -
+
 ###Compute
 
 Compute is used to return the computed value of a base object - this allows for special hooks and, for example function support
@@ -431,6 +438,7 @@ a.compute() // → "return the current date"
 
 
 -
+
 ###References
 
 Serializable references, this is handy for, for example dealing with server/client side or multiple processes.
@@ -472,6 +480,7 @@ const obj = base({ a }) // obj.a === a (no reference)
 ```
 
 -
+
 ###Serialize
 
 Serialize base objects to normal objects, that you can set again
@@ -525,6 +534,7 @@ base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: {
 
 
 -
+
 ###Traversal
 
 Base objects have properties and methods to make object traversal easier
@@ -578,6 +588,7 @@ obj.b.lookUp([ 'a', 'b', 'c' ]) // → returns "obj"
 ```
 
 -
+
 ###Child
 
 The child property is used to set default types for properties of a Base
@@ -651,6 +662,7 @@ console.log(obj.x) // → "hello"
 
 
 -
+
 ###Properties
 The properties field is used to add property definitions for certain keys within set objects.
 
