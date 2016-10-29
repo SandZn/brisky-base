@@ -12,7 +12,7 @@ Extendable object constructors, build for speed, low memory consumption and simp
 [![npm version](https://badge.fury.io/js/brisky-base.svg)](https://badge.fury.io/js/brisky-base)
 [![Coverage Status](https://coveralls.io/repos/github/vigour-io/brisky-base/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/brisky-base?branch=master)
 
--
+---
 
 ###Manipulation
 
@@ -148,7 +148,7 @@ foor.define({ bar: true }) // → non enumerable, configurable property descript
 ```
 
 
--
+---
 
 ###Context
 Context enables deep memory efficient prototypes.
@@ -205,7 +205,7 @@ Apply context can return 3 different types
 - `null` A remove has happened in the path leading to the target of apply context
 
 
--
+---
 
 ###Get
 Simple get api, useful when dealing with defaults
@@ -239,7 +239,7 @@ c = obj.get('[2]') // returns undefined (tries to get the 3rd key)
 ```
 
 
--
+---
 
 ###Keys
 
@@ -319,7 +319,8 @@ obj.set({ sort: (a, b) => a > b ? 1 : a < b ? -1 : 0 })
 console.log(obj.keys()) // → [ 'foo', 'bar' ]
 ```
 
--
+
+---
 
 ###Iteration
 
@@ -378,7 +379,7 @@ console.log(foo.each(p => p.key === 'b' ? 'hello' : false)) // → "hello"
 ```
 
 
--
+---
 
 ###Types
 
@@ -437,7 +438,7 @@ a.compute() // → "return the current date"
 ```
 
 
--
+---
 
 ###References
 
@@ -479,7 +480,8 @@ const a = base({ noReference: true })
 const obj = base({ a }) // obj.a === a (no reference)
 ```
 
--
+
+---
 
 ###Serialize
 
@@ -533,7 +535,7 @@ base.serialize(false, (prop) => prop.key !== 'secret') // → { yuzi: { james: {
 ```
 
 
--
+---
 
 ###Traversal
 
@@ -587,7 +589,8 @@ obj.a.b.c.lookUp('b') // → returns "obj.b"
 obj.b.lookUp([ 'a', 'b', 'c' ]) // → returns "obj"
 ```
 
--
+
+---
 
 ###Child
 
@@ -661,7 +664,7 @@ console.log(obj.x) // → "hello"
 ```
 
 
--
+---
 
 ###Properties
 The properties field is used to add property definitions for certain keys within set objects.
@@ -785,6 +788,9 @@ obj.set({
   }
 })
 ```
+
+
+---
 
 ###Examples
 
