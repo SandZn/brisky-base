@@ -1,6 +1,6 @@
 {
   "name": "brisky-base",
-  "version": "4.0.5",
+  "version": "4.0.6",
   "description": "Extendable object constructors, build for speed, low memory consumption and simplicity",
   "main": "index.js",
   "scripts": {
