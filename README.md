@@ -12,6 +12,7 @@ Extendable object constructors, build for speed, low memory consumption and simp
 [![npm version](https://badge.fury.io/js/brisky-base.svg)](https://badge.fury.io/js/brisky-base)
 [![Coverage Status](https://coveralls.io/repos/github/vigour-io/brisky-base/badge.svg?branch=master)](https://coveralls.io/github/vigour-io/brisky-base?branch=master)
 
+-
 
 ###Manipulation
 
